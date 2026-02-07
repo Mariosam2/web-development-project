@@ -1,6 +1,6 @@
 import HeroVideo from "@assets/hero.mp4";
 import LogoIcon from "@assets/logo-icon.svg";
-
+import "./Home.css";
 export const Home = () => {
   return (
     <>
@@ -18,6 +18,11 @@ export const Home = () => {
         <h1 className="text-9xl font-gibed text-c-light-gray  w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
           Move. Train. Succeed.
         </h1>
+        <div className="mouse absolute left-1/2 bottom-4 transform -translate-x-1/2 z-30">
+          <div className="mouse-icon">
+            <span className="mouse-wheel"></span>
+          </div>
+        </div>
       </section>
     </>
   );
