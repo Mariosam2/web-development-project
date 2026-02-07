@@ -3,7 +3,7 @@ import "./LoginForm.css";
 export const LoginForm = () => {
   return (
     <>
-      <form className="container-xs pt-8 " action="">
+      <form className="container-xs pt-8" action="">
         <div className="form-heading grid grid-cols-2 gap-3">
           <div className="form-group">
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium ">
@@ -12,7 +12,7 @@ export const LoginForm = () => {
             <input
               type="text"
               id="first_name"
-              className="bg-c-light-gray border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
+              className="bg-c-light-gray w-full border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
               placeholder="John"
               required
             />
@@ -24,7 +24,7 @@ export const LoginForm = () => {
             <input
               type="text"
               id="last_name"
-              className="bg-c-light-gray border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
+              className="bg-c-light-gray w-full border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
               placeholder="Doe"
               required
             />

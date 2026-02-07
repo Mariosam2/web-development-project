@@ -12,7 +12,7 @@ export const SignupForm = () => {
             <input
               type="text"
               id="first_name"
-              className="bg-c-light-gray border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
+              className="bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
               placeholder="John"
               required
             />
@@ -24,7 +24,7 @@ export const SignupForm = () => {
             <input
               type="text"
               id="last_name"
-              className="bg-c-light-gray border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
+              className="bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
               placeholder="Doe"
               required
             />
