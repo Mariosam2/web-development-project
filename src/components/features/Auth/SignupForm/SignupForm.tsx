@@ -53,7 +53,7 @@ export const SignupForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn-secondary mt-12">
+        <button type="submit" className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
           Sign Up
         </button>
       </form>
