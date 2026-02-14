@@ -98,3 +98,9 @@
   bottom: 0;
   background-color: rgba(30, 30, 30, 0.2);
 }
+
+.cross {
+  translate: -50% -50%;
+  width: 34px;
+  aspect-ratio: 1/1;
+}

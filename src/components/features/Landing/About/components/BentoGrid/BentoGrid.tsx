@@ -1,6 +1,8 @@
 import WorkoutSVG from "@assets/workout.svg";
 import MuscleSVG from "@assets/muscle.svg";
 import MagnifyingGlassSVG from "@assets/magnifying-glass.svg";
+import ClipboardSVG from "@assets/clipboard.svg";
+import AIAssistantSVG from "@assets/ai-assistant.svg";
 import "./BentoGrid.css";
 
 export const BentoGrid = () => {
@@ -47,7 +49,7 @@ export const BentoGrid = () => {
           </div>
         </div>
         <div className="col-span-2 row-span-1 h-full relative bg-c-dark rounded-2xl p-8">
-          <h3 className="text-xl text-c-yellow">Every rep starts here</h3>
+          <h3 className="text-xl text-c-yellow">Custom plans</h3>
 
           <div className="flex mt-4">
             <p className="caption max-w-4/6 text-sm py-2 text-c-light-gray">
@@ -55,19 +57,19 @@ export const BentoGrid = () => {
               nulla aut.
             </p>
 
-            <img className="ms-auto size-15 self-end" src={MuscleSVG} alt="muscle" />
+            <img className="ms-auto size-15 self-end" src={ClipboardSVG} alt="muscle" />
           </div>
         </div>
-        <div className="col-span-2 row-span-1 h-full relative bg-c-dark rounded-2xl p-8">
-          <h3 className="text-xl text-c-yellow">Every rep starts here</h3>
+        <div className="col-span-2 row-span-1 h-full relative bg-c-dark-gray rounded-2xl p-8">
+          <h3 className="text-xl text-c-dark">AI Coach</h3>
 
           <div className="flex mt-4">
-            <p className="caption max-w-4/6 text-sm py-2 text-c-light-gray">
+            <p className="caption max-w-4/6 text-sm py-2 text-c-dark">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis voluptate inventore illum corporis
               nulla aut.
             </p>
 
-            <img className="ms-auto size-15 self-end" src={MuscleSVG} alt="muscle" />
+            <img className="ms-auto size-15 self-end" src={AIAssistantSVG} alt="muscle" />
           </div>
         </div>
       </div>

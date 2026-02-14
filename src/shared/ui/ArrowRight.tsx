@@ -1,9 +1,6 @@
-interface ArrorRightProps {
-  size?: number;
-  className?: string;
-}
+import type { IconProps } from "../types";
 
-export const ArrowRight = ({ size, className }: ArrorRightProps) => {
+export const ArrowRight = ({ size, className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
