@@ -23,7 +23,7 @@ export const Home = () => {
             <div className="container-xl  flex flex-items-center">
               <div className="flex items-end max-w-xs">
                 <img className="w-40 aspect-square" src={LogoSquareSVG} alt="logo square" />
-                <p className="text-c-light-gray text-sm font-thin px-4">
+                <p className="text-c-light-gray text-sm  px-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. At earum minus amet. Error, obcaecati totam!
                 </p>
               </div>
