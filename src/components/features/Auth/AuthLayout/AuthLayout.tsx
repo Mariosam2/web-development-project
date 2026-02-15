@@ -1,7 +1,7 @@
 import Logo from "@assets/logo.svg";
 import LogoIcon from "@assets/logo-icon.svg";
 import Hero from "@assets/hero.jpg";
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import { AuthDock } from "../AuthDock/AuthDock";
 import "./AuthLayout.css";
 
@@ -20,15 +20,19 @@ export const AuthLayout = () => {
           <div className="layover z-20"></div>
         </div>
       </div>
-      <img
-        id="logo-icon"
-        className="fixed right-4 top-4 z-30"
-        width={120}
-        height={120}
-        src={LogoIcon}
-        alt="logo icon"
-      />
-      <img id="logo" className="fixed left-4 top-4 z-30" width={200} height={120} src={Logo} alt="logo" />
+      <NavLink to="/">
+        <img
+          id="logo-icon"
+          className="fixed right-4 top-4 z-30"
+          width={120}
+          height={120}
+          src={LogoIcon}
+          alt="logo icon"
+        />
+      </NavLink>
+      <NavLink to="/">
+        <img id="logo" className="fixed left-4 top-4 z-30" width={200} height={120} src={Logo} alt="logo" />
+      </NavLink>
     </>
   );
 };
