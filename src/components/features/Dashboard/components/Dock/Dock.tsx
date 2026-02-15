@@ -13,7 +13,7 @@ export const Dock = () => {
             className={`absolute h-full w-1/2 bg-c-gray rounded-4xl  transition-all duration-300  z-10 ease-elastic ${
               location.pathname === "/dashboard/exercises"
                 ? "translate-x-full opacity-100"
-                : location.pathname === "/dashboard/my-workouts"
+                : location.pathname === "/dashboard/my-workouts" || location.pathname === "/dashboard"
                   ? "translate-x-0 opacity-100"
                   : "opacity-0"
             }`}

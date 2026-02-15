@@ -1,6 +1,12 @@
 import "./SignupForm.css";
-
+import { useNavigate } from "react-router";
 export const SignupForm = () => {
+  const navigate = useNavigate();
+  const signup = () => {
+    console.log("login");
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <form className="container-xs pt-8" action="">
@@ -53,7 +59,7 @@ export const SignupForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
+        <button type="submit" onClick={signup} className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
           Sign Up
         </button>
       </form>

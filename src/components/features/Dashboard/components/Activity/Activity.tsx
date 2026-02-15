@@ -53,7 +53,7 @@ export const Activity = () => {
               <h3 className="font-xl font-medium">Activity</h3>
               <div className="bg-c-yellow p-3 rounded-xl">Week</div>
             </div>
-            <div className="chart w-full grow flex flex-col p-8">
+            <div className="chart w-full grow flex flex-col p-8 pb-6">
               <div className="bars grow flex items-end gap-x-4 w-full justify-between mb-2">
                 {workouts.map((num, index) => (
                   <div

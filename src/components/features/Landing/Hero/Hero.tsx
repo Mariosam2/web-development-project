@@ -3,6 +3,7 @@ import HeroVideo from "@assets/hero.mp4";
 import LogoIcon from "@assets/logo-icon.svg";
 import { ArrowRight } from "../../../../shared/ui/ArrowRight";
 import "./Hero.css";
+import { NavLink } from "react-router";
 
 export const Hero = () => {
   const openNavbar = () => {
@@ -43,7 +44,9 @@ export const Hero = () => {
       <img src={CrossSVG} className="cross absolute bottom-h right-v z-20" alt="cross-svg" />
 
       <div className="cta-button  absolute right-14 bottom-14 z-50 w-full max-w-64 flex items-center cursor-pointer">
-        <div className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">Get Started</div>
+        <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">
+          Get Started
+        </NavLink>
         <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0" size={10} />
       </div>
 

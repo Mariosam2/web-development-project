@@ -1,6 +1,13 @@
 import "./LoginForm.css";
+import { useNavigate } from "react-router";
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
+  const login = () => {
+    console.log("login");
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <form className="container-xs pt-8" action="">
@@ -53,7 +60,7 @@ export const LoginForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
+        <button type="submit" onClick={login} className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
           Sign In
         </button>
       </form>
