@@ -11,6 +11,8 @@ import { SignupForm } from "./components/features/Auth/SignupForm/SignupForm";
 import { Dashboard } from "./components/features/Dashboard/Dashboard";
 import { Workouts } from "./components/features/Dashboard/components/Workouts/Workouts";
 import { Exercises } from "./components/features/Dashboard/components/Exercises/Exercises";
+import { Activity } from "./components/features/Dashboard/components/Activity/Activity";
+import { HeroUIProvider } from "@heroui/system";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
             path: "exercises",
             element: <Exercises />,
           },
+          {
+            path: "activity",
+            element: <Activity />,
+          },
         ],
       },
     ],
@@ -55,6 +61,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <HeroUIProvider>
+      <RouterProvider router={router} />
+    </HeroUIProvider>
   </StrictMode>,
 );

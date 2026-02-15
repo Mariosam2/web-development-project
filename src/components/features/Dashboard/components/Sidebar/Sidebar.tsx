@@ -4,6 +4,7 @@ import ProfileSVG from "@assets/profile.svg";
 import LogoutSVG from "@assets/logout.svg";
 import AvatarPNG from "@assets/avatar.png";
 import "./Sidebar.css";
+import { NavLink } from "react-router";
 
 export const Sidebar = () => {
   return (
@@ -18,9 +19,11 @@ export const Sidebar = () => {
 
       <div className="actions flex flex-col items-center grow pt-12 pb-8">
         <div className="cta w-72">
-          <div className="btn-secondary w-full  rounded-2xl px-4 py-3 flex items-center justify-center">
+          <NavLink
+            to="/dashboard/activity"
+            className="btn-secondary w-full  rounded-2xl px-4 py-3 flex items-center justify-center">
             Activity <img className="size-6 ms-2" src={BoltSVG} alt="bolt" />
-          </div>
+          </NavLink>
           <div className="btn-secondary w-full mt-6  rounded-2xl px-4 py-3 flex items-center justify-center">
             Ask the coach <img className="size-6 ms-2" src={RobotSVG} alt="ai coach" />
           </div>

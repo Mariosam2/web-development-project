@@ -1,0 +1,37 @@
+.calendar [data-slot="cell"] span {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.calendar div[style] {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.calendar [data-slot="content"] {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.calendar [data-slot="content"] > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.calendar [data-slot="grid-body-row"] {
+  height: 70px !important;
+}
+.calendar [data-slot="cell"] {
+  font-size: 18px !important;
+}
+.calendar [data-slot="title"],
+.calendar [data-slot="prev-button"],
+.calendar [data-slot="next-button"] {
+  font-size: 22px !important;
+}
+.calendar [data-slot="grid-header-cell"] {
+  font-size: 16px !important;
+}
+.calendar [data-slot="header-wrapper"] {
+  padding-block: 1.5rem;
+}

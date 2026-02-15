@@ -1,4 +1,4 @@
-import WorkoutPreviewPNG from "@assets/workout-preview.png";
+import PreviewPNG from "@assets/preview.png";
 import ClockSVG from "@assets/clock.svg";
 import "./WorkoutCard.css";
 
@@ -16,7 +16,7 @@ export const WorkoutCard = () => {
         </div>
       </div>
       <div className="preview rounded-2xl overflow-hidden  p-1 bg-c-gray">
-        <img className="w-full block object-cover" src={WorkoutPreviewPNG} alt="workout preview" />
+        <img className="w-full block object-cover" src={PreviewPNG} alt="workout preview" />
       </div>
     </div>
   );

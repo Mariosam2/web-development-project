@@ -10,8 +10,12 @@ export const Dock = () => {
         <img className="size-8 " src={LogoIconSVG} alt="logo icon" />
         <div className="relative w-72 ms-auto h-14 flex items-center">
           <div
-            className={`absolute h-full w-1/2 bg-c-gray rounded-4xl  transition-transform duration-300 ease-in-out z-10 ease-elastic ${
-              location.pathname === "/dashboard/exercises" ? "translate-x-full" : "translate-x-0"
+            className={`absolute h-full w-1/2 bg-c-gray rounded-4xl  transition-all duration-300  z-10 ease-elastic ${
+              location.pathname === "/dashboard/exercises"
+                ? "translate-x-full opacity-100"
+                : location.pathname === "/dashboard/my-workouts"
+                  ? "translate-x-0 opacity-100"
+                  : "opacity-0"
             }`}
           />
           <NavLink
