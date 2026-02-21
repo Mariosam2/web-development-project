@@ -10,7 +10,7 @@ export const AuthLayout = () => {
     <>
       <div className="w-screen h-screen grid grid-cols-7">
         <div className="col-span-4 h-full grid place-items-center">
-          <div className="auth-form">
+          <div className="auth-form container-xs">
             <AuthDock />
             <Outlet />
           </div>

@@ -1,53 +1,54 @@
+import React, { useState } from "react";
 import "./LoginForm.css";
-import { useNavigate } from "react-router";
 
+import { useLoginMutation } from "@src/store/api/authApi";
+import { LoginSchema } from "@src/shared/schema/LoginSchema";
+import { getValidationErrors } from "@src/shared/helpers";
 export const LoginForm = () => {
-  const navigate = useNavigate();
-  const login = () => {
-    console.log("login");
-    navigate("/dashboard");
+  const [identifier, setIdentifier] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+
+  const [login, { isLoading }] = useLoginMutation();
+  const submitLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isEmail = identifier.includes("@");
+    console.log("password", password);
+    const payload = isEmail
+      ? { email: identifier || undefined, password }
+      : { username: identifier || undefined, password };
+
+    const validation = LoginSchema.safeParse(payload);
+
+    if (!validation.success) {
+      setValidationErrors(getValidationErrors(validation));
+      return;
+    }
+
+    setValidationErrors({});
+
+    await login(payload);
   };
 
   return (
     <>
-      <form className="container-xs pt-8" action="">
-        <div className="form-heading grid grid-cols-2 gap-3">
-          <div className="form-group">
-            <label htmlFor="first_name" className="block mb-2 text-sm font-medium ">
-              Firstname
-            </label>
-            <input
-              type="text"
-              id="first_name"
-              className="bg-c-light-gray w-full border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
-              placeholder="John"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="last_name" className="block mb-2 text-sm font-medium ">
-              Lastname
-            </label>
-            <input
-              type="text"
-              id="last_name"
-              className="bg-c-light-gray w-full border border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
-              placeholder="Doe"
-              required
-            />
-          </div>
-        </div>
+      <form className="pt-8" onSubmit={(e) => submitLogin(e)}>
         <div className="form-group">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium ">
-            Email
+          <label htmlFor="identifier" className="block mb-2 text-sm font-medium">
+            Email or Username
           </label>
           <input
             type="text"
-            id="email"
-            className="bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
-            placeholder="example@mail.com"
-            required
+            id="identifier"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value.trim())}
+            placeholder="example@mail.com or username"
+            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${validationErrors.identifier || validationErrors.form ? "border-red-500" : ""}`}
           />
+          {validationErrors.identifier ||
+            (validationErrors.form && (
+              <span className="text-red-500">{validationErrors.identifier || validationErrors.form}</span>
+            ))}
         </div>
         <div className="form-group">
           <label htmlFor="password" className="block mb-2 text-sm font-medium ">
@@ -56,11 +57,15 @@ export const LoginForm = () => {
           <input
             type="text"
             id="password"
-            className="bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none"
-            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value.trim())}
+            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${validationErrors.password ? "border-red-500" : ""}`}
           />
+          {validationErrors.password && <span className="text-red-500">{validationErrors.password}</span>}
         </div>
-        <button type="submit" onClick={login} className="btn-secondary w-full mt-12 rounded-2xl px-4 py-3">
+        <button
+          type="submit"
+          className={`btn-secondary w-full mt-12 rounded-2xl px-4 py-3 ${isLoading ? "loading" : ""}`}>
           Sign In
         </button>
       </form>

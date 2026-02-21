@@ -1,11 +1,14 @@
+import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { showToast } from "../../shared/helpers";
-import type { ILoginRequest } from "../../shared/interfaces/auth/ILoginRequest";
-import type { IRegisterRequest } from "../../shared/interfaces/auth/IRegisterRequest";
 import { apiSlice } from "./apiSlice";
+import { router } from "@src/router";
+import * as z from "zod";
+import type { LoginSchema } from "@src/shared/schema/LoginSchema";
+import type { RegisterSchema } from "@src/shared/schema/RegisterSchema";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<{ accessToken: string }, ILoginRequest>({
+    login: builder.mutation<{ accessToken: string }, z.infer<typeof LoginSchema>>({
       query: (loginPayload) => ({
         url: "/auth/login",
         method: "POST",
@@ -15,13 +18,15 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           localStorage.setItem("accessToken", data.accessToken);
+          router.navigate("/dashboard");
         } catch (error) {
-          showToast(error);
+          console.log(error);
+          showToast(error, "Login Failed", ToastType.DANGER);
         }
       },
     }),
 
-    register: builder.mutation<{ accessToken: string }, IRegisterRequest>({
+    register: builder.mutation<{ accessToken: string }, z.infer<typeof RegisterSchema>>({
       query: (registerPayload) => ({
         url: "/auth/register",
         method: "POST",
@@ -31,8 +36,10 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           localStorage.setItem("accessToken", data.accessToken);
+          router.navigate("/dashboard");
         } catch (error) {
-          showToast(error);
+          console.log(error);
+          showToast(error, "Registration Failed", ToastType.DANGER);
         }
       },
     }),
@@ -46,9 +53,8 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           localStorage.setItem("accessToken", data.accessToken);
-        } catch (error) {
+        } catch {
           localStorage.removeItem("accessToken");
-          showToast(error);
         }
       },
     }),
@@ -62,10 +68,13 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
           localStorage.removeItem("accessToken");
+          router.navigate("/login");
         } catch (error) {
-          showToast(error);
+          showToast(error, "Logout Failed", ToastType.DANGER);
         }
       },
     }),
   }),
 });
+
+export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation } = authApi;

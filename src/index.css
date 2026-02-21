@@ -40,31 +40,37 @@
 
 @utility container-xs {
   max-width: var(--container-xs);
+  width: 100%;
   margin-inline: auto;
 }
 
 @utility container-sm {
   max-width: var(--container-sm);
+  width: 100%;
   margin-inline: auto;
 }
 
 @utility container-md {
   max-width: var(--container-md);
+  width: 100%;
   margin-inline: auto;
 }
 
 @utility container-lg {
   max-width: var(--container-lg);
+  width: 100%;
   margin-inline: auto;
 }
 
 @utility container-xl {
   max-width: var(--container-xl);
+  width: 100%;
   margin-inline: auto;
 }
 
 @utility container-xxl {
   max-width: var(--container-xxl);
+  width: 100%;
   margin-inline: auto;
 }
 
@@ -110,4 +116,30 @@
   translate: -50% -50%;
   width: 34px;
   aspect-ratio: 1/1;
+}
+
+.btn-secondary.loading {
+  position: relative;
+  pointer-events: none;
+  filter: brightness(0.7);
+}
+
+.btn-secondary.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }
