@@ -2,6 +2,8 @@ import { useState, type ReactElement } from "react";
 import { EyeClosed } from "./EyeClosed";
 import { EyeOpen } from "./EyeOpen";
 import { capitalize } from "../helpers";
+import { forwardRef } from "react";
+import type { FieldError } from "react-hook-form";
 
 interface ShowEyeProps {
   closed: boolean;
@@ -19,25 +21,25 @@ const ShowEye = ({ closed, className, size, onClick }: ShowEyeProps): ReactEleme
 
 interface InputPasswordProps {
   inputName: string;
-  error: string;
+  error: FieldError | undefined;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputPassword = ({ inputName, error, onChange }: InputPasswordProps) => {
+export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({ error, ...rest }, ref) => {
   const [closed, setClosed] = useState(true);
   const type = closed ? "password" : "text";
 
   return (
     <div className="form-group">
-      <label htmlFor={inputName} className="block mb-2 text-sm font-medium ">
-        {capitalize(inputName).replace("-", " ")}
+      <label htmlFor={rest.inputName} className="block mb-2 text-sm font-medium ">
+        {capitalize(rest.inputName).replace("-", " ")}
       </label>
       <div
         className={`input-wrapper bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl relative ${error ? "border-red-500" : ""} `}>
-        <input type={type} id={inputName} className=" focus:outline-none  p-3" onChange={onChange} />
+        <input type={type} id={rest.inputName} className=" focus:outline-none  p-3" ref={ref} {...rest} />
         <ShowEye closed={closed} className="absolute top-3 right-3" size={6} onClick={() => setClosed(!closed)} />
       </div>
-      {error && <span className="text-red-500">{error}</span>}
+      {error && <span className="text-red-500">{error.message}</span>}
     </div>
   );
-};
+});

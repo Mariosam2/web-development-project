@@ -4,9 +4,15 @@ import ProfileSVG from "@assets/profile.svg";
 import LogoutSVG from "@assets/logout.svg";
 import AvatarPNG from "@assets/avatar.png";
 import "./Sidebar.css";
+import { useLogoutMutation } from "@src/store/api/authApi";
 import { NavLink } from "react-router";
 
 export const Sidebar = () => {
+  const [logout, { isLoading }] = useLogoutMutation();
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className="sidebar col-span-2 bg-c-dark h-screen flex flex-col">
       <div className="avatar py-6 ps-8 flex items-center">
@@ -33,9 +39,12 @@ export const Sidebar = () => {
           <div className="btn-secondary w-full mt-6 rounded-2xl px-4 py-3 flex items-center justify-center">
             Profile settings <img className="size-6 ms-2" src={ProfileSVG} alt="bolt" />
           </div>
-          <div className="btn-primary w-full mt-6 rounded-2xl px-4 py-3 flex items-center justify-center">
+          <button
+            disabled={isLoading}
+            onClick={handleLogout}
+            className="btn-primary w-full mt-6 rounded-2xl px-4 py-3 flex items-center justify-center">
             Logout <img className="size-6 ms-2" src={LogoutSVG} alt="ai coach" />
-          </div>
+          </button>
         </div>
       </div>
     </div>
