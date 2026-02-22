@@ -34,6 +34,7 @@ const baseQueryAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryErro
     }
     localStorage.removeItem("accessToken");
     router.navigate("/login");
+
     return result;
   }
 

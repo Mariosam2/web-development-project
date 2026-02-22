@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface EnvelopeProps {
+  className?: string;
+  size?: number;
+}
 
-export const Envelope = ({ className, size }: IconProps) => {
+export const Envelope = ({ className, size }: EnvelopeProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

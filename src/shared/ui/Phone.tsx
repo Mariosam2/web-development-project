@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface PhoneProps {
+  className?: string;
+  size?: number;
+}
 
-export const Phone = ({ className, size }: IconProps) => {
+export const Phone = ({ className, size }: PhoneProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

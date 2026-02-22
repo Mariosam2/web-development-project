@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface MagnifyingGlassProps {
+  className?: string;
+  size?: number;
+}
 
-export const MagnifyingGlass = ({ className, size }: IconProps) => {
+export const MagnifyingGlass = ({ className, size }: MagnifyingGlassProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

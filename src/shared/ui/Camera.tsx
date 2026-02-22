@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface CamerProps {
+  className?: string;
+  size?: number;
+}
 
-export const Camera = ({ className, size }: IconProps) => {
+export const Camera = ({ className, size }: CamerProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

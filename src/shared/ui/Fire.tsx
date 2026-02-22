@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface FireProps {
+  className?: string;
+  size?: number;
+}
 
-export const Fire = ({ className, size }: IconProps) => {
+export const Fire = ({ className, size }: FireProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

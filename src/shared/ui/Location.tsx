@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface LocationProps {
+  className?: string;
+  size?: number;
+}
 
-export const Location = ({ className, size }: IconProps) => {
+export const Location = ({ className, size }: LocationProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

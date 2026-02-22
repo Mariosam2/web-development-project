@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface EyeClosedProps {
+  className?: string;
+  size?: number;
+}
 
-export const EyeClosed = ({ className, size }: IconProps) => {
+export const EyeClosed = ({ className, size }: EyeClosedProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

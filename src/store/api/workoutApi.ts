@@ -7,14 +7,14 @@ export const workoutApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getWorkouts: builder.query<IApiResponse<IWorkout[]>, void>({
       query: () => ({
-        url: `${import.meta.env.API_PREFIX}/workouts`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts`,
         method: "GET",
       }),
       providesTags: ["Workouts"],
     }),
     getWorkoutExercises: builder.query<IApiResponse<IExercise[]>, { workoutId: string }>({
       query: ({ workoutId }) => ({
-        url: `${import.meta.env.API_PREFIX}/workouts/exercises/${workoutId}`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/exercises/${workoutId}`,
         method: "GET",
       }),
       providesTags: ["WorkoutExercises"],
@@ -22,7 +22,7 @@ export const workoutApi = apiSlice.injectEndpoints({
 
     addWorkout: builder.mutation<IApiResponse<IExercise[]>, IWorkout>({
       query: (body) => ({
-        url: `${import.meta.env.API_PREFIX}/workouts/add-workout`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/add-workout`,
         method: "POST",
         body,
       }),
@@ -30,7 +30,7 @@ export const workoutApi = apiSlice.injectEndpoints({
     }),
     updateWorkout: builder.mutation<IApiResponse<IExercise[]>, IWorkout>({
       query: (body) => ({
-        url: `${import.meta.env.API_PREFIX}/workouts/update-workout/${body.id}`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/update-workout/${body.id}`,
         method: "PUT",
         body,
       }),
@@ -38,7 +38,7 @@ export const workoutApi = apiSlice.injectEndpoints({
     }),
     deleteWorkout: builder.mutation<IApiResponse<IExercise[]>, { workoutId: string }>({
       query: ({ workoutId }) => ({
-        url: `${import.meta.env.API_PREFIX}/workouts/delete-workout/${workoutId}`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/delete-workout/${workoutId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Workouts", "WorkoutExercises"],
@@ -46,10 +46,19 @@ export const workoutApi = apiSlice.injectEndpoints({
 
     importExercises: builder.mutation<IApiResponse<IExercise[]>, { workoutId: string }>({
       query: ({ workoutId }) => ({
-        url: `${import.meta.env.API_PREFIX}/workouts/delete-workout/${workoutId}`,
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/delete-workout/${workoutId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["WorkoutExercises"],
     }),
   }),
 });
+
+export const {
+  useGetWorkoutsQuery,
+  useGetWorkoutExercisesQuery,
+  useAddWorkoutMutation,
+  useUpdateWorkoutMutation,
+  useDeleteWorkoutMutation,
+  useImportExercisesMutation,
+} = workoutApi;

@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface PlusProps {
+  className?: string;
+  size?: number;
+}
 
-export const Plus = ({ className, size }: IconProps) => {
+export const Plus = ({ className, size }: PlusProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

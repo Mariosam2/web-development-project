@@ -1,17 +1,22 @@
 import { createBrowserRouter } from "react-router";
 import { App } from "./App";
-import { Home } from "./components/features/Landing/Home/Home";
-import { Dashboard } from "./components/features/Dashboard/Dashboard";
-import { Workouts } from "./components/features/Dashboard/components/Workouts/Workouts";
-import { Exercises } from "./components/features/Dashboard/components/Exercises/Exercises";
-import { Activity } from "./components/features/Dashboard/components/Activity/Activity";
-import { AuthLayout } from "./components/features/Auth/AuthLayout/AuthLayout";
-import { LoginForm } from "./components/features/Auth/LoginForm/LoginForm";
-import { SignupForm } from "./components/features/Auth/SignupForm/SignupForm";
+import { Home } from "./features/Landing/Home/Home";
+import { Workouts } from "./features/Dashboard/components/Workouts/Workouts";
+import { Exercises } from "./features/Dashboard/components/Exercises/Exercises";
+import { Activity } from "./features/Dashboard/components/Activity/Activity";
+import { AuthLayout } from "./features/Auth/AuthLayout/AuthLayout";
+import { LoginForm } from "./features/Auth/LoginForm/LoginForm";
+import { SignupForm } from "./features/Auth/SignupForm/SignupForm";
+import { lazy } from "react";
+import { ErrorPage } from "./shared/ui/ErrorPage/ErrorPage";
+
+const Dashboard = lazy(() => import("./features/Dashboard/Dashboard"));
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -56,4 +61,5 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [{ index: true, element: <SignupForm /> }],
   },
+  { path: "*", element: <ErrorPage /> },
 ]);

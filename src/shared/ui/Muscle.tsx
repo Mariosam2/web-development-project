@@ -1,6 +1,9 @@
-import type { IconProps } from "../types";
+interface MuscleProps {
+  className?: string;
+  size?: number;
+}
 
-export const Muscle = ({ className, size }: IconProps) => {
+export const Muscle = ({ className, size }: MuscleProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
