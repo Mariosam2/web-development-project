@@ -11,6 +11,7 @@ interface ExerciseCardProps extends ICardProps {
 export const ExerciseCard = ({ isLoading, exerciseId }: ExerciseCardProps) => {
   const { data, isLoading: isLoadingSingle } = useGetSingleExerciseQuery({ exerciseId });
   const exercise = data?.data;
+  console.log("exerciseId:", exerciseId);
 
   return (
     <div className="col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex max-h-48 bg-c-light-gray relative">
@@ -39,7 +40,7 @@ export const ExerciseCard = ({ isLoading, exerciseId }: ExerciseCardProps) => {
       ) : (
         <>
           <div className="preview w-1/3 rounded-l-2xl overflow-hidden">
-            <img className="w-full block object-cover" src={exercise?.imageUrls["720p"]} alt="workout preview" />
+            <img className="w-full block object-cover" src={exercise?.imageUrls?.["720p"]} alt="workout preview" />
           </div>
           <div className="content w-2/3 p-4">
             <div className="heading flex">
