@@ -1,13 +1,7 @@
-.phrase-enter {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.phrase-exit {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-
 .increment-bar {
   height: 100%;
+}
+
+.loader-phrase {
+  will-change: transform;
 }

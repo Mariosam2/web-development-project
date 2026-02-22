@@ -1,6 +1,7 @@
 import { addToast } from "@heroui/toast";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { ToastType } from "./enums/ToastType.enum";
+import type { IApiResponse } from "./interfaces/api/IApiResponse";
 
 interface FetchBaseQueryErrorWrapper {
   error: FetchBaseQueryError;
@@ -43,3 +44,11 @@ export const showToast = (error: unknown, title: string, color: ToastType = Toas
 };
 
 export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const getErrorMessage = (error: FetchBaseQueryError): string => {
+  if (error.data && typeof error.data === "object") {
+    const data = error.data as IApiResponse<void>;
+    return data.message || "Something went wrong";
+  }
+  return "Something went wrong";
+};

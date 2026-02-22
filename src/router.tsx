@@ -8,7 +8,7 @@ import { AuthLayout } from "./features/Auth/AuthLayout/AuthLayout";
 import { LoginForm } from "./features/Auth/LoginForm/LoginForm";
 import { SignupForm } from "./features/Auth/SignupForm/SignupForm";
 import { lazy } from "react";
-import { ErrorPage } from "./shared/ui/ErrorPage/ErrorPage";
+import { NotFound } from "./shared/ui/NotFound/NotFound";
 
 const Dashboard = lazy(() => import("./features/Dashboard/Dashboard"));
 
@@ -16,7 +16,6 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -61,5 +60,5 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [{ index: true, element: <SignupForm /> }],
   },
-  { path: "*", element: <ErrorPage /> },
+  { path: "*", element: <NotFound /> },
 ]);
