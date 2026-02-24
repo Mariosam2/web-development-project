@@ -5,10 +5,14 @@ import { router } from "@src/router";
 import * as z from "zod";
 import type { LoginSchema } from "@src/shared/schema/LoginSchema";
 import type { RegisterSchema } from "@src/shared/schema/RegisterSchema";
+import type { IApiResponse } from "@src/shared/interfaces/api/IApiResponse";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<{ accessToken: string }, z.infer<typeof LoginSchema>>({
+    login: builder.mutation<
+      { accessToken: string },
+      z.infer<typeof LoginSchema>
+    >({
       query: (loginPayload) => ({
         url: "/auth/login",
         method: "POST",
@@ -26,7 +30,10 @@ export const authApi = apiSlice.injectEndpoints({
       },
     }),
 
-    register: builder.mutation<{ accessToken: string }, z.infer<typeof RegisterSchema>>({
+    register: builder.mutation<
+      { accessToken: string },
+      z.infer<typeof RegisterSchema>
+    >({
       query: (registerPayload) => ({
         url: "/auth/register",
         method: "POST",
@@ -42,6 +49,14 @@ export const authApi = apiSlice.injectEndpoints({
           showToast(error, "Registration Failed", ToastType.DANGER);
         }
       },
+    }),
+
+    checkAuth: builder.mutation<IApiResponse<void>, void>({
+      query: (registerPayload) => ({
+        url: "/auth/chek-auth",
+        method: "GET",
+        body: registerPayload,
+      }),
     }),
 
     refreshToken: builder.mutation<{ accessToken: string }, void>({
@@ -77,4 +92,10 @@ export const authApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useRefreshTokenMutation, useLogoutMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useRefreshTokenMutation,
+  useLogoutMutation,
+  useCheckAuthMutation
+} = authApi;
