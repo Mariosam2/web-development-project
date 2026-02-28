@@ -131,7 +131,7 @@
   height: 20px;
   top: 50%;
   right: 16px;
-  transform: translateY(-50%);
+  translate: 0 -50%;
   border: 2px solid transparent;
   border-top-color: currentColor;
   border-radius: 50%;
@@ -140,6 +140,6 @@
 
 @keyframes spin {
   to {
-    transform: translateY(-50%) rotate(360deg);
+    rotate: 360deg; /* ← non tocca translate */
   }
 }
