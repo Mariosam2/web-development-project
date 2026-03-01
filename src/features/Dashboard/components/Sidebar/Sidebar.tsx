@@ -14,7 +14,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar col-span-2 bg-c-dark h-screen flex flex-col">
+    <aside className="sidebar col-span-2 bg-c-dark h-screen flex flex-col">
       <div className="avatar py-6 ps-8 flex items-center">
         <img className="w-32 aspect-square" src={AvatarPNG} alt="avatar" />
         <div className="user-info p-3 space-y-1.5">
@@ -47,6 +47,6 @@ export const Sidebar = () => {
           </button>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };

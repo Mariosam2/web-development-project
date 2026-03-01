@@ -9,6 +9,7 @@ import { LoginForm } from "./features/Auth/LoginForm/LoginForm";
 import { SignupForm } from "./features/Auth/SignupForm/SignupForm";
 import { lazy } from "react";
 import { NotFound } from "./shared/ui/NotFound/NotFound";
+import { WorkoutDetail } from "./features/Dashboard/components/Workouts/components/WorkoutDetail/WorkoutDetail";
 
 const Dashboard = lazy(() => import("./features/Dashboard/Dashboard"));
 
@@ -35,8 +36,12 @@ export const router = createBrowserRouter([
             element: <Workouts />,
           },
           {
-            path: "my-workouts",
+            path: "workouts",
             element: <Workouts />,
+          },
+          {
+            path: "workouts/:workoutId",
+            element: <WorkoutDetail />,
           },
           {
             path: "exercises",

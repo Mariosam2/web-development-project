@@ -1,3 +1,3 @@
 export interface ICardProps {
-  isLoading: boolean;
+  isLoading?: boolean;
 }

@@ -36,7 +36,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({
       </label>
       <div
         className={`input-wrapper bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl relative ${error ? "border-red-500" : ""} `}>
-        <input type={type} id={rest.inputname} className=" focus:outline-none  p-3" ref={ref} {...rest} />
+        <input type={type} id={rest.inputname} className=" focus:outline-none  p-3 w-full" ref={ref} {...rest} />
         <ShowEye closed={closed} className="absolute top-3 right-3" size={6} onClick={() => setClosed(!closed)} />
       </div>
       {error && <span className="text-red-500">{error.message}</span>}

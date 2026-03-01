@@ -47,7 +47,7 @@ export const Hero = () => {
         <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">
           Get Started
         </NavLink>
-        <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0" size={10} />
+        <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0 size-10" />
       </div>
 
       <p className="caption absolute left-14 bottom-14 z-20 text-c-light-gray max-w-1/4 p-1">

@@ -1,5 +1,5 @@
 import { ToastType } from "@src/shared/enums/ToastType.enum";
-import { showToast } from "../../shared/helpers";
+import { getErrorMessage, showToast } from "../../shared/helpers";
 import { apiSlice } from "./apiSlice";
 import { router } from "@src/router";
 import * as z from "zod";
@@ -9,10 +9,7 @@ import type { IApiResponse } from "@src/shared/interfaces/api/IApiResponse";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<
-      { accessToken: string },
-      z.infer<typeof LoginSchema>
-    >({
+    login: builder.mutation<{ accessToken: string }, z.infer<typeof LoginSchema>>({
       query: (loginPayload) => ({
         url: "/auth/login",
         method: "POST",
@@ -25,15 +22,13 @@ export const authApi = apiSlice.injectEndpoints({
           router.navigate("/dashboard");
         } catch (error) {
           console.log(error);
-          showToast(error, "Login Failed", ToastType.DANGER);
+          const message = getErrorMessage(error);
+          showToast("Login Failed", message, ToastType.DANGER);
         }
       },
     }),
 
-    register: builder.mutation<
-      { accessToken: string },
-      z.infer<typeof RegisterSchema>
-    >({
+    register: builder.mutation<{ accessToken: string }, z.infer<typeof RegisterSchema>>({
       query: (registerPayload) => ({
         url: "/auth/register",
         method: "POST",
@@ -46,14 +41,15 @@ export const authApi = apiSlice.injectEndpoints({
           router.navigate("/dashboard");
         } catch (error) {
           console.log(error);
-          showToast(error, "Registration Failed", ToastType.DANGER);
+          const message = getErrorMessage(error);
+          showToast("Registration Failed", message, ToastType.DANGER);
         }
       },
     }),
 
     checkAuth: builder.mutation<IApiResponse<void>, void>({
       query: (registerPayload) => ({
-        url: "/auth/chek-auth",
+        url: "/auth/check-auth",
         method: "GET",
         body: registerPayload,
       }),
@@ -85,7 +81,8 @@ export const authApi = apiSlice.injectEndpoints({
           localStorage.removeItem("accessToken");
           router.navigate("/login");
         } catch (error) {
-          showToast(error, "Logout Failed", ToastType.DANGER);
+          const message = getErrorMessage(error);
+          showToast("Logout Failed", message, ToastType.DANGER);
         }
       },
     }),
@@ -97,5 +94,5 @@ export const {
   useRegisterMutation,
   useRefreshTokenMutation,
   useLogoutMutation,
-  useCheckAuthMutation
+  useCheckAuthMutation,
 } = authApi;

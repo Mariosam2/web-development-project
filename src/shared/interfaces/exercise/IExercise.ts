@@ -1,6 +1,6 @@
 export interface IExercise {
+  id?: string;
   exerciseId?: string;
-  title: string;
   description?: string;
   name: string;
   bodyPart?: string;

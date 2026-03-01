@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { router } from "../../router";
-import { getErrorMessage, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
+import { getErrorMessage, showToast } from "@src/shared/helpers";
 
 interface RefreshResponse {
   accessToken: string;
@@ -31,7 +31,7 @@ const baseQueryAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryErro
   if (result.error) {
     const status = result.error.status;
 
-    if (status === 401 && !url.startsWith("/auth")) {
+    if (status === 401 && !url.includes("/auth/refresh-token")) {
       const refreshResult = await baseQuery(
         {
           url: "/auth/refresh-token",
@@ -50,8 +50,11 @@ const baseQueryAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryErro
       return result;
     }
 
-    const message = getErrorMessage(result.error);
-    showToast(`Error ${status}`, message, ToastType.DANGER);
+    const silentUrls = ["/auth/check-auth", "/auth/refresh-token"];
+    if (!silentUrls.some((u) => url.includes(u))) {
+      const message = getErrorMessage(result.error);
+      showToast("Something went wrong", message, ToastType.DANGER);
+    }
   }
 
   return result;

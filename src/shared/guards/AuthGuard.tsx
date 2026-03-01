@@ -14,7 +14,10 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     checkAuth()
       .unwrap()
       .then(() => setHasAuth(true))
-      .catch(() => navigate("/login"));
+      .catch(() => {
+        setHasAuth(false);
+        navigate("/login");
+      });
   }, []);
 
   return hasAuth ? <>{children}</> : null;
