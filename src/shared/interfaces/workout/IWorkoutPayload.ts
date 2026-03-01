@@ -1,11 +1,10 @@
 import type { IExercise } from "../exercise/IExercise";
 
-export interface IWorkout {
+export interface IWorkoutPayload {
   id?: string;
   imageId?: string;
   imageUrl?: string;
   title: string;
-  exerciseCount: string;
   estimatedDuration?: number;
   exercises?: IExercise[];
 }

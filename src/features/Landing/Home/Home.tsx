@@ -35,15 +35,15 @@ export const Home = () => {
                   <div className="contacts p-3">
                     <h2 className="text-xl text-c-light-gray">Contacts</h2>
                     <div className="email flex items-center gap-x-2 py-1.5">
-                      <Envelope className="text-c-light-gray" size={6} />
+                      <Envelope className="text-c-light-gray size-6" />
                       <span className="text-sm text-c-light-gray font-thin">example@mail.com</span>
                     </div>
                     <div className="phone-number flex items-center gap-x-2 py-1.5">
-                      <Phone className="text-c-light-gray" size={6} />
+                      <Phone className="text-c-light-gray size-6" />
                       <span className="text-sm text-c-light-gray font-thin">+1 (212) 555-0847</span>
                     </div>
                     <div className="address flex items-center gap-x-2 py-1.5">
-                      <Location size={6} />
+                      <Location className="size-6" />
                       <span className="text-sm text-c-light-gray font-thin">
                         742 Evergreen Terrace, Springfield, IL 62704
                       </span>

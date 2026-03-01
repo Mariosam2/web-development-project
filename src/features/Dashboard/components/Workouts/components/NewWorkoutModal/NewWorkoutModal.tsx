@@ -3,14 +3,18 @@ import type { RootState } from "@src/store/store";
 import { useSelector } from "react-redux";
 import { NumberInput } from "@heroui/number-input";
 import { useAppDispatch } from "@src/store/hooks";
-import { setSelectedExercises, updateExercise } from "@src/store/slices/exerciseSlice";
-import { useAddWorkoutMutation } from "@src/store/api/workoutApi";
-import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
+import { setSelectedExercises } from "@src/store/slices/exerciseSlice";
+import {
+  useAddWorkoutMutation,
+  useGetWorkoutExercisesQuery,
+  useUpdateWorkoutMutation,
+} from "@src/store/api/workoutApi";
 import { useEffect, useState } from "react";
 import { capitalize, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import "./NewWorkoutModal.css";
 import { ImageDrop } from "@src/shared/components/ImageDrop/ImageDrop";
+import type { IExercise } from "@src/shared/interfaces/exercise/IExercise";
 
 interface NewWorkoutModalProps {
   action: "create" | "update";
@@ -20,14 +24,25 @@ interface NewWorkoutModalProps {
 
 export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModalProps) => {
   const MIN_DURATION = 18000;
+  const MAX_SIZE = 5 * 1024 * 1024;
   const dispatch = useAppDispatch();
   const { selectedExercises } = useSelector((state: RootState) => state.exercise);
   const { selectedWorkout } = useSelector((state: RootState) => state.workout);
-  const [addWorkout, { isLoading }] = useAddWorkoutMutation();
+  const [addWorkout, { isLoading: addWorkoutLoading }] = useAddWorkoutMutation();
+  const {
+    data: workoutExercises,
+    isLoading: isLoadingExercises,
+    isFetching: isFetchingExercises,
+  } = useGetWorkoutExercisesQuery({ workoutId: selectedWorkout?.id ?? "" }, { skip: !selectedWorkout?.id });
+  const [updateWorkout, { isLoading: updateWorkoutLoading }] = useUpdateWorkoutMutation();
   const [workoutTitle, setWorkoutTitle] = useState(selectedWorkout?.title ?? "");
   const [workoutTitleError, setWorkoutTitleError] = useState("");
   const [showLoading, setShowLoading] = useState(false);
-  const exercises = selectedExercises.length > 0 ? selectedExercises : (selectedWorkout?.exercises ?? []);
+  const [localExercises, setLocalExercises] = useState<IExercise[]>(
+    action === "create" ? (selectedExercises ?? []) : (workoutExercises?.data ?? []),
+  );
+  const [image, setImage] = useState<File | null>(null);
+  const isLoading = addWorkoutLoading || updateWorkoutLoading || isLoadingExercises || isFetchingExercises;
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -46,16 +61,49 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
     setWorkoutTitle(event.target.value);
   };
 
+  const onUpdateExercise = (exerciseId: string | undefined, field: string, value: number) => {
+    const updatedExercises = localExercises.map((exercise) =>
+      exercise.exerciseId === exerciseId ? { ...exercise, [field]: value } : exercise,
+    );
+    setLocalExercises(updatedExercises);
+  };
+
   const addWorkoutHandler = async () => {
     try {
       if (!workoutTitle) return setWorkoutTitleError("Workout title is required");
-      const newWorkout: IWorkout = {
-        title: workoutTitle,
-        estimatedDuration: Math.floor((calculateEstimatedDuration() ?? MIN_DURATION) / 60),
-        exercises: exercises,
-      };
-      await addWorkout(newWorkout).unwrap();
+
+      const formData = new FormData();
+      formData.append("title", workoutTitle);
+      formData.append("estimatedDuration", String(Math.floor((calculateEstimatedDuration() ?? MIN_DURATION) / 60)));
+      formData.append("exercises", JSON.stringify(localExercises));
+      if (image) {
+        formData.append("image", image);
+      }
+      await addWorkout(formData).unwrap();
       showToast("Success", "Workout created successfully", ToastType.SUCCESS);
+      onOpenChange(false);
+      setLocalExercises([]);
+      dispatch(setSelectedExercises([]));
+    } catch (err) {
+      console.error("error", err);
+    }
+  };
+
+  const updateWorkoutHandler = async () => {
+    try {
+      if (!workoutTitle) return setWorkoutTitleError("Workout title is required");
+      const formData = new FormData();
+      formData.append("workoutId", selectedWorkout?.id ?? "");
+      formData.append("imageId", selectedWorkout?.imageId ?? "");
+      formData.append("title", workoutTitle);
+      formData.append("estimatedDuration", String(Math.floor((calculateEstimatedDuration() ?? MIN_DURATION) / 60)));
+      formData.append("exercises", JSON.stringify(localExercises));
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await updateWorkout(formData).unwrap();
+      showToast("Success", "Workout updated successfully", ToastType.SUCCESS);
       onOpenChange(false);
       dispatch(setSelectedExercises([]));
     } catch (err) {
@@ -63,8 +111,16 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
     }
   };
 
+  const newWorkoutHandler = () => {
+    if (action === "create") {
+      addWorkoutHandler();
+    } else {
+      updateWorkoutHandler();
+    }
+  };
+
   const calculateEstimatedDuration = (): number => {
-    return exercises.reduce((total, exercise) => {
+    return localExercises.reduce((total, exercise) => {
       const sets = exercise.sets ?? 1;
       const reps = exercise.reps ?? 1;
       const secondsPerRep = 3;
@@ -73,8 +129,19 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       return total + sets * timePerSet;
     }, 0);
   };
-  const onUpdateExercise = (exerciseId: string | undefined, field: string, value: number) => {
-    dispatch(updateExercise({ exerciseId: exerciseId as string, field, value }));
+
+  const onImageSelect = (file: File | null) => {
+    if (!file) {
+      setImage(null);
+      return;
+    }
+
+    if (file.size > MAX_SIZE) {
+      showToast("Error", "Image must be under 5MB", ToastType.DANGER);
+      return;
+    }
+
+    setImage(file);
   };
 
   return (
@@ -106,9 +173,14 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
               />
               {workoutTitleError && <span className="text-red-500">{workoutTitleError}</span>}
             </div>
-            <ImageDrop onImageSelect={(file) => console.log(file)} />
+            <ImageDrop
+              onImageSelect={onImageSelect}
+              imageUrl={
+                selectedWorkout?.imageId ? import.meta.env.VITE_API_BASE_URL + selectedWorkout?.imageUrl : undefined
+              }
+            />
             <div className="h-60 overflow-y-auto">
-              {exercises.map((exercise) => (
+              {localExercises.map((exercise) => (
                 <div
                   key={exercise.exerciseId}
                   className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 items-center gap-x-3 border-b border-c-gray">
@@ -117,7 +189,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
 
                   <div className="max-w-1/3 flex items-center max-h-7 ms-auto pe-2.5 gap-x-3">
                     <NumberInput
-                      defaultValue={1}
+                      defaultValue={exercise.sets ?? 1}
                       minValue={1}
                       maxValue={100}
                       onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "sets", v)}
@@ -128,10 +200,10 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
                       variant={"faded"}
                     />
                     <NumberInput
-                      defaultValue={1}
+                      defaultValue={exercise.reps ?? 1}
                       minValue={1}
                       maxValue={100}
-                      onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "sets", v)}
+                      onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "reps", v)}
                       classNames={{
                         inputWrapper: "!ring-0 !ring-transparent !shadow-none group-data-[focus-visible=true]:!ring-0",
                       }}
@@ -147,17 +219,15 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
         <ModalFooter>
           <div className="flex items-center gap-x-3 pt-4">
             <button
-              disabled={isLoading || showLoading}
+              disabled={showLoading}
               className="btn-primary rounded-xl px-4 py-3"
               onClick={() => onOpenChange(false)}>
               Close
             </button>
             <button
-              className={`btn-secondary rounded-xl px-4 py-3 ${isLoading || showLoading ? "loading pe-12" : ""}`}
-              onClick={() => {
-                addWorkoutHandler();
-              }}>
-              {isLoading || showLoading ? "Loading..." : capitalize(action)}
+              className={`btn-secondary rounded-xl px-4 py-3 ${showLoading ? "loading pe-12" : ""}`}
+              onClick={newWorkoutHandler}>
+              {showLoading ? "Loading..." : capitalize(action)}
             </button>
           </div>
         </ModalFooter>

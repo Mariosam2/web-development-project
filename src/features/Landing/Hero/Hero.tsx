@@ -10,7 +10,7 @@ export const Hero = () => {
     console.log("open navbar");
   };
   return (
-    <section className="hero relative w-screen h-screen">
+    <section className="hero relative w-full h-screen">
       <div className="menu-button flex items-center absolute top-14 right-14 z-50 cursor-pointer" onClick={openNavbar}>
         <span className="text-uppercase text-c-light-gray text-xl">Menu</span>
         <img src={CrossSVG} className="ms-2 size-5" alt="cross-svg" />

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
-import { router } from "../../router";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { getErrorMessage, showToast } from "@src/shared/helpers";
 
@@ -45,12 +44,14 @@ const baseQueryAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryErro
         return baseQuery(args, api, extraOptions);
       }
       localStorage.removeItem("accessToken");
-      router.navigate("/login");
+      if (!url.includes("/auth/check-auth")) {
+        window.location.href = "/login";
+      }
 
       return result;
     }
 
-    const silentUrls = ["/auth/check-auth", "/auth/refresh-token"];
+    const silentUrls = ["/auth/check-auth", "/auth/refresh-token", "/auth/login", "/auth/register", "/auth/logout"];
     if (!silentUrls.some((u) => url.includes(u))) {
       const message = getErrorMessage(result.error);
       showToast("Something went wrong", message, ToastType.DANGER);

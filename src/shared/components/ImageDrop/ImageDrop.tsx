@@ -2,11 +2,12 @@ import { XIcon } from "@src/shared/ui/XIcon";
 import { useState, useRef, type DragEvent } from "react";
 
 interface ImageDropProps {
+  imageUrl?: string | undefined;
   onImageSelect: (file: File | null) => void;
 }
 
-export const ImageDrop = ({ onImageSelect }: ImageDropProps) => {
-  const [preview, setPreview] = useState<string | null>(null);
+export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
+  const [preview, setPreview] = useState<string | null>(imageUrl ? imageUrl : null);
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 

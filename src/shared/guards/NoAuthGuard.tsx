@@ -17,8 +17,11 @@ export const NoAuthGuard = ({ children }: AuthGuardProps) => {
         setHasAuth(true);
         navigate("/dashboard");
       })
-      .catch(() => setHasAuth(false));
+      .catch((err) => {
+        console.log("auth FAIL", err);
+        setHasAuth(false);
+      });
   }, []);
 
-  return !hasAuth ? <>{children}</> : null;
+  return hasAuth === false ? <>{children}</> : null;
 };

@@ -13,8 +13,18 @@ export const exerciseApi = apiSlice.injectEndpoints({
       query: (params) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/exercises`,
         method: "GET",
-        params,
+        params: Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== "")),
       }),
+      serializeQueryArgs: ({ endpointName }) => endpointName,
+      merge: (currentCache, newItems, { arg }) => {
+        if (!arg.after) {
+          return newItems;
+        }
+        // altrimenti → scroll infinito → appendi
+        currentCache.data.push(...newItems.data);
+        currentCache.meta = newItems.meta;
+      },
+      forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
       providesTags: ["Exercises"],
     }),
     getSingleExercise: builder.query<IApiResponse<IExerciseDetail>, { exerciseId: string }>({

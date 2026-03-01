@@ -1,9 +1,8 @@
 interface EnvelopeProps {
   className?: string;
-  size?: number;
 }
 
-export const Envelope = ({ className, size }: EnvelopeProps) => {
+export const Envelope = ({ className }: EnvelopeProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,8 +10,7 @@ export const Envelope = ({ className, size }: EnvelopeProps) => {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="#f6f6f6"
-      className={className}
-      style={{ width: `${(size ?? 6) * 0.25}rem`, height: `${(size ?? 6) * 0.25}rem` }}>
+      className={className}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -25,15 +25,15 @@ export const Activity = () => {
       <div className="container-xl flex flex-col">
         <div className="statistic grid grid-cols-6 grid-rows-6 gap-4 h-180">
           <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-            <Fire size={24} />
+            <Fire className="size-24" />
             <span className="text-lg font-semibold">6 days streak</span>
           </div>
           <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-            <Muscle size={24} />
+            <Muscle className="size-24" />
             <span className="text-lg font-semibold">12 workouts</span>
           </div>
           <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-            <Clock size={24} />
+            <Clock className="size-24" />
             <span className="text-lg font-semibold">32 hrs total</span>
           </div>
           <div className="calendar col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 ">

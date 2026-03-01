@@ -3,7 +3,7 @@ export interface IExerciseQuery {
   targetMuscles?: string;
   exerciseType?: string;
   bodyParts?: string;
-  limit?: string;
+  limit?: number;
   after?: string;
   before?: string;
 }

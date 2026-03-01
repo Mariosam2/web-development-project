@@ -1,16 +1,10 @@
 interface EyeOpenProps {
   className?: string;
-  size?: number;
 }
 
-export const EyeOpen = ({ className, size }: EyeOpenProps) => {
+export const EyeOpen = ({ className }: EyeOpenProps) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      style={{ width: `${(size ?? 6) * 0.25}rem`, height: `${(size ?? 6) * 0.25}rem` }}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
       <path
         fillRule="evenodd"

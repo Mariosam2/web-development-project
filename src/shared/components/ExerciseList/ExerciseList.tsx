@@ -14,24 +14,26 @@ interface ExerciseListProps {
 
 export const ExerciseList = ({ exercises, isLoading, sentinelRef, fetch }: ExerciseListProps) => {
   return (
-    <div className="grid grid-cols-2 gap-6 px-3">
-      {isLoading ? (
-        Array.from({ length: 6 }).map((_, i) => <ExerciseCardSkeleton key={i} />)
-      ) : exercises.length > 0 ? (
-        <>
-          {exercises.map((ex) => (
-            <ExerciseCard
-              key={ex.exerciseId}
-              {...(fetch
-                ? { exerciseId: ex.exerciseId as string }
-                : { exerciseId: ex.exerciseId as string, exerciseProp: ex as IExercise })}
-            />
-          ))}
-          {sentinelRef && <div ref={sentinelRef} />}
-        </>
-      ) : (
-        <EmptyList />
-      )}
+    <div className="container-xl mx-auto ">
+      <div className="grid grid-cols-2 gap-6 px-3">
+        {isLoading ? (
+          Array.from({ length: 8 }).map((_, i) => <ExerciseCardSkeleton key={i} />)
+        ) : exercises.length > 0 ? (
+          <>
+            {exercises.map((ex) => (
+              <ExerciseCard
+                key={ex.exerciseId}
+                {...(fetch
+                  ? { exerciseId: ex.exerciseId as string }
+                  : { exerciseId: ex.exerciseId as string, exerciseProp: ex as IExercise })}
+              />
+            ))}
+            {sentinelRef && <div ref={sentinelRef} />}
+          </>
+        ) : (
+          <EmptyList />
+        )}
+      </div>
     </div>
   );
 };

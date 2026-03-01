@@ -20,5 +20,5 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
       });
   }, []);
 
-  return hasAuth ? <>{children}</> : null;
+  return hasAuth === true ? <>{children}</> : null;
 };

@@ -1,8 +1,7 @@
 interface ClockProps {
   className?: string;
-  size?: number;
 }
-export const Clock = ({ className, size }: ClockProps) => {
+export const Clock = ({ className }: ClockProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,8 +13,7 @@ export const Clock = ({ className, size }: ClockProps) => {
       strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
-      style={{ width: `${(size ?? 6) * 0.25}rem`, height: `${(size ?? 6) * 0.25}rem` }}>
+      className={className}>
       <circle cx="12" cy="13" r="8" />
       <path d="M12 9v4l2 2" />
       <path d="M5 3 2 6" />

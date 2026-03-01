@@ -12,6 +12,7 @@ export const workoutApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Workouts"],
     }),
+
     getWorkoutExercises: builder.query<IApiResponse<IExercise[]>, { workoutId: string }>({
       query: ({ workoutId }) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/exercises/${workoutId}`,
@@ -20,19 +21,19 @@ export const workoutApi = apiSlice.injectEndpoints({
       providesTags: ["WorkoutExercises"],
     }),
 
-    addWorkout: builder.mutation<IApiResponse<IExercise[]>, IWorkout>({
-      query: (body) => ({
+    addWorkout: builder.mutation<IApiResponse<IExercise[]>, FormData>({
+      query: (formData) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/add-workout`,
         method: "POST",
-        body,
+        body: formData,
       }),
       invalidatesTags: ["Workouts", "WorkoutExercises"],
     }),
-    updateWorkout: builder.mutation<IApiResponse<IExercise[]>, IWorkout>({
-      query: (body) => ({
-        url: `${import.meta.env.VITE_API_PREFIX}/workouts/update-workout/${body.id}`,
+    updateWorkout: builder.mutation<IApiResponse<IExercise[]>, FormData>({
+      query: (formData) => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/update-workout/${formData.get("workoutId")}`,
         method: "PUT",
-        body,
+        body: formData,
       }),
       invalidatesTags: ["Workouts", "WorkoutExercises"],
     }),
@@ -51,6 +52,15 @@ export const workoutApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["WorkoutExercises"],
     }),
+
+    removeExercises: builder.mutation<IApiResponse<string[]>, { workoutId: string; exercisesIds: string[] }>({
+      query: (body) => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/remove-exercises`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["WorkoutExercises", "Workouts"],
+    }),
   }),
 });
 
@@ -61,4 +71,5 @@ export const {
   useUpdateWorkoutMutation,
   useDeleteWorkoutMutation,
   useImportExercisesMutation,
+  useRemoveExercisesMutation,
 } = workoutApi;

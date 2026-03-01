@@ -65,5 +65,6 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [{ index: true, element: <SignupForm /> }],
   },
+  { path: "/not-found", element: <NotFound /> },
   { path: "*", element: <NotFound /> },
 ]);

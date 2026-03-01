@@ -22,9 +22,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
         {workout?.title}
       </h2>
       <div className="badges flex items-center gap-x-2 justify-center">
-        <span className="exercises-num bg-c-gray text-xs rounded-4xl p-2 flex">
-          {workout?.exercises?.length ?? 0} exercises
-        </span>
+        <span className="exercises-num bg-c-gray text-xs rounded-4xl p-2 flex">{workout?.exerciseCount} exercises</span>
         <span className="time bg-c-gray text-xs rounded-2xl p-2 flex items-center gap-x-2">
           <img className="size-4" src={ClockSVG} alt="clock icon" />
           {workout?.estimatedDuration} min
@@ -33,7 +31,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
       <div className="preview rounded-4xl overflow-hidden p-1 bg-c-gray h-57 mt-auto">
         <img
           className="w-full block object-cover h-full rounded-4xl"
-          src={workout.exercises[0].imageUrl}
+          src={workout.imageId ? import.meta.env.VITE_API_BASE_URL + workout.imageUrl : workout.imageUrl}
           alt="workout preview"
         />
       </div>

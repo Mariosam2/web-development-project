@@ -1,9 +1,8 @@
 interface FireProps {
   className?: string;
-  size?: number;
 }
 
-export const Fire = ({ className, size }: FireProps) => {
+export const Fire = ({ className }: FireProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,8 +10,7 @@ export const Fire = ({ className, size }: FireProps) => {
       viewBox="0 0 24 24"
       strokeWidth={1}
       stroke="currentColor"
-      className={className}
-      style={{ width: `${(size ?? 6) * 0.25}rem`, height: `${(size ?? 6) * 0.25}rem` }}>
+      className={className}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
