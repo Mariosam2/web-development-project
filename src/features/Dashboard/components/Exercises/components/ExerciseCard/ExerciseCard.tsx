@@ -8,6 +8,8 @@ import { useAppDispatch } from "@src/store/hooks";
 import type { IExercise } from "@src/shared/interfaces/exercise/IExercise";
 import { ExerciseCardSkeleton } from "../ExerciseCardSkeleton/ExerciseCardSkeleton";
 import type { IExerciseDetail } from "@src/shared/interfaces/exerciseDb/IExerciseDetail";
+import type { RootState } from "@src/store/store";
+import { useSelector } from "react-redux";
 
 interface ExerciseCardProps extends ICardProps {
   exerciseId: string;
@@ -15,8 +17,10 @@ interface ExerciseCardProps extends ICardProps {
 }
 
 export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) => {
+  const MAX_SELECTABLE_EXERCISES = 20;
   const [showSkeleton, setShowSkeleton] = useState(true);
   const [isSelected, setIsSelected] = useState(false);
+  const { selectedExercises } = useSelector((state: RootState) => state.exercise);
   const { data, isLoading } = useGetSingleExerciseQuery({ exerciseId }, { skip: !!exerciseProp });
   const dispatch = useAppDispatch();
   const exercise = exerciseProp || data?.data;
@@ -28,6 +32,8 @@ export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) =>
   }, [isLoading]);
 
   const onSelectExercise = (isSelected: boolean) => {
+    if (selectedExercises.length >= MAX_SELECTABLE_EXERCISES && isSelected) return;
+
     setIsSelected(isSelected);
     if (exercise) {
       const selectedExercise = getSelectedExercise(exercise);
