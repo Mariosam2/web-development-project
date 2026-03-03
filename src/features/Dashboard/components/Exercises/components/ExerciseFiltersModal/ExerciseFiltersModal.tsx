@@ -5,10 +5,11 @@ import { FiltersIcon } from "@src/shared/ui/FiltersIcon";
 import { MultiSelect } from "@src/shared/ui/MultiSelect/MultiSelect";
 import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import type { Selection } from "@heroui/react";
-import { setBodyPartsSelected, setTargetMusclesSelected } from "@src/store/slices/exerciseSlice";
+import { setSelectedBodyParts, setSelectedTargetMuscles } from "@src/store/slices/exerciseSlice";
 import type { IExerciseQuery } from "@src/shared/interfaces/query/IExercisesQuery";
+import "./ExerciseFiltersModal.css";
 
-interface FiltersModalProps {
+interface ExerciseFiltersModalProps {
   bodyParts?: IBodyPart[];
   targetMuscles?: ITargetMuscle[];
   title: string;
@@ -16,27 +17,27 @@ interface FiltersModalProps {
   onOpenChange: (isOpen: boolean) => void;
   onConfirm: () => void;
 }
-export const FiltersModal = ({
+export const ExerciseFiltersModal = ({
   isOpen,
   onOpenChange,
   onConfirm,
   title,
   bodyParts,
   targetMuscles,
-}: FiltersModalProps) => {
+}: ExerciseFiltersModalProps) => {
   const dispatch = useAppDispatch();
   const { selectedBodyParts, selectedTargetMuscles } = useAppSelector((state) => state.exercise);
 
   const onItemsChange = (keys: Selection | "all", field: keyof IExerciseQuery) => {
     if (keys === "all") return;
     const selected = Array.from(keys) as string[];
-    if (field === "targetMuscles") dispatch(setTargetMusclesSelected(selected));
-    if (field === "bodyParts") dispatch(setBodyPartsSelected(selected));
+    if (field === "targetMuscles") dispatch(setSelectedTargetMuscles(selected));
+    if (field === "bodyParts") dispatch(setSelectedBodyParts(selected));
   };
 
   const onClearItems = (field: keyof IExerciseQuery) => {
-    if (field === "targetMuscles") dispatch(setTargetMusclesSelected([]));
-    if (field === "bodyParts") dispatch(setBodyPartsSelected([]));
+    if (field === "targetMuscles") dispatch(setSelectedTargetMuscles([]));
+    if (field === "bodyParts") dispatch(setSelectedBodyParts([]));
   };
 
   return (

@@ -3,6 +3,7 @@ import "./WorkoutCard.css";
 import type { ICardProps } from "@src/shared/interfaces/props/ICardProps";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 import { useNavigate } from "react-router";
+import { CompletedChip } from "../CompletedChip/CompletedChip";
 
 interface WorkoutCardProps extends ICardProps {
   workout: IWorkout;
@@ -10,6 +11,7 @@ interface WorkoutCardProps extends ICardProps {
 
 export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
   const navigate = useNavigate();
+
   const goToDetail = (workoutId: string) => {
     navigate(`/dashboard/workouts/${workoutId}`);
   };
@@ -27,6 +29,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
           <img className="size-4" src={ClockSVG} alt="clock icon" />
           {workout?.estimatedDuration} min
         </span>
+        <CompletedChip isCompleted={workout.completed} iconClassName="size-6" />
       </div>
       <div className="preview rounded-4xl overflow-hidden p-1 bg-c-gray h-57 mt-auto">
         <img

@@ -1,18 +1,17 @@
 import {
+  useCompleteWorkoutMutation,
   useDeleteWorkoutMutation,
+  useGetSingleWorkoutQuery,
   useGetWorkoutExercisesQuery,
-  useGetWorkoutsQuery,
   useRemoveExercisesMutation,
 } from "@src/store/api/workoutApi";
 import "./WorkoutDetail.css";
 import { useNavigate, useParams } from "react-router";
 import { useDisclosure } from "@heroui/modal";
 import { ExerciseList } from "../../../../../../shared/components/ExerciseList/ExerciseList";
-import { useSelector } from "react-redux";
-import type { RootState } from "@src/store/store";
 import { NewWorkoutModal } from "../NewWorkoutModal/NewWorkoutModal";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "@src/store/hooks";
+import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setSelectedWorkout } from "@src/store/slices/workoutSlice";
 import { Skeleton } from "@heroui/skeleton";
 import { GeneralModal } from "../../../../../../shared/components/GeneralModal/GeneralModal";
@@ -25,27 +24,34 @@ export const WorkoutDetail = () => {
   const { workoutId } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { selectedWorkout } = useAppSelector((state) => state.workout);
+  const { selectedExercises } = useAppSelector((state) => state.exercise);
   const [deleteWorkout, { isLoading: isDeletingWorkout }] = useDeleteWorkoutMutation();
-  const { selectedWorkout } = useSelector((state: RootState) => state.workout);
-  const { selectedExercises } = useSelector((state: RootState) => state.exercise);
-  const { data: workouts, isLoading: isLoadingWorkouts, isFetching: isFetchingWorkouts } = useGetWorkoutsQuery();
+  const [completeWorkout, { isLoading: isCompletingWorkout }] = useCompleteWorkoutMutation();
+  const [removeExercises, { isLoading: isRemovingExercises }] = useRemoveExercisesMutation();
+  const {
+    data: workoutData,
+    isLoading: isLoadingWorkout,
+    isFetching: isFetchingWorkout,
+  } = useGetSingleWorkoutQuery({ workoutId: workoutId as string }, { skip: !workoutId });
   const {
     data: workoutExercises,
     isLoading: isLoadingExercises,
     isFetching: isFetchingExercises,
   } = useGetWorkoutExercisesQuery({ workoutId: workoutId ?? "" }, { skip: !workoutId });
-  const [removeExercises, { isLoading: isRemovingExercises }] = useRemoveExercisesMutation();
+
   const updateWorkoutModal = useDisclosure();
   const deleteWorkoutModal = useDisclosure();
+  const completeWorkoutModal = useDisclosure();
   const removeSelectedExercisesModal = useDisclosure();
-  const workout = workouts?.data.find((workout) => workout.id === workoutId);
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const workout = workoutData?.data;
 
   useEffect(() => {
-    if (!isLoadingExercises && isLoadingWorkouts && !isFetchingExercises && !isFetchingWorkouts && !workout) {
+    if (!isLoadingExercises && isLoadingWorkout && !isFetchingExercises && !isFetchingWorkout && !workout) {
       navigate("/not-found");
     }
-  }, [workout, isLoadingExercises, isLoadingWorkouts, isFetchingExercises, isFetchingWorkouts, navigate]);
+  }, [workout, isLoadingExercises, isLoadingWorkout, isFetchingExercises, isFetchingWorkout, navigate]);
 
   useEffect(() => {
     if (!workout) return;
@@ -55,20 +61,19 @@ export const WorkoutDetail = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 
-    if (isFetchingExercises || isFetchingWorkouts || isLoadingExercises || isLoadingWorkouts) {
+    if (isFetchingExercises || isFetchingWorkout || isLoadingExercises || isLoadingWorkout) {
       timer = setTimeout(() => setShowSkeleton(true), 0);
     } else {
       timer = setTimeout(() => setShowSkeleton(false), 500);
     }
 
     return () => clearTimeout(timer);
-  }, [isFetchingExercises, isFetchingWorkouts, isLoadingExercises, isLoadingWorkouts]);
+  }, [isFetchingExercises, isFetchingWorkout, isLoadingExercises, isLoadingWorkout]);
 
   const deleteWorkoutHandler = async () => {
     try {
       await deleteWorkout({ workoutId: selectedWorkout?.id ?? "" }).unwrap();
       showToast("Success", "Workout created successfully", ToastType.SUCCESS);
-
       dispatch(setSelectedWorkout({} as IWorkout));
       navigate("/dashboard/workouts");
     } catch (err) {
@@ -82,11 +87,20 @@ export const WorkoutDetail = () => {
       const exercisesIds = selectedExercises.map((exercise) => exercise.id).filter((id): id is string => !!id);
       await removeExercises({ exercisesIds, workoutId: selectedWorkout?.id ?? "" }).unwrap();
       showToast("Success", "Exercises removed successfully", ToastType.SUCCESS);
-      removeSelectedExercisesModal.onClose();
     } catch (err) {
       console.error("error", err);
     }
     removeSelectedExercisesModal.onClose();
+  };
+
+  const completeWorkoutHandler = async () => {
+    try {
+      await completeWorkout({ workoutId: selectedWorkout?.id ?? "" }).unwrap();
+      showToast("Success", "Workout completed successfully", ToastType.SUCCESS);
+    } catch (err) {
+      console.error("error", err);
+    }
+    completeWorkoutModal.onClose();
   };
 
   return (
@@ -112,6 +126,12 @@ export const WorkoutDetail = () => {
             onClick={updateWorkoutModal.onOpen}>
             Update Workout
           </button>
+          <button
+            disabled={showSkeleton}
+            className="btn-outline rounded-2xl px-4 py-3 transition-all duration-300"
+            onClick={completeWorkoutModal.onOpen}>
+            Mark as Completed
+          </button>
 
           <button
             disabled={showSkeleton}
@@ -124,15 +144,27 @@ export const WorkoutDetail = () => {
       </div>
       <div className="pb-8">
         <ExerciseList exercises={workoutExercises?.data ?? []} isLoading={showSkeleton} fetch={false} />
-
-        {updateWorkoutModal.isOpen && (
-          <NewWorkoutModal
-            isOpen={updateWorkoutModal.isOpen}
-            onOpenChange={updateWorkoutModal.onOpenChange}
-            action="update"
-          />
-        )}
       </div>
+
+      {updateWorkoutModal.isOpen && (
+        <NewWorkoutModal
+          isOpen={updateWorkoutModal.isOpen}
+          onOpenChange={updateWorkoutModal.onOpenChange}
+          action="update"
+        />
+      )}
+
+      {completeWorkoutModal.isOpen && (
+        <GeneralModal
+          isOpen={completeWorkoutModal.isOpen}
+          onOpenChange={completeWorkoutModal.onOpenChange}
+          onConfirm={completeWorkoutHandler}
+          isLoading={isCompletingWorkout}
+          title="Complete Workout"
+          message="Are you sure you want to mark this workout as complete?"
+          action={ModalAction.COMPLETE}
+        />
+      )}
 
       {deleteWorkoutModal.isOpen && (
         <GeneralModal

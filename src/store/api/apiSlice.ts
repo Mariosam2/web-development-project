@@ -65,5 +65,13 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryAuth,
   endpoints: () => ({}),
-  tagTypes: ["Workouts", "WorkoutExercises", "Exercises", "BodyParts", "TargetMuscles", "ExerciseTypes"],
+  tagTypes: [
+    "Workouts",
+    "WorkoutExercises",
+    "Exercises",
+    "BodyParts",
+    "TargetMuscles",
+    "ExerciseTypes",
+    "SingleWorkout",
+  ],
 });

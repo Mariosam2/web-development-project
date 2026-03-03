@@ -1,26 +1,22 @@
 import { useGetExercisesQuery } from "@src/store/api/exerciseApi";
 import "./Exercises.css";
 import { useEffect, useRef, useState } from "react";
-import type { RootState } from "@src/store/store";
-import { useSelector } from "react-redux";
 import { useDisclosure } from "@heroui/modal";
 import { NewWorkoutModal } from "../Workouts/components/NewWorkoutModal/NewWorkoutModal";
 import { ExerciseList } from "../../../../shared/components/ExerciseList/ExerciseList";
-import {
-  setFiltering,
-  setSearching,
-  setSelectedExercises,
-  updateExerciseSearchParam,
-} from "@src/store/slices/exerciseSlice";
-import { useAppDispatch } from "@src/store/hooks";
+import { setSelectedExercises, updateExerciseSearchParam } from "@src/store/slices/exerciseSlice";
+import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { useInfiniteScroll } from "@src/shared/hooks/useInfiniteScroll";
 import { ExerciseCardSkeleton } from "./components/ExerciseCardSkeleton/ExerciseCardSkeleton";
+import { setFiltering, setSearching } from "@src/store/slices/searchSlice";
 
 export const Exercises = () => {
   const dispatch = useAppDispatch();
-  const { searchParams, searching, filtering } = useSelector((state: RootState) => state.exercise);
-  const { data, isLoading, isFetching } = useGetExercisesQuery({ ...searchParams, limit: 8 });
-  const { selectedExercises } = useSelector((state: RootState) => state.exercise);
+  const { searchParams } = useAppSelector((state) => state.exercise);
+  const { searching, filtering } = useAppSelector((state) => state.search);
+  const { data, isLoading, isFetching } = useGetExercisesQuery({ ...searchParams });
+
+  const { selectedExercises } = useAppSelector((state) => state.exercise);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const mountRef = useRef(true);
   const prevFetchingRef = useRef(false);
@@ -50,7 +46,8 @@ export const Exercises = () => {
     if (isFetching) {
       prevFetchingRef.current = true;
     }
-    if (!isFetching && prevFetchingRef.current && (searching || filtering)) {
+
+    if (!isFetching && prevFetchingRef.current) {
       const timer = setTimeout(() => {
         dispatch(setSearching(false));
         dispatch(setFiltering(false));
@@ -58,7 +55,7 @@ export const Exercises = () => {
       }, 250);
       return () => clearTimeout(timer);
     }
-  }, [isFetching, searching, filtering, dispatch]);
+  }, [isFetching, dispatch]);
 
   const deselectExercises = () => {
     dispatch(setSelectedExercises([]));

@@ -99,7 +99,8 @@
 }
 
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-outline {
   box-shadow: 1px 4px 4px 0 rgba(30, 30, 30, 0.1);
   cursor: pointer;
 }
@@ -141,6 +142,6 @@
 
 @keyframes spin {
   to {
-    rotate: 360deg; /* ← non tocca translate */
+    rotate: 360deg;
   }
 }

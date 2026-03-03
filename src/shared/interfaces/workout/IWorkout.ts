@@ -6,6 +6,7 @@ export interface IWorkout {
   imageUrl?: string;
   title: string;
   exerciseCount: string;
+  completed: boolean;
   estimatedDuration?: number;
   exercises?: IExercise[];
 }

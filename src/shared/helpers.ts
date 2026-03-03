@@ -29,3 +29,7 @@ export const getErrorMessage = (error: unknown): string => {
 
   return message;
 };
+
+export const isValid = (value: unknown) => {
+  return value !== null && value !== undefined && value !== 0 && value !== "";
+};

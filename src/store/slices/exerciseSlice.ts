@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IExercise } from "@src/shared/interfaces/exercise/IExercise";
 import type { IExerciseQuery } from "@src/shared/interfaces/query/IExercisesQuery";
-
+const EXERCISES_LIMIT = 8;
 interface ExerciseInitialState {
   selectedExercises: IExercise[];
   searchParams: IExerciseQuery;
@@ -13,7 +13,15 @@ interface ExerciseInitialState {
 
 const initialState: ExerciseInitialState = {
   selectedExercises: [],
-  searchParams: {},
+  searchParams: {
+    name: "",
+    targetMuscles: "",
+    exerciseType: "",
+    bodyParts: "",
+    limit: EXERCISES_LIMIT,
+    after: undefined,
+    before: undefined,
+  },
   selectedBodyParts: [],
   selectedTargetMuscles: [],
   searching: false,
@@ -46,39 +54,23 @@ const exerciseSlice = createSlice({
       const { field, value } = action.payload;
       state.searchParams = { ...state.searchParams, [field]: value };
     },
-    setSearching: (state, action: PayloadAction<boolean>) => {
-      state.searching = action.payload;
-    },
-    setFiltering: (state, action: PayloadAction<boolean>) => {
-      state.filtering = action.payload;
-    },
 
-    setBodyPartsSelected: (state, action: PayloadAction<string[]>) => {
+    setSelectedBodyParts: (state, action: PayloadAction<string[]>) => {
       state.selectedBodyParts = action.payload;
     },
-    setTargetMusclesSelected: (state, action: PayloadAction<string[]>) => {
+    setSelectedTargetMuscles: (state, action: PayloadAction<string[]>) => {
       state.selectedTargetMuscles = action.payload;
     },
-
-    /* updateExercise: (state, action: PayloadAction<{ exerciseId: string; field: string; value: number }>) => {
-      const { exerciseId, field, value } = action.payload;
-      const updatedExercises = state.selectedExercises.map((exercise) =>
-        exercise.exerciseId === exerciseId ? { ...exercise, [field]: value } : exercise,
-      );
-      state.selectedExercises = updatedExercises;
-    }, */
   },
 });
 
 export const {
   selectExercise,
   deselectExercise,
-  /* updateExercise, */ setSelectedExercises,
+  setSelectedExercises,
   setExerciseSearchParams,
   updateExerciseSearchParam,
-  setSearching,
-  setBodyPartsSelected,
-  setTargetMusclesSelected,
-  setFiltering,
+  setSelectedBodyParts,
+  setSelectedTargetMuscles,
 } = exerciseSlice.actions;
 export default exerciseSlice.reducer;
