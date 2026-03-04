@@ -19,8 +19,8 @@ const initialState: ExerciseInitialState = {
     exerciseType: "",
     bodyParts: "",
     limit: EXERCISES_LIMIT,
-    after: undefined,
-    before: undefined,
+    after: null,
+    before: null,
   },
   selectedBodyParts: [],
   selectedTargetMuscles: [],
@@ -49,7 +49,7 @@ const exerciseSlice = createSlice({
     },
     updateExerciseSearchParam: (
       state,
-      action: PayloadAction<{ field: keyof IExerciseQuery; value: string | number | undefined }>,
+      action: PayloadAction<{ field: keyof IExerciseQuery; value: string | number | null }>,
     ) => {
       const { field, value } = action.payload;
       state.searchParams = { ...state.searchParams, [field]: value };
@@ -60,6 +60,19 @@ const exerciseSlice = createSlice({
     },
     setSelectedTargetMuscles: (state, action: PayloadAction<string[]>) => {
       state.selectedTargetMuscles = action.payload;
+    },
+    resetExerciseFilters: (state) => {
+      state.searchParams = {
+        name: "",
+        targetMuscles: "",
+        exerciseType: "",
+        bodyParts: "",
+        limit: EXERCISES_LIMIT,
+        after: null,
+        before: null,
+      };
+      state.selectedBodyParts = [];
+      state.selectedTargetMuscles = [];
     },
   },
 });
@@ -72,5 +85,6 @@ export const {
   updateExerciseSearchParam,
   setSelectedBodyParts,
   setSelectedTargetMuscles,
+  resetExerciseFilters,
 } = exerciseSlice.actions;
 export default exerciseSlice.reducer;

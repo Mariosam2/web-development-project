@@ -1,9 +1,9 @@
 export interface IExerciseQuery {
-  name?: string;
-  targetMuscles?: string;
-  exerciseType?: string;
-  bodyParts?: string;
-  limit?: number;
-  after?: string;
-  before?: string;
+  name: string | null;
+  targetMuscles: string | null;
+  exerciseType: string | null;
+  bodyParts: string | null;
+  limit: number;
+  after: string | null;
+  before: string | null;
 }

@@ -1,6 +1,6 @@
 import { useGetExercisesQuery } from "@src/store/api/exerciseApi";
 import "./Exercises.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDisclosure } from "@heroui/modal";
 import { NewWorkoutModal } from "../Workouts/components/NewWorkoutModal/NewWorkoutModal";
 import { ExerciseList } from "../../../../shared/components/ExerciseList/ExerciseList";
@@ -18,40 +18,31 @@ export const Exercises = () => {
 
   const { selectedExercises } = useAppSelector((state) => state.exercise);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const mountRef = useRef(true);
-  const prevFetchingRef = useRef(false);
+
   const [showInitialSkeleton, setShowInitialSkeleton] = useState(true);
   const exercises = data?.data ?? [];
   const hasMore = data?.meta?.hasNextPage ?? false;
 
   const sentinelRef = useInfiniteScroll({
-    onLoadMore: () => dispatch(updateExerciseSearchParam({ field: "after", value: data?.meta?.nextCursor })),
+    onLoadMore: () => dispatch(updateExerciseSearchParam({ field: "after", value: data?.meta?.nextCursor ?? null })),
     hasMore,
     isLoading: isFetching,
   });
 
   useEffect(() => {
-    if (!mountRef.current) return;
-
-    if (!isFetching && !isLoading) {
+    if (!isLoading) {
       const timer = setTimeout(() => {
         setShowInitialSkeleton(false);
-        mountRef.current = false;
-      }, 500);
+      }, 250);
       return () => clearTimeout(timer);
     }
   }, [isFetching, isLoading]);
 
   useEffect(() => {
-    if (isFetching) {
-      prevFetchingRef.current = true;
-    }
-
-    if (!isFetching && prevFetchingRef.current) {
+    if (!isFetching) {
       const timer = setTimeout(() => {
         dispatch(setSearching(false));
         dispatch(setFiltering(false));
-        prevFetchingRef.current = false;
       }, 250);
       return () => clearTimeout(timer);
     }

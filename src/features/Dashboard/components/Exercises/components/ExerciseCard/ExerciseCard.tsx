@@ -1,6 +1,5 @@
 import type { ICardProps } from "@src/shared/interfaces/props/ICardProps";
 import { Checkbox } from "@heroui/checkbox";
-import { Camera } from "@src/shared/ui/Camera";
 import { useGetSingleExerciseQuery } from "@src/store/api/exerciseApi";
 import { deselectExercise, selectExercise } from "@src/store/slices/exerciseSlice";
 import { useAppDispatch } from "@src/store/hooks";
@@ -10,6 +9,8 @@ import type { IExerciseDetail } from "@src/shared/interfaces/exerciseDb/IExercis
 import type { RootState } from "@src/store/store";
 import { useSelector } from "react-redux";
 import { ExerciseCardSkeleton } from "../ExerciseCardSkeleton/ExerciseCardSkeleton";
+import { Tooltip } from "@heroui/react";
+import { Info } from "@src/shared/ui/Info";
 
 interface ExerciseCardProps extends ICardProps {
   exerciseId: string;
@@ -75,6 +76,8 @@ export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) =>
     return ex.description;
   };
 
+  const openExerciseDetailModal = () => {};
+
   if (isLoading || isFetching) return <ExerciseCardSkeleton />;
 
   return (
@@ -94,9 +97,11 @@ export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) =>
         </div>
         <p className="text-c-dark-gray text-sm mt-2.5 pe-10 line-clamp-4">{getExerciseDescription(exercise)}</p>
         <div className="actions flex flex-col gap-2.5 absolute right-4 bottom-4">
-          <a href={exercise?.videoUrl} target="_blank">
-            <Camera className="text-c-yellow bg-c-dark rounded-xl p-1.5 size-6 md:size-8" />
-          </a>
+          <Tooltip content="View More">
+            <button className="cursor-pointer" onClick={openExerciseDetailModal}>
+              <Info className="size-6 text-c-dark" />
+            </button>
+          </Tooltip>
         </div>
       </div>
       <Checkbox

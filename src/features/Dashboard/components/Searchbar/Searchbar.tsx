@@ -1,4 +1,4 @@
-import { useMatch } from "react-router";
+import { useLocation } from "react-router";
 import { MagnifyingGlass } from "../../../../shared/ui/MagnifyingGlass";
 import "./Searchbar.css";
 import { useEffect, useState } from "react";
@@ -33,8 +33,9 @@ export const Searchbar = () => {
   } = useAppSelector((state) => state.workout);
   const { data: bodyParts, isLoading: isBodyPartsLoading } = useGetBodyPartsQuery();
   const { data: targetMuscles, isLoading: isTargetMusclesLoading } = useGetTargetMusclesQuery();
-  const searchWorkouts = useMatch("/dashboard/workouts");
-  const searchExercises = useMatch("/dashboard/exercises");
+  const { pathname } = useLocation();
+  const searchWorkouts = pathname === "/dashboard/workouts" || pathname === "/dashboard";
+  const searchExercises = pathname === "/dashboard/exercises";
   const searchParams = searchWorkouts ? workoutsSearchParams : exercisesSearchParams;
 
   useEffect(() => {
@@ -69,6 +70,7 @@ export const Searchbar = () => {
   };
 
   const openFiltersModal = () => {
+    console.log("click filters", searchWorkouts, searchExercises);
     if (searchWorkouts) workoutFiltersModal.onOpen();
     if (searchExercises && !isBodyPartsLoading && !isTargetMusclesLoading) exerciseFiltersModal.onOpen();
   };
@@ -81,6 +83,7 @@ export const Searchbar = () => {
         startDate: workoutsSearchParams.startDate,
         endDate: workoutsSearchParams.endDate,
       };
+      console.log(oldParams, newParams);
       return JSON.stringify(newParams) !== JSON.stringify(oldParams);
     }
 
@@ -92,16 +95,24 @@ export const Searchbar = () => {
       bodyParts: exercisesSearchParams.bodyParts,
       targetMuscles: exercisesSearchParams.targetMuscles,
     };
-    console.log(oldParams, newParams);
     return JSON.stringify(newParams) !== JSON.stringify(oldParams);
   };
 
   const activeFiltersCount = <T extends IExerciseQuery | IWorkoutQuery>(searchParams: T) => {
+    const hasStartDate = "startDate" in searchParams && isValid(searchParams["startDate" as keyof T]);
+    const hasEndDate = "endDate" in searchParams && isValid(searchParams["endDate" as keyof T]);
+
     const activeFilters = Object.keys(searchParams).filter(
-      (key) => !EXCLUDE_KEYS_FROM_COUNT.includes(key) && isValid(searchParams[key as keyof T]),
+      (key) =>
+        !EXCLUDE_KEYS_FROM_COUNT.includes(key) &&
+        key !== "startDate" &&
+        key !== "endDate" &&
+        isValid(searchParams[key as keyof T]),
     );
 
-    return activeFilters.length;
+    if (hasStartDate || hasEndDate) {
+      return activeFilters.length + 1;
+    }
   };
 
   return (

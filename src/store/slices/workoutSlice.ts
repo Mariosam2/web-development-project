@@ -7,9 +7,9 @@ const WORKOUTS_LIMIT = 20;
 interface WorkoutInitialState {
   selectedWorkout: IWorkout;
   searchParams: IWorkoutQuery;
-  isCompleted: boolean | undefined;
-  startDate: string | undefined;
-  endDate: string | undefined;
+  isCompleted: boolean | null;
+  startDate: string | null;
+  endDate: string | null;
 }
 
 const initialState: WorkoutInitialState = {
@@ -17,13 +17,13 @@ const initialState: WorkoutInitialState = {
   searchParams: {
     limit: WORKOUTS_LIMIT,
     query: "",
-    isCompleted: undefined,
+    isCompleted: null,
     startDate: "",
     endDate: "",
   },
-  isCompleted: undefined,
-  startDate: undefined,
-  endDate: undefined,
+  isCompleted: null,
+  startDate: null,
+  endDate: null,
 };
 
 const workoutSlice = createSlice({
@@ -35,12 +35,12 @@ const workoutSlice = createSlice({
     },
     updateWorkoutSearchParam: (
       state,
-      action: PayloadAction<{ field: keyof IWorkoutQuery; value: string | number | boolean | undefined }>,
+      action: PayloadAction<{ field: keyof IWorkoutQuery; value: string | number | boolean | null }>,
     ) => {
       const { field, value } = action.payload;
       state.searchParams = { ...state.searchParams, [field]: value };
     },
-    setIsCompletedParam: (state, action: PayloadAction<boolean>) => {
+    setIsCompletedParam: (state, action: PayloadAction<boolean | null>) => {
       state.isCompleted = action.payload;
     },
     setStartDate: (state, action: PayloadAction<string>) => {
@@ -53,13 +53,13 @@ const workoutSlice = createSlice({
       state.searchParams = {
         limit: WORKOUTS_LIMIT,
         query: "",
-        isCompleted: undefined,
+        isCompleted: null,
         startDate: "",
         endDate: "",
       };
-      state.isCompleted = undefined;
-      state.startDate = undefined;
-      state.endDate = undefined;
+      state.isCompleted = null;
+      state.startDate = null;
+      state.endDate = null;
     },
   },
 });

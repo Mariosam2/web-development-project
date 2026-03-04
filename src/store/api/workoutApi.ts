@@ -11,8 +11,9 @@ export const workoutApi = apiSlice.injectEndpoints({
       query: (params) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts`,
         method: "GET",
-        params: Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== "")),
+        params: Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined && v !== "" && v !== null)),
       }),
+      forceRefetch: () => true,
       providesTags: ["Workouts"],
     }),
     getSingleWorkout: builder.query<IApiResponse<IWorkout>, { workoutId: string }>({

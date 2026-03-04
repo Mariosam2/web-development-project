@@ -34,7 +34,9 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
     isLoading: isLoadingExercises,
     isFetching: isFetchingExercises,
   } = useGetWorkoutExercisesQuery({ workoutId: selectedWorkout?.id ?? "" }, { skip: !selectedWorkout?.id });
-  const [updateWorkout, { isLoading: updateWorkoutLoading }] = useUpdateWorkoutMutation();
+  const [updateWorkout, { isLoading: updateWorkoutLoading }] = useUpdateWorkoutMutation({
+    fixedCacheKey: "update-workout",
+  });
   const [workoutTitle, setWorkoutTitle] = useState(selectedWorkout?.title ?? "");
   const [workoutTitleError, setWorkoutTitleError] = useState("");
   const [showLoading, setShowLoading] = useState(false);

@@ -8,6 +8,7 @@ import { CompletedChip } from "../CompletedChip/CompletedChip";
 import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { resetWorkoutFilters, setEndDate, setIsCompletedParam, setStartDate } from "@src/store/slices/workoutSlice";
 import { parseDate } from "@internationalized/date";
+import { useEffect } from "react";
 
 interface WorkoutFiltersModalProps {
   bodyParts?: IBodyPart[];
@@ -23,8 +24,22 @@ export const WorkoutFiltersModal = ({ isOpen, onOpenChange, onConfirm, title }: 
 
   const rangeDate = startDate && endDate ? { start: parseDate(startDate), end: parseDate(endDate) } : null;
 
+  useEffect(() => {
+    console.log(isCompleted);
+  }, [isCompleted]);
+
   const onCompletedChange = () => {
-    dispatch(setIsCompletedParam(!isCompleted));
+    switch (isCompleted) {
+      case null:
+        dispatch(setIsCompletedParam(true));
+        break;
+      case true:
+        dispatch(setIsCompletedParam(false));
+        break;
+      case false:
+        dispatch(setIsCompletedParam(null));
+        break;
+    }
   };
 
   const onChangeRangeDate = (value: RangeValue<DateValue>) => {
