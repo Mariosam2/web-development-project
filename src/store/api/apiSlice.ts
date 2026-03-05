@@ -73,5 +73,6 @@ export const apiSlice = createApi({
     "TargetMuscles",
     "ExerciseTypes",
     "SingleWorkout",
+    "Activity",
   ],
 });

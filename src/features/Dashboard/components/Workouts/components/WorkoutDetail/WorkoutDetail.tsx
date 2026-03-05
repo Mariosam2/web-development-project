@@ -20,6 +20,7 @@ import { showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { ModalAction } from "@src/shared/enums/ModalActions.enum";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
+import { CompletedChip } from "../CompletedChip/CompletedChip";
 
 export const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -111,7 +112,7 @@ export const WorkoutDetail = () => {
             <Skeleton className=" w-full h-full rounded-lg" />
           )}
         </div>
-        <div className="actions h-12 self-start flex items-center gap-x-3">
+        <div className="actions h-12 self-start flex items-center gap-x-3 w-full px-3">
           <button
             disabled={showSkeleton}
             className="btn-secondary rounded-2xl px-4 py-3 transition-all duration-300"
@@ -140,6 +141,11 @@ export const WorkoutDetail = () => {
             onClick={removeSelectedExercisesModal.onOpen}>
             Remove Selected Exercises
           </button>
+          <CompletedChip
+            isCompleted={workout?.completed ?? null}
+            className="ms-auto me-4 py-1.5 px-4  "
+            iconClassName="size-8"
+          />
         </div>
       </div>
       <div className="pb-8">

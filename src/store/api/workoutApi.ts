@@ -77,7 +77,7 @@ export const workoutApi = apiSlice.injectEndpoints({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/complete-workout/${params.workoutId}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["SingleWorkout", "Workouts"],
+      invalidatesTags: ["SingleWorkout", "Workouts", "Activity"],
     }),
   }),
 });

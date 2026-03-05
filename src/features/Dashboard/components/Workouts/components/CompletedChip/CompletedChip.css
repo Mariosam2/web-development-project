@@ -1,0 +1,4 @@
+.completed-chip span:first-child {
+  max-height: unset !important;
+  height: auto !important;
+}

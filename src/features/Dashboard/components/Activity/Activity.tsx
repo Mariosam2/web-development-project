@@ -3,8 +3,14 @@ import { Fire } from "../../../../shared/ui/Fire";
 import { Muscle } from "../../../../shared/ui/Muscle";
 import { RangeCalendar } from "@heroui/calendar";
 import "./Activity.css";
+import { useGetCompletedWorkoutsQuery, useGetStatisticsQuery } from "@src/store/api/activityApi";
 
 export const Activity = () => {
+  const { data: completedWorkouts, isLoading: isCompletedWorkoutsLoading } = useGetCompletedWorkoutsQuery();
+  const { data: statistics, isLoading: isStatisticsLoading } = useGetStatisticsQuery();
+
+  console.log(completedWorkouts, statistics);
+
   const workouts = [1, 1, 5, 8, 1, 1, 6];
   const getPastWeekDays = (): { date: Date; label: string }[] => {
     const today = new Date();
