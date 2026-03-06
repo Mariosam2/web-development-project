@@ -16,11 +16,12 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setSelectedWorkout } from "@src/store/slices/workoutSlice";
 import { Skeleton } from "@heroui/skeleton";
 import { GeneralModal } from "../../../../../../shared/components/GeneralModal/GeneralModal";
-import { showToast } from "@src/shared/helpers";
+import { calculateEstimatedDuration, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { ModalAction } from "@src/shared/enums/ModalActions.enum";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 import { CompletedChip } from "../CompletedChip/CompletedChip";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -36,6 +37,7 @@ export const WorkoutDetail = () => {
     data: workoutData,
     isLoading: isLoadingWorkout,
     isFetching: isFetchingWorkout,
+    isError: workoutError,
   } = useGetSingleWorkoutQuery({ workoutId: workoutId as string }, { skip: !workoutId });
   const {
     data: workoutExercises,
@@ -50,13 +52,22 @@ export const WorkoutDetail = () => {
   const workout = workoutData?.data;
 
   useEffect(() => {
-    if (!isLoadingExercises && isLoadingWorkout && !workout) {
+    if (isLoadingWorkout || isFetchingWorkout) return;
+
+    const status = (workoutError as unknown as FetchBaseQueryError)?.status;
+    if (typeof status === "number" && status === 404) {
+      navigate("/not-found");
+      return;
+    }
+
+    if (!workoutError && !workout) {
       navigate("/not-found");
     }
-  }, [workout, isLoadingExercises, isLoadingWorkout, navigate]);
+  }, [workout, isLoadingWorkout, isFetchingWorkout, workoutError, navigate]);
 
   useEffect(() => {
     if (!workout) return;
+    console.log("SELECT WORKOUT", workout);
     dispatch(setSelectedWorkout(workout));
   }, [workout, dispatch]);
 
@@ -84,7 +95,12 @@ export const WorkoutDetail = () => {
   const removeSelectedExercisesHandler = async () => {
     try {
       const exercisesIds = selectedExercises.map((exercise) => exercise.id).filter((id): id is string => !!id);
-      await removeExercises({ exercisesIds, workoutId: selectedWorkout?.id ?? "" }).unwrap();
+      const newExercises = workoutExercises?.data.filter((exercise) => !exercisesIds.includes(exercise.id ?? ""));
+      await removeExercises({
+        exercisesIds,
+        workoutId: selectedWorkout?.id ?? "",
+        updatedDuration: Math.floor(calculateEstimatedDuration(newExercises ?? []) / 60),
+      }).unwrap();
       showToast("Success", "Exercises removed successfully", ToastType.SUCCESS);
     } catch (err) {
       console.error("error", err);
@@ -141,11 +157,15 @@ export const WorkoutDetail = () => {
             onClick={removeSelectedExercisesModal.onOpen}>
             Remove Selected Exercises
           </button>
-          <CompletedChip
-            isCompleted={workout?.completed ?? null}
-            className="ms-auto me-4 py-1.5 px-4  "
-            iconClassName="size-8"
-          />
+          {showSkeleton ? (
+            <Skeleton className="ms-auto me-4 h-9 w-28 rounded-full" />
+          ) : (
+            <CompletedChip
+              isCompleted={workout?.completed ?? null}
+              className="ms-auto me-4 py-1.5 px-4"
+              iconClassName="size-8"
+            />
+          )}
         </div>
       </div>
       <div className="pb-8">

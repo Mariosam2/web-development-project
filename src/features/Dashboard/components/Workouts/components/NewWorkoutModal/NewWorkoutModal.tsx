@@ -10,7 +10,7 @@ import {
   useUpdateWorkoutMutation,
 } from "@src/store/api/workoutApi";
 import { useEffect, useState } from "react";
-import { capitalize, showToast } from "@src/shared/helpers";
+import { calculateEstimatedDuration, capitalize, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import "./NewWorkoutModal.css";
 import { ImageDrop } from "@src/shared/components/ImageDrop/ImageDrop";
@@ -40,11 +40,14 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
   const [workoutTitle, setWorkoutTitle] = useState(selectedWorkout?.title ?? "");
   const [workoutTitleError, setWorkoutTitleError] = useState("");
   const [showLoading, setShowLoading] = useState(false);
+  const [imageRemoved, setImageRemoved] = useState(false);
   const [localExercises, setLocalExercises] = useState<IExercise[]>(
     action === "create" ? (selectedExercises ?? []) : (workoutExercises?.data ?? []),
   );
   const [image, setImage] = useState<File | null>(null);
   const isLoading = addWorkoutLoading || updateWorkoutLoading || isLoadingExercises || isFetchingExercises;
+
+  console.log("SELECTED WORKOUT", selectedWorkout);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -76,7 +79,10 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
 
       const formData = new FormData();
       formData.append("title", workoutTitle);
-      formData.append("estimatedDuration", String(Math.floor((calculateEstimatedDuration() ?? MIN_DURATION) / 60)));
+      formData.append(
+        "estimatedDuration",
+        String(Math.floor((calculateEstimatedDuration(localExercises) ?? MIN_DURATION) / 60)),
+      );
       formData.append("exercises", JSON.stringify(localExercises));
       if (image) {
         formData.append("image", image);
@@ -98,7 +104,11 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       formData.append("workoutId", selectedWorkout?.id ?? "");
       formData.append("imageId", selectedWorkout?.imageId ?? "");
       formData.append("title", workoutTitle);
-      formData.append("estimatedDuration", String(Math.floor((calculateEstimatedDuration() ?? MIN_DURATION) / 60)));
+      formData.append(
+        "estimatedDuration",
+        String(Math.floor((calculateEstimatedDuration(localExercises) ?? MIN_DURATION) / 60)),
+      );
+      formData.append("imageRemoved", String(imageRemoved));
       formData.append("exercises", JSON.stringify(localExercises));
       if (image) {
         formData.append("image", image);
@@ -121,28 +131,14 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
     }
   };
 
-  const calculateEstimatedDuration = (): number => {
-    return localExercises.reduce((total, exercise) => {
-      const sets = exercise.sets ?? 1;
-      const reps = exercise.reps ?? 1;
-      const secondsPerRep = 3;
-      const restBetweenSets = 60;
-      const timePerSet = reps * secondsPerRep + restBetweenSets;
-      return total + sets * timePerSet;
-    }, 0);
-  };
-
-  const onImageSelect = (file: File | null) => {
-    if (!file) {
-      setImage(null);
-      return;
-    }
-
-    if (file.size > MAX_SIZE) {
+  const onImageSelect = (file: File | null, imageRemoved: boolean) => {
+    if (file !== null && file.size > MAX_SIZE) {
       showToast("Error", "Image must be under 5MB", ToastType.DANGER);
       return;
     }
 
+    console.log("Image Removed", imageRemoved);
+    setImageRemoved(imageRemoved);
     setImage(file);
   };
 
@@ -175,6 +171,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
               />
               {workoutTitleError && <span className="text-red-500">{workoutTitleError}</span>}
             </div>
+
             <ImageDrop
               onImageSelect={onImageSelect}
               imageUrl={

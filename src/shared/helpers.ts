@@ -1,5 +1,6 @@
 import { addToast } from "@heroui/toast";
 import { ToastType } from "./enums/ToastType.enum";
+import type { IExercise } from "./interfaces/exercise/IExercise";
 
 export const showToast = (title: string, message: string, color: ToastType = ToastType.SUCCESS) => {
   addToast({
@@ -32,4 +33,24 @@ export const getErrorMessage = (error: unknown): string => {
 
 export const isValid = (value: unknown) => {
   return value !== null && value !== undefined && value !== 0 && value !== "";
+};
+
+export const calculateEstimatedDuration = (exercises: IExercise[]): number => {
+  return exercises.reduce((total, exercise) => {
+    const sets = exercise.sets ?? 1;
+    const reps = exercise.reps ?? 1;
+    const secondsPerRep = 3;
+    const restBetweenSets = 60;
+    const timePerSet = reps * secondsPerRep + restBetweenSets;
+    return total + sets * timePerSet;
+  }, 0);
+};
+
+export const formatDuration = (duration: number | undefined) => {
+  if (!duration) return "n.d.";
+  if (duration < 60) return `${duration} min`;
+
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+  return `${hours}h ${minutes}min`;
 };

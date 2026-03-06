@@ -38,7 +38,7 @@ export const workoutApi = apiSlice.injectEndpoints({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Workouts", "WorkoutExercises"],
+      invalidatesTags: ["Workouts", "WorkoutExercises", "Activity"],
     }),
     updateWorkout: builder.mutation<IApiResponse<IMutation>, FormData>({
       query: (formData) => ({
@@ -46,14 +46,14 @@ export const workoutApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: formData,
       }),
-      invalidatesTags: ["Workouts", "WorkoutExercises"],
+      invalidatesTags: ["Workouts", "SingleWorkout", "WorkoutExercises", "Activity"],
     }),
     deleteWorkout: builder.mutation<IApiResponse<IMutation>, { workoutId: string }>({
       query: ({ workoutId }) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/delete-workout/${workoutId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Workouts", "WorkoutExercises"],
+      invalidatesTags: ["Workouts", "WorkoutExercises", "Activity"],
     }),
 
     importExercises: builder.mutation<IApiResponse<IMutation>, { workoutId: string }>({
@@ -61,16 +61,19 @@ export const workoutApi = apiSlice.injectEndpoints({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/delete-workout/${workoutId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["WorkoutExercises"],
+      invalidatesTags: ["WorkoutExercises", "Workouts", "Activity", "SingleWorkout"],
     }),
 
-    removeExercises: builder.mutation<IApiResponse<IMutation>, { workoutId: string; exercisesIds: string[] }>({
+    removeExercises: builder.mutation<
+      IApiResponse<IMutation>,
+      { workoutId: string; exercisesIds: string[]; updatedDuration: number | null }
+    >({
       query: (body) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/remove-exercises`,
         method: "POST",
         body,
       }),
-      invalidatesTags: ["WorkoutExercises", "Workouts"],
+      invalidatesTags: ["WorkoutExercises", "Workouts", "Activity", "SingleWorkout"],
     }),
     completeWorkout: builder.mutation<IApiResponse<IMutation>, { workoutId: string }>({
       query: (params) => ({

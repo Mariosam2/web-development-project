@@ -3,7 +3,7 @@ import { useState, useRef, type DragEvent } from "react";
 
 interface ImageDropProps {
   imageUrl?: string | undefined;
-  onImageSelect: (file: File | null) => void;
+  onImageSelect: (file: File | null, imageRemoved: boolean) => void;
 }
 
 export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
@@ -14,13 +14,13 @@ export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
   const handleFile = (file: File) => {
     if (!file.type.startsWith("image/")) return;
     setPreview(URL.createObjectURL(file));
-    onImageSelect(file);
+    onImageSelect(file, false);
   };
 
   const removeImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setPreview(null);
-    onImageSelect(null);
+    onImageSelect(null, true);
     if (inputRef.current) inputRef.current.value = "";
   };
 

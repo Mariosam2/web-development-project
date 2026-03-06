@@ -31,6 +31,7 @@ const workoutSlice = createSlice({
   initialState,
   reducers: {
     setSelectedWorkout: (state, action: PayloadAction<IWorkout>) => {
+      console.log("ACTION PAYLOAD", action.payload);
       state.selectedWorkout = action.payload;
     },
     updateWorkoutSearchParam: (

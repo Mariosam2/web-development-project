@@ -105,6 +105,8 @@ export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) =>
         </div>
       </div>
       <Checkbox
+        onClick={(e) => e.stopPropagation()}
+        onValueChange={(checked) => onSelectExercise(checked)}
         className="absolute top-3 right-3"
         classNames={{
           wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic",

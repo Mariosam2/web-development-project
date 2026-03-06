@@ -4,6 +4,7 @@ import type { ICardProps } from "@src/shared/interfaces/props/ICardProps";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 import { useNavigate } from "react-router";
 import { CompletedChip } from "../CompletedChip/CompletedChip";
+import { formatDuration } from "@src/shared/helpers";
 
 interface WorkoutCardProps extends ICardProps {
   workout: IWorkout;
@@ -27,7 +28,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
         <span className="exercises-num bg-c-gray text-xs rounded-4xl p-2 flex">{workout?.exerciseCount} exercises</span>
         <span className="time bg-c-gray text-xs rounded-2xl p-2 flex items-center gap-x-2">
           <img className="size-4" src={ClockSVG} alt="clock icon" />
-          {workout?.estimatedDuration} min
+          {formatDuration(workout?.estimatedDuration)}
         </span>
         <CompletedChip isCompleted={workout.completed} iconClassName="size-6" />
       </div>
