@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ForgotPassword.css";
 import { useForgotPasswordMutation } from "@src/store/api/authApi";
 import { NavLink } from "react-router";
@@ -7,17 +7,38 @@ import LogoIcon from "@assets/logo-icon.svg";
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const [showLoading, setShowLoading] = useState(false);
+  const [emailError, setEmailError] = useState<string | undefined>(undefined);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
     try {
+      setEmailError("");
       await forgotPassword({ email }).unwrap();
       setEmail("");
     } catch (err) {
       console.error(err);
     }
   };
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (isLoading) {
+      timer = setTimeout(() => setShowLoading(true), 0);
+    } else if (!isLoading) {
+      timer = setTimeout(() => setShowLoading(false), 500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isLoading]);
 
   return (
     <div className="reset-page">
@@ -31,22 +52,29 @@ export const ForgotPassword = () => {
         <form onSubmit={handleSubmit} className="reset-form">
           <div className="reset-field">
             <label className="reset-label">Email</label>
-            <div className="input-wrapper bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl relative">
+            <div
+              className={`input-wrapper bg-c-light-gray border w-full c-shadow-md text-c-dark text-base rounded-xl relative ${emailError ? "border-red-500" : "border-c-dark-gray"}`}>
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError(undefined);
+                }}
                 placeholder="example@mail.com"
-                className="focus:outline-none  p-3 w-full"
-                required
+                className="focus:outline-none p-3 w-full"
               />
             </div>
+            <span
+              className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${emailError ? "opacity-100" : "opacity-0"}`}>
+              {emailError ?? "\u00A0"}
+            </span>
           </div>
 
           <button
             type="submit"
-            disabled={isLoading}
-            className={`btn-secondary reset-submit ${isLoading ? "loading" : ""}`}>
+            disabled={showLoading}
+            className={`btn-secondary reset-submit ${showLoading ? "loading" : ""}`}>
             Send reset link
           </button>
           <div className="reset-divider">

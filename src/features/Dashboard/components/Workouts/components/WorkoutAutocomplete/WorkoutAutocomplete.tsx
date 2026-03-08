@@ -2,6 +2,7 @@ import { Autocomplete, AutocompleteItem } from "@heroui/react";
 import { useGetWorkoutsQuery } from "@src/store/api/workoutApi";
 import { WORKOUTS_LIMIT } from "@src/store/slices/workoutSlice";
 import { useState } from "react";
+import "./WorkoutAutocomplete.css";
 
 interface WorkoutAutocompleteProps {
   onSelect: (workoutId: string) => void;
@@ -45,7 +46,10 @@ export const WorkoutAutocomplete = ({ onSelect, error }: WorkoutAutocompleteProp
           <AutocompleteItem key={workout.id}>{workout.title}</AutocompleteItem>
         ))}
       </Autocomplete>
-      {error && <span className="text-red-500 text-xs">{error}</span>}
+      <span
+        className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${error ? "opacity-100" : "opacity-0"}`}>
+        {error ?? "\u00A0"}
+      </span>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./Contacts.css";
 import * as L from "leaflet";
+import { ContactForm } from "./components/ContactForm/ContactForm";
 export const Contacts = () => {
   const mapRef = useRef<L.Map | null>(null);
 
@@ -21,35 +22,7 @@ export const Contacts = () => {
   return (
     <div className="contacts container-xl bg-dark grid grid-cols-2 pb-48">
       <div id="map" className="rounded-2xl"></div>
-
-      <form id="contact-form" className="p-12 px-24">
-        <h1 className="font-gibed text-3xl text-c-yellow mb-8">Contact Us</h1>
-        <div className="form-group">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-c-dark-gray">
-            Email
-          </label>
-          <input
-            type="text"
-            id="email"
-            className="bg-c-light-gray border w-full border-c-dark-gray text-c-dark text-base rounded-xl p-3 focus:outline-none"
-            placeholder="example@mail.com"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-c-dark-gray">
-            Message
-          </label>
-          <textarea
-            rows={5}
-            className="bg-c-light-gray border w-full border-c-dark-gray text-c-dark text-base rounded-xl p-3 focus:outline-none"
-            name="message"
-            placeholder="Your message here"
-            id="message"></textarea>
-        </div>
-        <button className="submit text-lg btn-secondary mt-8 rounded-3xl py-1 w-30">Send</button>
-      </form>
+      <ContactForm />
     </div>
   );
 };

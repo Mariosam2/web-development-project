@@ -9,19 +9,34 @@ import { useResetPasswordMutation } from "@src/store/api/authApi";
 import { InputPassword } from "@src/shared/components/InputPassword/InputPassword";
 import { showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
+import { useEffect, useState } from "react";
 
 export const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get("token");
-  const [resetPassword] = useResetPasswordMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [showLoading, setShowLoading] = useState(false);
   const {
     register,
     handleSubmit,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<ResetPasswordForm>({
     resolver: zodResolver(ResetPasswordSchema),
   });
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (isLoading || isSubmitting) {
+      timer = setTimeout(() => setShowLoading(true), 0);
+    } else if (!isLoading && !isSubmitting) {
+      timer = setTimeout(() => setShowLoading(false), 500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isLoading, isSubmitting]);
 
   const onSubmit = async (data: ResetPasswordForm) => {
     try {
@@ -48,21 +63,27 @@ export const ResetPassword = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
           <div className="reset-field">
-            <InputPassword inputname="password" {...register("password")} error={errors.password} />
+            <InputPassword
+              inputname="password"
+              {...register("password")}
+              onChange={() => clearErrors("password")}
+              error={errors.password}
+            />
           </div>
 
           <div className="reset-field">
             <InputPassword
               inputname="confirmPassword"
               {...register("confirmPassword")}
+              onChange={() => clearErrors("confirmPassword")}
               error={errors.confirmPassword}
             />
           </div>
 
           <button
             type="submit"
-            disabled={isSubmitting}
-            className={`btn-secondary reset-submit ${isSubmitting ? "loading" : ""}`}>
+            disabled={showLoading}
+            className={`btn-secondary reset-submit ${showLoading ? "loading" : ""}`}>
             Reset Password
           </button>
         </form>

@@ -159,7 +159,10 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
                 className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${workoutTitleError ? "border-red-500" : ""}`}
                 placeholder="My workout #1"
               />
-              {workoutTitleError && <span className="text-red-500">{workoutTitleError}</span>}
+              <span
+                className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${workoutTitleError ? "opacity-100" : "opacity-0"}`}>
+                {workoutTitleError ?? "\u00A0"}
+              </span>
             </div>
 
             <ImageDrop onImageSelect={onImageSelect} imageUrl={selectedWorkout?.imageUrl} />

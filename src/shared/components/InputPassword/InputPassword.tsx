@@ -25,7 +25,7 @@ interface InputPasswordProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({ error, ...rest }, ref) => {
+export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({ error, onChange, ...rest }, ref) => {
   const [closed, setClosed] = useState(true);
   const type = closed ? "password" : "text";
 
@@ -36,10 +36,20 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({
       </label>
       <div
         className={`input-wrapper bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl relative ${error ? "border-red-500" : ""} `}>
-        <input type={type} id={rest.inputname} className=" focus:outline-none  p-3 w-full" ref={ref} {...rest} />
+        <input
+          type={type}
+          id={rest.inputname}
+          onChange={onChange}
+          className=" focus:outline-none  p-3 w-full"
+          ref={ref}
+          {...rest}
+        />
         <ShowEye closed={closed} className="absolute top-3 right-3 size-6" onClick={() => setClosed(!closed)} />
       </div>
-      {error && <span className="text-red-500">{error.message}</span>}
+      <span
+        className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${error ? "opacity-100" : "opacity-0"}`}>
+        {error?.message ?? "\u00A0"}
+      </span>
     </div>
   );
 });
