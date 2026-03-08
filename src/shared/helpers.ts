@@ -2,6 +2,8 @@ import { addToast } from "@heroui/toast";
 import { ToastType } from "./enums/ToastType.enum";
 import type { IExercise } from "./interfaces/exercise/IExercise";
 
+export const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+
 export const showToast = (title: string, message: string, color: ToastType = ToastType.SUCCESS) => {
   addToast({
     title,

@@ -1,6 +1,6 @@
 import { XIcon } from "@src/shared/ui/XIcon";
 import { useState, useRef, type DragEvent } from "react";
-
+import "./ImageDrop.css";
 interface ImageDropProps {
   imageUrl?: string | undefined;
   onImageSelect: (file: File | null, imageRemoved: boolean) => void;
@@ -27,7 +27,7 @@ export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
   const onDrop = (e: DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files[0];
+    const file = e.dataTransfer?.files[0];
     if (file) handleFile(file);
   };
 
@@ -50,10 +50,7 @@ export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
         type="file"
         accept="image/*"
         className="hidden"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) handleFile(file);
-        }}
+        onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
       />
       {preview ? (
         <>

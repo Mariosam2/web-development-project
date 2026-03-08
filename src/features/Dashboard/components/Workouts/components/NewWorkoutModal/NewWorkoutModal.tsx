@@ -10,7 +10,7 @@ import {
   useUpdateWorkoutMutation,
 } from "@src/store/api/workoutApi";
 import { useEffect, useState } from "react";
-import { calculateEstimatedDuration, capitalize, showToast } from "@src/shared/helpers";
+import { calculateEstimatedDuration, capitalize, MAX_IMAGE_SIZE, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import "./NewWorkoutModal.css";
 import { ImageDrop } from "@src/shared/components/ImageDrop/ImageDrop";
@@ -24,7 +24,6 @@ interface NewWorkoutModalProps {
 
 export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModalProps) => {
   const MIN_DURATION = 18000;
-  const MAX_SIZE = 5 * 1024 * 1024;
   const dispatch = useAppDispatch();
   const { selectedExercises } = useSelector((state: RootState) => state.exercise);
   const { selectedWorkout } = useSelector((state: RootState) => state.workout);
@@ -88,8 +87,8 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
         formData.append("image", image);
       }
       await addWorkout(formData).unwrap();
-      showToast("Success", "Workout created successfully", ToastType.SUCCESS);
       onOpenChange(false);
+      showToast("Success", "Workout created successfully", ToastType.SUCCESS);
       setLocalExercises([]);
       dispatch(setSelectedExercises([]));
     } catch (err) {
@@ -115,8 +114,8 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       }
 
       await updateWorkout(formData).unwrap();
-      showToast("Success", "Workout updated successfully", ToastType.SUCCESS);
       onOpenChange(false);
+      showToast("Success", "Workout updated successfully", ToastType.SUCCESS);
       dispatch(setSelectedExercises([]));
     } catch (err) {
       console.error("error", err);
@@ -132,12 +131,11 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
   };
 
   const onImageSelect = (file: File | null, imageRemoved: boolean) => {
-    if (file !== null && file.size > MAX_SIZE) {
+    if (file !== null && file.size > MAX_IMAGE_SIZE) {
       showToast("Error", "Image must be under 5MB", ToastType.DANGER);
       return;
     }
 
-    console.log("Image Removed", imageRemoved);
     setImageRemoved(imageRemoved);
     setImage(file);
   };

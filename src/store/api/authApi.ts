@@ -10,10 +10,10 @@ import type { IApiResponse } from "@src/shared/interfaces/api/IApiResponse";
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<{ accessToken: string }, z.infer<typeof LoginSchema>>({
-      query: (loginPayload) => ({
+      query: (payload) => ({
         url: "/auth/login",
         method: "POST",
-        body: loginPayload,
+        body: payload,
       }),
       async onQueryStarted(_, { queryFulfilled }) {
         try {
@@ -29,10 +29,10 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     register: builder.mutation<{ accessToken: string }, z.infer<typeof RegisterSchema>>({
-      query: (registerPayload) => ({
+      query: (payload) => ({
         url: "/auth/register",
         method: "POST",
-        body: registerPayload,
+        body: payload,
       }),
       async onQueryStarted(_, { queryFulfilled }) {
         try {
@@ -48,10 +48,10 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     checkAuth: builder.mutation<IApiResponse<void>, void>({
-      query: (registerPayload) => ({
+      query: (payload) => ({
         url: "/auth/check-auth",
         method: "GET",
-        body: registerPayload,
+        body: payload,
       }),
     }),
 
