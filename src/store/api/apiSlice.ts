@@ -44,14 +44,31 @@ const baseQueryAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryErro
         return baseQuery(args, api, extraOptions);
       }
       localStorage.removeItem("accessToken");
-      if (!url.includes("/auth/check-auth")) {
+
+      const noRedirectUrls = [
+        "/auth/check-auth",
+        "/auth/login",
+        "/auth/register",
+        "/auth/forgot-password",
+        "/auth/reset-password",
+      ];
+
+      if (!noRedirectUrls.some((u) => url.includes(u))) {
         window.location.href = "/login";
       }
 
       return result;
     }
 
-    const silentUrls = ["/auth/check-auth", "/auth/refresh-token", "/auth/login", "/auth/register", "/auth/logout"];
+    const silentUrls = [
+      "/auth/check-auth",
+      "/auth/forgot-password",
+      "/auth/reset-password",
+      "/auth/refresh-token",
+      "/auth/login",
+      "/auth/register",
+      "/auth/logout",
+    ];
     if (!silentUrls.some((u) => url.includes(u))) {
       const message = getErrorMessage(result.error);
       showToast("Something went wrong", message, ToastType.DANGER);

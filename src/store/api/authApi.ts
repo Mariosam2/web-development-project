@@ -86,6 +86,38 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    forgotPassword: builder.mutation<IApiResponse<void>, { email: string }>({
+      query: (body) => ({
+        url: "/auth/forgot-password",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          showToast("Email Sent", "Please check your inbox", ToastType.SUCCESS);
+        } catch (error) {
+          const message = getErrorMessage(error);
+          showToast("Error while sending email", message, ToastType.DANGER);
+        }
+      },
+    }),
+    resetPassword: builder.mutation<IApiResponse<void>, { token: string; password: string }>({
+      query: (body) => ({
+        url: "/auth/reset-password",
+        method: "PATCH",
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          showToast("Password Reset", "Your password was reset successfully", ToastType.SUCCESS);
+        } catch (error) {
+          const message = getErrorMessage(error);
+          showToast("Error while resetting your password", message, ToastType.DANGER);
+        }
+      },
+    }),
   }),
 });
 
@@ -95,4 +127,6 @@ export const {
   useRefreshTokenMutation,
   useLogoutMutation,
   useCheckAuthMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApi;

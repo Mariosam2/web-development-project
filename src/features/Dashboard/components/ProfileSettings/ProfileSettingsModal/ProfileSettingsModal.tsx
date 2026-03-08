@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { ProfileSettingsForm } from "@src/shared/types";
 import { ProfileSettingsSchema } from "@src/shared/schema/ProfileSettingsSchema";
 import { useGetProfileQuery, useUpdateProfileMutation } from "@src/store/api/profileApi";
+import { useForgotPasswordMutation } from "@src/store/api/authApi";
 
 interface ProfileSettingsModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface ProfileSettingsModalProps {
 export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsModalProps) => {
   const { data: profile } = useGetProfileQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+  const [forgotPassword] = useForgotPasswordMutation();
   const [avatar, setAvatar] = useState<File | null>(null);
   const [imageRemoved, setImageRemoved] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
@@ -88,6 +90,11 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
     }
   };
 
+  const sendResetPasswordEmail = () => {
+    if (!profile?.data.email) return;
+    forgotPassword({ email: profile?.data.email });
+  };
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xs" backdrop="opaque">
       <ModalContent>
@@ -147,7 +154,11 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                   {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}
                 </div>
               </form>
-              <button className="text-sm text-c-dark-gray underline text-left">Send password reset email</button>
+              <button
+                onClick={sendResetPasswordEmail}
+                className="text-sm text-c-dark-gray underline text-left cursor-pointer">
+                Send password reset email
+              </button>
             </ModalBody>
 
             <ModalFooter>

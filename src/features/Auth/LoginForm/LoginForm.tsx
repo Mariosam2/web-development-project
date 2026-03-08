@@ -3,8 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { useLoginMutation } from "@src/store/api/authApi";
-import { InputPassword } from "@src/shared/ui/InputPassword";
+import { InputPassword } from "@src/shared/components/InputPassword/InputPassword";
 import "./LoginForm.css";
+import { NavLink } from "react-router";
 
 const LoginSchema = z.object({
   identifier: z.string().min(1, "Email or username is required"),
@@ -29,12 +30,16 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginForm) => {
-    const isEmail = data.identifier.includes("@");
-    const payload = isEmail
-      ? { email: data.identifier, password: data.password }
-      : { username: data.identifier, password: data.password };
+    try {
+      const isEmail = data.identifier.includes("@");
+      const payload = isEmail
+        ? { email: data.identifier, password: data.password }
+        : { username: data.identifier, password: data.password };
 
-    await login(payload);
+      await login(payload).unwrap();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -53,6 +58,11 @@ export const LoginForm = () => {
         {errors.identifier && <span className="text-red-500">{errors.identifier.message}</span>}
       </div>
       <InputPassword inputname="password" {...register("password")} error={errors.password} />
+      <NavLink
+        to="/forgot-password"
+        className="text-sm text-c-dark-gray underline text-left inline-block cursor-pointer mt-1.5">
+        Forgot Password
+      </NavLink>
       <button
         type="submit"
         className={`btn-secondary w-full mt-12 rounded-2xl px-4 py-3 ${isLoading ? "loading" : ""}`}>

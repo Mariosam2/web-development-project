@@ -1,4 +1,4 @@
-import { InputPassword } from "@src/shared/ui/InputPassword";
+import { InputPassword } from "@src/shared/components/InputPassword/InputPassword";
 import "./SignupForm.css";
 import { useRegisterMutation } from "@src/store/api/authApi";
 import { RegisterSchema } from "@src/shared/schema/RegisterSchema";
@@ -13,7 +13,6 @@ export const SignupForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<RegisterForm>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -27,8 +26,11 @@ export const SignupForm = () => {
   });
 
   const onSubmit = async (data: RegisterForm) => {
-    reset();
-    await signup(data);
+    try {
+      await signup(data).unwrap();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

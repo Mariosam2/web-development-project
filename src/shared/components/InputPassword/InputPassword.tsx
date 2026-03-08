@@ -1,9 +1,10 @@
 import { useState, type ReactElement } from "react";
-import { EyeClosed } from "./EyeClosed";
-import { EyeOpen } from "./EyeOpen";
-import { capitalize } from "../helpers";
+import { EyeClosed } from "../../ui/EyeClosed";
+import { EyeOpen } from "../../ui/EyeOpen";
+import { capitalize } from "../../helpers";
 import { forwardRef } from "react";
 import type { FieldError } from "react-hook-form";
+import "./InputPassword.css";
 
 interface ShowEyeProps {
   closed: boolean;
