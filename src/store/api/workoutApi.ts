@@ -4,6 +4,8 @@ import type { IExercise } from "../../shared/interfaces/exercise/IExercise";
 import type { IWorkout } from "../../shared/interfaces/workout/IWorkout";
 import { apiSlice } from "./apiSlice";
 import type { IWorkoutQuery } from "@src/shared/interfaces/query/IWorkoutQuery";
+import type { IRemoveExercises } from "@src/shared/interfaces/workout/IRemoveExercises";
+import type { IImportExercises } from "@src/shared/interfaces/workout/IImportExercises";
 
 export const workoutApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -56,18 +58,16 @@ export const workoutApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Workouts", "WorkoutExercises", "Activity"],
     }),
 
-    importExercises: builder.mutation<IApiResponse<IMutation>, { workoutId: string }>({
-      query: ({ workoutId }) => ({
-        url: `${import.meta.env.VITE_API_PREFIX}/workouts/delete-workout/${workoutId}`,
-        method: "DELETE",
+    importExercises: builder.mutation<IApiResponse<IMutation>, IImportExercises>({
+      query: (body) => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/import-exercises`,
+        method: "POST",
+        body,
       }),
       invalidatesTags: ["WorkoutExercises", "Workouts", "Activity", "SingleWorkout"],
     }),
 
-    removeExercises: builder.mutation<
-      IApiResponse<IMutation>,
-      { workoutId: string; exercisesIds: string[]; updatedDuration: number | null }
-    >({
+    removeExercises: builder.mutation<IApiResponse<IMutation>, IRemoveExercises>({
       query: (body) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/remove-exercises`,
         method: "POST",

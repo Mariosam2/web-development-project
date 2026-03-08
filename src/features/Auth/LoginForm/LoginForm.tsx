@@ -6,6 +6,7 @@ import { useLoginMutation } from "@src/store/api/authApi";
 import { InputPassword } from "@src/shared/components/InputPassword/InputPassword";
 import "./LoginForm.css";
 import { NavLink } from "react-router";
+import { GoogleButton } from "@src/shared/components/GoogleButton/GoogleButton";
 
 const LoginSchema = z.object({
   identifier: z.string().min(1, "Email or username is required"),
@@ -68,6 +69,10 @@ export const LoginForm = () => {
         className={`btn-secondary w-full mt-12 rounded-2xl px-4 py-3 ${isLoading ? "loading" : ""}`}>
         Sign In
       </button>
+      <div className="auth-divider">
+        <span>or</span>
+      </div>
+      <GoogleButton />
     </form>
   );
 };

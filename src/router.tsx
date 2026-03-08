@@ -12,6 +12,7 @@ import { NotFound } from "./shared/ui/NotFound/NotFound";
 import { WorkoutDetail } from "./features/Dashboard/components/Workouts/components/WorkoutDetail/WorkoutDetail";
 import { ResetPassword } from "./features/Auth/ResetPassword/ResetPassword";
 import { ForgotPassword } from "./features/Auth/ForgotPassword/ForgotPassword";
+import { AuthCallback } from "./features/Auth/AuthCallback/AuthCallback";
 
 const Dashboard = lazy(() => import("./features/Dashboard/Dashboard"));
 
@@ -67,6 +68,7 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [{ index: true, element: <SignupForm /> }],
   },
+  { path: "/auth/callback", element: <AuthCallback /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/reset-password", element: <ResetPassword /> },
   { path: "/not-found", element: <NotFound /> },

@@ -2,16 +2,25 @@ import RobotSVG from "@assets/robot.svg";
 import BoltSVG from "@assets/bolt.svg";
 import ProfileSVG from "@assets/profile.svg";
 import LogoutSVG from "@assets/logout.svg";
-import AvatarPNG from "@assets/avatar.png";
 import "./Sidebar.css";
 import { useLogoutMutation } from "@src/store/api/authApi";
 import { NavLink } from "react-router";
 import { ProfileSettingsModal } from "../ProfileSettings/ProfileSettingsModal/ProfileSettingsModal";
 import { useDisclosure } from "@heroui/react";
+import { useGetProfileQuery } from "@src/store/api/profileApi";
+import { UserLevel } from "@src/shared/enums/UserLevel.enum";
 
 export const Sidebar = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { data: profile } = useGetProfileQuery();
+  const fallbaAvatarUrl = `https://ui-avatars.com/api/?name=${profile?.data.firstname + " " + profile?.data.lastname}&background=f3ff96&color=1e1e1e`;
+
+  const levelColor = {
+    [UserLevel.BEGINNER]: "#4ade80", // green
+    [UserLevel.INTERMEDIATE]: "#f3ff96", // yellow
+    [UserLevel.ADVANCED]: "#f97316", // orange
+  };
   const handleLogout = () => {
     logout();
   };
@@ -19,11 +28,21 @@ export const Sidebar = () => {
   return (
     <>
       <aside className="sidebar col-span-2 bg-c-dark h-screen flex flex-col">
-        <div className="avatar py-6 ps-8 flex items-center">
-          <img className="w-32 aspect-square" src={AvatarPNG} alt="avatar" />
-          <div className="user-info p-3 space-y-1.5">
-            <div className="username text-2xl text-c-light-gray font-semibold">Mariosam</div>
-            <div className="level text-c-yellow">Intermediate</div>
+        <div className="avatar py-6 ps-12 flex items-center">
+          <img
+            className="w-20 aspect-square rounded-full border border-c-dark-gray"
+            src={profile?.data.imageUrl ?? fallbaAvatarUrl}
+            alt="avatar"
+          />
+          <div className="user-info p-3">
+            <div className="username text-lg text-c-light-gray font-semibold">{profile?.data.username}</div>
+            {profile?.data.level && (
+              <div
+                className="level mt-1.5 tracking-wide uppercase text-sm "
+                style={{ color: levelColor[profile?.data.level] ?? "#f3ff96" }}>
+                {profile?.data.level}
+              </div>
+            )}
           </div>
         </div>
 

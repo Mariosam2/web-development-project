@@ -16,12 +16,13 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setSelectedWorkout } from "@src/store/slices/workoutSlice";
 import { Skeleton } from "@heroui/skeleton";
 import { GeneralModal } from "../../../../../../shared/components/GeneralModal/GeneralModal";
-import { calculateEstimatedDuration, showToast } from "@src/shared/helpers";
+import { showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { ModalAction } from "@src/shared/enums/ModalActions.enum";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 import { CompletedChip } from "../CompletedChip/CompletedChip";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { setSelectedExercises } from "@src/store/slices/exerciseSlice";
 
 export const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -95,13 +96,12 @@ export const WorkoutDetail = () => {
   const removeSelectedExercisesHandler = async () => {
     try {
       const exercisesIds = selectedExercises.map((exercise) => exercise.id).filter((id): id is string => !!id);
-      const newExercises = workoutExercises?.data.filter((exercise) => !exercisesIds.includes(exercise.id ?? ""));
       await removeExercises({
         exercisesIds,
         workoutId: selectedWorkout?.id ?? "",
-        updatedDuration: Math.floor(calculateEstimatedDuration(newExercises ?? []) / 60),
       }).unwrap();
       showToast("Success", "Exercises removed successfully", ToastType.SUCCESS);
+      dispatch(setSelectedExercises([]));
     } catch (err) {
       console.error("error", err);
     }

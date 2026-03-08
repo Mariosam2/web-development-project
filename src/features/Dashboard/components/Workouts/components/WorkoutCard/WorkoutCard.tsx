@@ -33,11 +33,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
         <CompletedChip isCompleted={workout.completed} iconClassName="size-6" />
       </div>
       <div className="preview rounded-4xl overflow-hidden p-1 bg-c-gray h-57 mt-auto">
-        <img
-          className="w-full block object-cover h-full rounded-4xl"
-          src={workout.imageId ? import.meta.env.VITE_API_BASE_URL + workout.imageUrl : workout.imageUrl}
-          alt="workout preview"
-        />
+        <img className="w-full block object-cover h-full rounded-4xl" src={workout.imageUrl} alt="workout preview" />
       </div>
     </div>
   );

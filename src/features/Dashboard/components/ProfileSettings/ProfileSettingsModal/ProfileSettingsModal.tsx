@@ -104,12 +104,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
             <ModalBody>
               <form id="profile-form" className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex ps-4 mb-2.5">
-                  <AvatarImageDrop
-                    onImageSelect={onImageSelect}
-                    imageUrl={
-                      profile?.data.imageId ? import.meta.env.VITE_API_BASE_URL + profile?.data.imageUrl : undefined
-                    }
-                  />
+                  <AvatarImageDrop onImageSelect={onImageSelect} imageUrl={profile?.data.imageUrl} />
                 </div>
 
                 <div className="flex gap-4">

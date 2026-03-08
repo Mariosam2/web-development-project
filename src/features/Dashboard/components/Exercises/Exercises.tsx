@@ -9,6 +9,9 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { useInfiniteScroll } from "@src/shared/hooks/useInfiniteScroll";
 import { ExerciseCardSkeleton } from "./components/ExerciseCardSkeleton/ExerciseCardSkeleton";
 import { setFiltering, setSearching } from "@src/store/slices/searchSlice";
+import { useGetWorkoutsQuery } from "@src/store/api/workoutApi";
+import { WORKOUTS_LIMIT } from "@src/store/slices/workoutSlice";
+import { ImportExercisesModal } from "../Workouts/components/ImportExercisesModal/ImportExercisesModal";
 
 export const Exercises = () => {
   const dispatch = useAppDispatch();
@@ -16,8 +19,18 @@ export const Exercises = () => {
   const { searching, filtering } = useAppSelector((state) => state.search);
   const { data, isLoading, isFetching } = useGetExercisesQuery({ ...searchParams });
 
+  const workoutSearchParams = {
+    limit: WORKOUTS_LIMIT,
+    query: "",
+    isCompleted: null,
+    startDate: "",
+    endDate: "",
+  };
+  const { data: workouts } = useGetWorkoutsQuery({ ...workoutSearchParams });
+
   const { selectedExercises } = useAppSelector((state) => state.exercise);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const newWorkoutModal = useDisclosure();
+  const importExercisesModal = useDisclosure();
 
   const [showInitialSkeleton, setShowInitialSkeleton] = useState(true);
   const exercises = data?.data ?? [];
@@ -56,6 +69,12 @@ export const Exercises = () => {
     <>
       <div className="h-12 flex items-center justify-end mb-2.5  absolute left-0 right-0 top-48 container-xl mx-auto px-3 gap-x-3">
         <button
+          className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
+          ${selectedExercises.length > 0 && (workouts?.data.length ?? 0) > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
+          onClick={importExercisesModal.onOpen}>
+          Import to existing Workout
+        </button>
+        <button
           className={`btn-secondary rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
           onClick={deselectExercises}>
@@ -64,7 +83,7 @@ export const Exercises = () => {
         <button
           className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-          onClick={onOpen}>
+          onClick={newWorkoutModal.onOpen}>
           Create Workout
         </button>
       </div>
@@ -82,7 +101,15 @@ export const Exercises = () => {
         </div>
       )}
 
-      {isOpen && <NewWorkoutModal isOpen={isOpen} onOpenChange={onOpenChange} action="create" />}
+      {newWorkoutModal.isOpen && (
+        <NewWorkoutModal isOpen={newWorkoutModal.isOpen} onOpenChange={newWorkoutModal.onOpenChange} action="create" />
+      )}
+
+      <ImportExercisesModal
+        isOpen={importExercisesModal.isOpen}
+        onOpenChange={importExercisesModal.onOpenChange}
+        action="create"
+      />
     </>
   );
 };

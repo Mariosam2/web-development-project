@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IWorkoutQuery } from "@src/shared/interfaces/query/IWorkoutQuery";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 
-const WORKOUTS_LIMIT = 20;
+export const WORKOUTS_LIMIT = 20;
 
 interface WorkoutInitialState {
   selectedWorkout: IWorkout;

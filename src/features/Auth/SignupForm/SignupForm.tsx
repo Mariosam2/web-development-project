@@ -5,6 +5,7 @@ import { RegisterSchema } from "@src/shared/schema/RegisterSchema";
 import type { RegisterForm } from "@src/shared/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GoogleButton } from "@src/shared/components/GoogleButton/GoogleButton";
 
 export const SignupForm = () => {
   const [signup, { isLoading }] = useRegisterMutation();
@@ -105,6 +106,10 @@ export const SignupForm = () => {
           className={`btn-secondary w-full mt-12 rounded-2xl px-4 py-3 ${isLoading || isSubmitting ? "loading" : ""}`}>
           Sign Up
         </button>
+        <div className="auth-divider">
+          <span>or</span>
+        </div>
+        <GoogleButton />
       </form>
     </>
   );

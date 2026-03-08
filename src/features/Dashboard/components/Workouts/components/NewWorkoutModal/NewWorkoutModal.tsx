@@ -1,8 +1,6 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
-import type { RootState } from "@src/store/store";
-import { useSelector } from "react-redux";
 import { NumberInput } from "@heroui/number-input";
-import { useAppDispatch } from "@src/store/hooks";
+import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setSelectedExercises } from "@src/store/slices/exerciseSlice";
 import {
   useAddWorkoutMutation,
@@ -10,7 +8,7 @@ import {
   useUpdateWorkoutMutation,
 } from "@src/store/api/workoutApi";
 import { useEffect, useState } from "react";
-import { calculateEstimatedDuration, capitalize, MAX_IMAGE_SIZE, showToast } from "@src/shared/helpers";
+import { capitalize, MAX_IMAGE_SIZE, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import "./NewWorkoutModal.css";
 import { ImageDrop } from "@src/shared/components/ImageDrop/ImageDrop";
@@ -23,10 +21,9 @@ interface NewWorkoutModalProps {
 }
 
 export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModalProps) => {
-  const MIN_DURATION = 18000;
   const dispatch = useAppDispatch();
-  const { selectedExercises } = useSelector((state: RootState) => state.exercise);
-  const { selectedWorkout } = useSelector((state: RootState) => state.workout);
+  const { selectedExercises } = useAppSelector((state) => state.exercise);
+  const { selectedWorkout } = useAppSelector((state) => state.workout);
   const [addWorkout, { isLoading: addWorkoutLoading }] = useAddWorkoutMutation();
   const {
     data: workoutExercises,
@@ -78,10 +75,6 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
 
       const formData = new FormData();
       formData.append("title", workoutTitle);
-      formData.append(
-        "estimatedDuration",
-        String(Math.floor((calculateEstimatedDuration(localExercises) ?? MIN_DURATION) / 60)),
-      );
       formData.append("exercises", JSON.stringify(localExercises));
       if (image) {
         formData.append("image", image);
@@ -101,16 +94,15 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       if (!workoutTitle) return setWorkoutTitleError("Workout title is required");
       const formData = new FormData();
       formData.append("workoutId", selectedWorkout?.id ?? "");
-      formData.append("imageId", selectedWorkout?.imageId ?? "");
       formData.append("title", workoutTitle);
-      formData.append(
-        "estimatedDuration",
-        String(Math.floor((calculateEstimatedDuration(localExercises) ?? MIN_DURATION) / 60)),
-      );
       formData.append("imageRemoved", String(imageRemoved));
       formData.append("exercises", JSON.stringify(localExercises));
       if (image) {
         formData.append("image", image);
+      }
+
+      if (selectedWorkout?.imageId) {
+        formData.append("imageId", selectedWorkout.imageId);
       }
 
       await updateWorkout(formData).unwrap();
@@ -170,12 +162,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
               {workoutTitleError && <span className="text-red-500">{workoutTitleError}</span>}
             </div>
 
-            <ImageDrop
-              onImageSelect={onImageSelect}
-              imageUrl={
-                selectedWorkout?.imageId ? import.meta.env.VITE_API_BASE_URL + selectedWorkout?.imageUrl : undefined
-              }
-            />
+            <ImageDrop onImageSelect={onImageSelect} imageUrl={selectedWorkout?.imageUrl} />
             <div className="h-60 overflow-y-auto">
               {localExercises.map((exercise) => (
                 <div

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ForgotPassword.css";
 import { useForgotPasswordMutation } from "@src/store/api/authApi";
 import { NavLink } from "react-router";
+import LogoIcon from "@assets/logo-icon.svg";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -21,20 +22,25 @@ export const ForgotPassword = () => {
   return (
     <div className="reset-page">
       <div className="reset-card">
+        <div className="reset-logo max-w-max rounded-2xl mx-auto">
+          <img id="logo-icon" className="max-w-full h-auto" width={60} height={60} src={LogoIcon} alt="logo icon" />
+        </div>
         <h1 className="reset-title">Forgot password</h1>
         <p className="reset-subtitle">Enter your email and we'll send you a reset link.</p>
 
         <form onSubmit={handleSubmit} className="reset-form">
           <div className="reset-field">
             <label className="reset-label">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@mail.com"
-              className="reset-input"
-              required
-            />
+            <div className="input-wrapper bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@mail.com"
+                className="focus:outline-none  p-3 w-full"
+                required
+              />
+            </div>
           </div>
 
           <button
