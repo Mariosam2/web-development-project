@@ -112,7 +112,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                     <label className="text-sm text-c-dark-gray">First Name</label>
                     <input
                       {...register("firstname")}
-                      className={`border border-c-gray rounded-xl px-3 py-2 text-sm ${errors.firstname ? "border-red-500" : ""}`}
+                      className={`border border-c-gray rounded-xl p-2.5 text-sm ${errors.firstname ? "border-red-500" : ""}`}
                       placeholder="Firstname"
                     />
                     {errors.firstname && <span className="text-red-500 text-xs">{errors.firstname.message}</span>}
@@ -121,7 +121,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                     <label className="text-sm text-c-dark-gray">Last Name</label>
                     <input
                       {...register("lastname")}
-                      className={`border border-c-gray rounded-xl px-3 py-2 text-sm ${errors.lastname ? "border-red-500" : ""}`}
+                      className={`border border-c-gray rounded-xl p-2.5 text-sm ${errors.lastname ? "border-red-500" : ""}`}
                       placeholder="Last name"
                     />
                     {errors.lastname && <span className="text-red-500 text-xs">{errors.lastname.message}</span>}
@@ -132,7 +132,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                   <label className="text-sm text-c-dark-gray">Username</label>
                   <input
                     {...register("username")}
-                    className={`border border-c-gray rounded-xl px-3 py-2 text-sm ${errors.username ? "border-red-500" : ""}`}
+                    className={`border border-c-gray rounded-xl p-2.5 text-sm ${errors.username ? "border-red-500" : ""}`}
                     placeholder="Username"
                   />
                   {errors.username && <span className="text-red-500 text-xs">{errors.username.message}</span>}
@@ -143,7 +143,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                   <input
                     {...register("email")}
                     type="email"
-                    className={`border border-c-gray rounded-xl px-3 py-2 text-sm ${errors.email ? "border-red-500" : ""}`}
+                    className={`border border-c-gray rounded-xl p-2.5 text-sm ${errors.email ? "border-red-500" : ""}`}
                     placeholder="Email"
                   />
                   {errors.email && <span className="text-red-500 text-xs">{errors.email.message}</span>}

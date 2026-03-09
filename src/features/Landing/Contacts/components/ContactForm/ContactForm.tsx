@@ -45,7 +45,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <form id="contact-form" className="p-12 px-24" onSubmit={handleSubmit(onSubmit)}>
+    <form id="contact-form" className="p-6 lg:p-12 lg:px-24 w-full max-w-sm mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="font-gibed text-3xl text-c-yellow mb-8">Contact Us</h1>
 
       <div className="form-group">

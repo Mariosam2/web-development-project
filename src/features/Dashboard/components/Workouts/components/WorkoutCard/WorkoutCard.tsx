@@ -24,7 +24,7 @@ export const WorkoutCard = ({ workout }: WorkoutCardProps) => {
       <h2 className="text-2xl font-semibold text-center wrap-break-word max-w-[calc(100%-5rem)] mx-auto line-clamp-2">
         {workout?.title}
       </h2>
-      <div className="badges flex items-center gap-x-2 justify-center">
+      <div className="badges flex flex-wrap  items-center gap-2 justify-center">
         <span className="exercises-num bg-c-gray text-xs rounded-4xl p-2 flex">{workout?.exerciseCount} exercises</span>
         <span className="time bg-c-gray text-xs rounded-2xl p-2 flex items-center gap-x-2">
           <img className="size-4" src={ClockSVG} alt="clock icon" />

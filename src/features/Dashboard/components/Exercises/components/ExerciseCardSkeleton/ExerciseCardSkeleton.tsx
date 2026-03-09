@@ -2,7 +2,7 @@ import { Skeleton } from "@heroui/skeleton";
 import "./ExerciseCardSkeleton.css";
 
 export const ExerciseCardSkeleton = () => (
-  <div className="col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex h-44 bg-c-light-gray relative overflow-hidden">
+  <div className="col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex  h-60 c-md:h-44  bg-c-light-gray relative overflow-hidden">
     <Skeleton className="w-1/3 rounded-l-4xl rounded-r-none h-full" />
     <div className="content w-2/3 p-4">
       <div className="heading flex">

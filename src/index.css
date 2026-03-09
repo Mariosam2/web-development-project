@@ -31,6 +31,9 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
   --contailer-xxl: 1440px;
+  --breakpoint-xs: 25rem;
+  --breakpoint-3xl: 108rem;
+  --breakpoint-c-md: 56.375rem;
 
   --ease-elastic: cubic-bezier(0.34, 1.35, 0.64, 1);
 }

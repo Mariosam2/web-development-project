@@ -27,8 +27,8 @@ export const Sidebar = () => {
 
   return (
     <>
-      <aside className="sidebar col-span-2 bg-c-dark h-screen flex flex-col">
-        <div className="avatar w-88 mx-auto py-6 flex items-center">
+      <aside className="sidebar col-span-2 bg-c-dark h-screen hidden xl:flex xl:flex-col">
+        <div className="avatar max-w-88 mx-auto py-6 flex items-center">
           <img
             className="w-20 aspect-square rounded-full border border-c-dark-gray"
             src={profile?.data.imageUrl ?? fallbaAvatarUrl}

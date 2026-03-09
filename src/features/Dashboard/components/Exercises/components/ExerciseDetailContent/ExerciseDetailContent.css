@@ -105,6 +105,7 @@
   background: var(--color-c-yellow);
   border: 1px solid var(--color-c-dark);
 }
+
 .exercise-modal__video::-webkit-media-controls-panel {
   background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.75));
   border-bottom-left-radius: 12px;

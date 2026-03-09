@@ -21,9 +21,9 @@ export const Home = () => {
           <div className="bg-c-dark relative">
             <Contacts />
             <Footer />
-            <img src={CrossSVG} className="cross absolute top right z-20" alt="cross-svg" />
-            <img src={CrossSVG} className="cross absolute bottom right z-20" alt="cross-svg" />
-            <div className="line right-b z-20"></div>
+            <img src={CrossSVG} className="hidden 3xl:block cross absolute top right z-20" alt="cross-svg" />
+            <img src={CrossSVG} className="hidden 3xl:block cross absolute bottom right z-20" alt="cross-svg" />
+            <div className="hidden 3xl:block line right-b z-20"></div>
           </div>
         </div>
       </div>

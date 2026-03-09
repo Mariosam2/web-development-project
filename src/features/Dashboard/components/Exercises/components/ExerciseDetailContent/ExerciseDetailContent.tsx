@@ -105,8 +105,8 @@ export const ExerciseDetailContent = ({ exerciseDetail, onClose }: ExerciseDetai
           </div>
 
           {secondaryMuscles.length > 0 && (
-            <div className="exercise-modal__muscle-group">
-              <span className="exercise-modal__label">Secondari</span>
+            <div className="exercise-modal__muscle-group flex-col sm:flex-row">
+              <span className="exercise-modal__label">Secondary Muscles</span>
               <div className="flex flex-wrap gap-1.5">
                 {secondaryMuscles.map((m) => (
                   <Chip

@@ -76,7 +76,7 @@ export const LoginForm = () => {
           {...register("identifier")}
           onChange={() => clearErrors("identifier")}
           placeholder="example@mail.com or username"
-          className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${errors.identifier ? "border-red-500" : ""}`}
+          className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.identifier ? "border-red-500" : ""}`}
         />
         <span
           className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${errors.identifier ? "opacity-100" : "opacity-0"}`}>

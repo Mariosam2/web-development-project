@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { resetWorkoutFilters, setEndDate, setIsCompletedParam, setStartDate } from "@src/store/slices/workoutSlice";
 import { parseDate } from "@internationalized/date";
 import { useEffect } from "react";
+import { useMediaQuery } from "@src/shared/hooks/useMediaQuery";
 
 interface WorkoutFiltersModalProps {
   bodyParts?: IBodyPart[];
@@ -21,7 +22,7 @@ interface WorkoutFiltersModalProps {
 export const WorkoutFiltersModal = ({ isOpen, onOpenChange, onConfirm, title }: WorkoutFiltersModalProps) => {
   const dispatch = useAppDispatch();
   const { isCompleted, startDate, endDate } = useAppSelector((state) => state.workout);
-
+  const isMobile = useMediaQuery("(max-width: 586px)");
   const rangeDate = startDate && endDate ? { start: parseDate(startDate), end: parseDate(endDate) } : null;
 
   useEffect(() => {
@@ -76,13 +77,13 @@ export const WorkoutFiltersModal = ({ isOpen, onOpenChange, onConfirm, title }: 
                     onChange={onChangeRangeDate}
                     color="primary"
                     aria-label="Date (Visible Month)"
-                    visibleMonths={2}
+                    visibleMonths={isMobile ? 1 : 2}
                   />
                 </div>
               </div>
             </ModalBody>
             <ModalFooter>
-              <div className="flex items-center gap-x-3 pt-2.5">
+              <div className="flex flex-wrap xs:flex-nowrap items-center gap-3 pt-2.5">
                 <button className="btn-outline rounded-xl px-4 py-3" onClick={onResetFilters}>
                   Reset Filters
                 </button>

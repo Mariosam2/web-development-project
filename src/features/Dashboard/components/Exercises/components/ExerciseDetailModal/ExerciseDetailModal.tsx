@@ -19,12 +19,7 @@ export const ExerciseDetailModal = ({ isOpen, onOpenChange, exerciseDetail, isLo
       size="3xl"
       scrollBehavior="inside"
       classNames={{
-        base: "exercise-modal p-4",
-        backdrop: "exercise-modal__backdrop",
-        header: "exercise-modal__header",
-        body: "exercise-modal__body",
-        footer: "exercise-modal__footer",
-        closeButton: "exercise-modal__close-btn",
+        base: "exercise-modal p-1 xs:p-2 sm:p-4",
       }}>
       <ModalContent>
         {(onClose) => (

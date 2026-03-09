@@ -40,11 +40,11 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({
           type={type}
           id={rest.inputname}
           onChange={onChange}
-          className=" focus:outline-none  p-3 w-full"
+          className=" focus:outline-none  p-2.5 w-full"
           ref={ref}
           {...rest}
         />
-        <ShowEye closed={closed} className="absolute top-3 right-3 size-6" onClick={() => setClosed(!closed)} />
+        <ShowEye closed={closed} className="absolute top-2.5 right-3 size-6" onClick={() => setClosed(!closed)} />
       </div>
       <span
         className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${error ? "opacity-100" : "opacity-0"}`}>

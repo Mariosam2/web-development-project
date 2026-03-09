@@ -6,16 +6,16 @@ import "./Footer.css";
 export const Footer = () => {
   return (
     <footer id="footer">
-      <div className="py-12 border-y border-c-light-gray/40">
-        <div className="container-xl  flex flex-items-center">
-          <div className="flex items-end max-w-xs">
+      <div className="py-12 px-4 border-y border-transparent 3xl:border-c-light-gray/40">
+        <div className="w-full lg:container-lg xl:container-xl  flex flex-col sm:flex-row sm:flex-items-center">
+          <div className="flex flex-col lg:flex-row lg:items-end max-w-xs">
             <img className="w-40 aspect-square" src={LogoSquareSVG} alt="logo square" />
-            <p className="text-c-light-gray text-sm  px-4">
+            <p className="text-c-light-gray text-sm  py-4 pe-4 lg:pe-0 lg:px-4 lg:py-0">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At earum minus amet. Error, obcaecati totam!
             </p>
           </div>
 
-          <div className="flex items-center ms-auto gap-x-12">
+          <div className="flex flex-col lg:flex-row lg:items-center sm:ms-auto lg:gap-x-12">
             <div className="contacts p-3">
               <h2 className="text-xl text-c-light-gray">Contacts</h2>
               <div className="email flex items-center gap-x-2 py-1.5">
@@ -50,7 +50,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-center text-c-light-gray text-sm py-6">
+      <p className="text-center text-xs sm:text-sm px-4 text-c-light-gray  py-6">
         &copy; 2026 ManMot. All rights reserved. Made with ❤ by Marco.
       </p>
     </footer>

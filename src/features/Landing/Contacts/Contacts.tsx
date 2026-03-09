@@ -20,8 +20,8 @@ export const Contacts = () => {
   }, []);
 
   return (
-    <section id="contacts" className="contacts container-xl bg-dark grid grid-cols-2 pb-48 pt-24">
-      <div id="map" className="rounded-2xl"></div>
+    <section id="contacts" className="contacts container-xl bg-dark grid  grid-cols-1 lg:grid-cols-2 pb-48 pt-24">
+      <div id="map" className="rounded-2xl hidden lg:block"></div>
       <ContactForm />
     </section>
   );

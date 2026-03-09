@@ -17,8 +17,8 @@ const Dashboard = () => {
       <>
         <div className="grid grid-cols-8 w-screen">
           <Sidebar />
-          <div className="content col-span-6 h-screen flex flex-col relative">
-            <div className="bg-white pb-8">
+          <div className="content col-span-8  xl:col-span-6 h-screen flex flex-col relative">
+            <div className="bg-white pb-8 px-3">
               <Dock />
               {!isWorkoutDetail && !isActivity && <Searchbar />}
             </div>

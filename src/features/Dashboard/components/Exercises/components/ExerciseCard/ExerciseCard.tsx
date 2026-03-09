@@ -68,18 +68,20 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   return (
     <>
       <div
-        className={`col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-light" : ""}`}
+        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-120 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-light" : ""}`}
         onClick={() => onSelectExercise(!isSelected)}>
-        <div className="preview w-1/3 rounded-l-4xl">
+        <div className="preview w-full xs:w-2/5 c-md:w-1/3 rounded-t-2xl  xs:rounded-t-none xs:rounded-l-2xl">
           <img
-            className="w-full block object-cover rounded-l-4xl h-full"
+            className="w-full block object-cover max-h-60 xs:max-h-none rounded-t-2xl xs:rounded-t-none xs:rounded-l-2xl h-full"
             src={exercise.imageUrl}
             alt="workout preview"
           />
         </div>
-        <div className="content w-2/3 p-4 flex flex-col gap-y-2.5 overflow-hidden pe-10">
+        <div className="content w-full xs:w-3/5 c-md:w-2/3 p-4 flex flex-col gap-y-2.5 overflow-hidden pe-10">
           <div>
-            <h2 className="title text-lg font-light leading-tight line-clamp-2">{exercise.name}</h2>
+            <h2 className="title  text-base sm:text-lg c-md:text-base lg:text-lg font-light leading-tight line-clamp-2">
+              {exercise.name}
+            </h2>
 
             {exercise.targetMuscles?.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-3">
@@ -129,7 +131,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
           </div>
           <button
             onClick={onViewMore}
-            className="actions flex flex-col gap-2.5 absolute right-0 bottom-0 p-5 cursor-pointer">
+            className="actions flex flex-col gap-2.5 absolute right-0 bottom-0 p-3 cursor-pointer">
             <Tooltip content="View More">
               <Info className="size-6 text-c-dark" />
             </Tooltip>
@@ -140,7 +142,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
           onValueChange={(checked) => onSelectExercise(checked)}
           className="absolute top-3 right-3"
           classNames={{
-            wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic",
+            wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic me-0",
             icon: "text-c-yellow ",
           }}
           isSelected={isSelected}

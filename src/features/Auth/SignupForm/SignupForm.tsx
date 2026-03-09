@@ -51,7 +51,7 @@ export const SignupForm = () => {
   return (
     <>
       <form className="pt-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-heading grid grid-cols-2 gap-x-3">
+        <div className="form-heading grid  grid-cols-1 sm:grid-cols-2 gap-x-3">
           <div className="form-group">
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium">
               Firstname
@@ -61,7 +61,7 @@ export const SignupForm = () => {
               id="first_name"
               {...register("firstname")}
               onChange={() => clearErrors("firstname")}
-              className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${errors.firstname ? "border-red-500" : ""}`}
+              className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.firstname ? "border-red-500" : ""}`}
               placeholder="John"
             />
             <span
@@ -78,7 +78,7 @@ export const SignupForm = () => {
               id="last_name"
               {...register("lastname")}
               onChange={() => clearErrors("lastname")}
-              className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${errors.lastname ? "border-red-500" : ""}`}
+              className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.lastname ? "border-red-500" : ""}`}
               placeholder="Doe"
             />
             <span
@@ -96,7 +96,7 @@ export const SignupForm = () => {
             id="username"
             {...register("username")}
             onChange={() => clearErrors("username")}
-            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${errors.username ? "border-red-500" : ""}`}
+            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.username ? "border-red-500" : ""}`}
           />
           <span
             className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${errors.username ? "opacity-100" : "opacity-0"}`}>
@@ -112,7 +112,7 @@ export const SignupForm = () => {
             id="email"
             {...register("email")}
             onChange={() => clearErrors("username")}
-            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${errors.email ? "border-red-500" : ""}`}
+            className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.email ? "border-red-500" : ""}`}
             placeholder="example@mail.com"
           />
           <span

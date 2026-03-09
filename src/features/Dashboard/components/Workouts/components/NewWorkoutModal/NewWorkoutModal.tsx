@@ -156,7 +156,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
                 maxLength={50}
                 value={workoutTitle}
                 onChange={handleWorkoutTitleChange}
-                className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-3 focus:outline-none ${workoutTitleError ? "border-red-500" : ""}`}
+                className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${workoutTitleError ? "border-red-500" : ""}`}
                 placeholder="My workout #1"
               />
               <span

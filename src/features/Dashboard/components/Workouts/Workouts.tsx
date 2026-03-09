@@ -37,8 +37,8 @@ export const Workouts = () => {
 
   return (
     <>
-      <div className="container-xl mx-auto  pb-8 px-3">
-        <div className="grid grid-cols-3 gap-4">
+      <div className="container-xl mx-auto  pb-8 px-3 xs:px-8 xl:px-3">
+        <div className="grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3 gap-4">
           {showInitialSkeleton || searching || filtering ? (
             Array.from({ length: 6 }).map((_, i) => <WorkoutCardSkeleton key={i} />)
           ) : workouts.length > 0 ? (

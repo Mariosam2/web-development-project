@@ -33,6 +33,7 @@ export const WorkoutAutocomplete = ({ onSelect, error }: WorkoutAutocompleteProp
         label="Search workout"
         placeholder="Type to search..."
         inputValue={query}
+        variant="bordered"
         onInputChange={onInputChange}
         isInvalid={!!error}
         onSelectionChange={(key) => {

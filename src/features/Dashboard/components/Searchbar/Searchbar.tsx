@@ -146,8 +146,8 @@ export const Searchbar = () => {
 
   return (
     <>
-      <div className="flex items-center w-max  mx-auto mt-8 h-12">
-        <div className="searchbar w-xs h-full bg-c-light-gray flex items-center  rounded-2xl border border-c-dark-gray c-shadow-md ps-3">
+      <div className="flex items-center w-full justify-center mt-8 h-12">
+        <div className="searchbar w-full max-w-xs h-full bg-c-light-gray flex items-center  rounded-2xl border border-c-dark-gray c-shadow-md ps-3">
           <MagnifyingGlass className="me-2 size-6" />
           <input
             className="text-c-dark placeholder:text-c-dark-gray p-3  w-full focus:outline-none"
