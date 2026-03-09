@@ -3,11 +3,11 @@ import { MagnifyingGlass } from "../../../../shared/ui/MagnifyingGlass";
 import "./Searchbar.css";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@src/store/hooks";
-import { updateExerciseSearchParam } from "@src/store/slices/exerciseSlice";
+import { resetExercisesSearch, updateExerciseSearchParam } from "@src/store/slices/exerciseSlice";
 import { FiltersIcon } from "@src/shared/ui/FiltersIcon";
 import { useDisclosure } from "@heroui/modal";
 import { ExerciseFiltersModal } from "@src/features/Dashboard/components/Exercises/components/ExerciseFiltersModal/ExerciseFiltersModal";
-import { useGetBodyPartsQuery, useGetTargetMusclesQuery } from "@src/store/api/exerciseApi";
+import { useGetBodyPartsQuery, useGetExerciseTypesQuery, useGetTargetMusclesQuery } from "@src/store/api/exerciseApi";
 import { WorkoutFiltersModal } from "../Workouts/components/WorkoutFiltersModal/WorkoutFiltersModal";
 import { updateWorkoutSearchParam } from "@src/store/slices/workoutSlice";
 import { setFiltering, setSearching } from "@src/store/slices/searchSlice";
@@ -18,11 +18,14 @@ export const Searchbar = () => {
   const EXCLUDE_KEYS_FROM_COUNT = ["name", "limit", "after", "before", "query"];
   const dispatch = useAppDispatch();
   const [query, setQuery] = useState("");
+  const [name, setName] = useState("");
+  const [disableFilters, setDisableFilters] = useState(true);
   const exerciseFiltersModal = useDisclosure();
   const workoutFiltersModal = useDisclosure();
   const {
     selectedBodyParts,
     selectedTargetMuscles,
+    selectedExerciseType,
     searchParams: exercisesSearchParams,
   } = useAppSelector((state) => state.exercise);
   const {
@@ -33,22 +36,35 @@ export const Searchbar = () => {
   } = useAppSelector((state) => state.workout);
   const { data: bodyParts, isLoading: isBodyPartsLoading } = useGetBodyPartsQuery();
   const { data: targetMuscles, isLoading: isTargetMusclesLoading } = useGetTargetMusclesQuery();
+  const { data: exerciseTypes, isLoading: isExerciseTypesLoading } = useGetExerciseTypesQuery();
   const { pathname } = useLocation();
   const searchWorkouts = pathname === "/dashboard/workouts" || pathname === "/dashboard";
   const searchExercises = pathname === "/dashboard/exercises";
   const searchParams = searchWorkouts ? workoutsSearchParams : exercisesSearchParams;
+  const filtersLoading = isBodyPartsLoading || isTargetMusclesLoading || isExerciseTypesLoading;
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchWorkouts) dispatch(updateWorkoutSearchParam({ field: "query", value: query.trim() }));
-      if (searchExercises) dispatch(updateExerciseSearchParam({ field: "name", value: query.trim() }));
+      if (searchExercises) {
+        dispatch(resetExercisesSearch());
+        dispatch(updateExerciseSearchParam({ field: "name", value: name.trim() }));
+      }
     }, 500);
-
     return () => clearTimeout(timer);
-  }, [query, searchWorkouts, searchExercises, dispatch]);
+  }, [name, searchExercises, dispatch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchWorkouts) {
+        dispatch(updateWorkoutSearchParam({ field: "query", value: query.trim() }));
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [query, searchWorkouts, dispatch]);
 
   const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+    if (searchExercises) setName(e.target.value);
+    if (searchWorkouts) setQuery(e.target.value);
     dispatch(setSearching(true));
   };
 
@@ -56,8 +72,10 @@ export const Searchbar = () => {
     if (filtersChanged()) {
       dispatch(setFiltering(true));
       if (searchExercises) {
+        dispatch(resetExercisesSearch());
         dispatch(updateExerciseSearchParam({ field: "bodyParts", value: selectedBodyParts.join(",") }));
         dispatch(updateExerciseSearchParam({ field: "targetMuscles", value: selectedTargetMuscles.join(",") }));
+        dispatch(updateExerciseSearchParam({ field: "exerciseType", value: selectedExerciseType }));
       }
       if (searchWorkouts) {
         dispatch(updateWorkoutSearchParam({ field: "isCompleted", value: isCompleted }));
@@ -68,11 +86,21 @@ export const Searchbar = () => {
     const filtersModal = searchWorkouts ? workoutFiltersModal : exerciseFiltersModal;
     filtersModal.onClose();
   };
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (filtersLoading) {
+      timer = setTimeout(() => setDisableFilters(true), 0);
+    } else {
+      timer = setTimeout(() => setDisableFilters(false), 500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [filtersLoading]);
 
   const openFiltersModal = () => {
-    console.log("click filters", searchWorkouts, searchExercises);
     if (searchWorkouts) workoutFiltersModal.onOpen();
-    if (searchExercises && !isBodyPartsLoading && !isTargetMusclesLoading) exerciseFiltersModal.onOpen();
+    if (searchExercises && !disableFilters) exerciseFiltersModal.onOpen();
   };
 
   const filtersChanged = () => {
@@ -83,17 +111,18 @@ export const Searchbar = () => {
         startDate: workoutsSearchParams.startDate,
         endDate: workoutsSearchParams.endDate,
       };
-      console.log(oldParams, newParams);
       return JSON.stringify(newParams) !== JSON.stringify(oldParams);
     }
 
     const newParams = {
       bodyParts: selectedBodyParts.join(","),
       targetMuscles: selectedTargetMuscles.join(","),
+      exerciseType: selectedExerciseType,
     };
     const oldParams = {
       bodyParts: exercisesSearchParams.bodyParts,
       targetMuscles: exercisesSearchParams.targetMuscles,
+      exerciseType: exercisesSearchParams.exerciseType,
     };
     return JSON.stringify(newParams) !== JSON.stringify(oldParams);
   };
@@ -123,7 +152,7 @@ export const Searchbar = () => {
           <input
             className="text-c-dark placeholder:text-c-dark-gray p-3  w-full focus:outline-none"
             type="text"
-            value={query}
+            value={searchExercises ? name : query}
             onChange={onChangeQuery}
             name="search"
             id="search"
@@ -134,6 +163,7 @@ export const Searchbar = () => {
           count={activeFiltersCount(searchParams)}
           className="size-10 cursor-pointer ms-2.5 bg-c-light-gray border border-c-dark-gray c-shadow-md rounded-2xl p-1.5"
           onClick={openFiltersModal}
+          disabled={disableFilters}
         />
       </div>
       {exerciseFiltersModal.isOpen && (
@@ -144,6 +174,7 @@ export const Searchbar = () => {
           onConfirm={onApplyFilters}
           bodyParts={bodyParts?.data ?? []}
           targetMuscles={targetMuscles?.data ?? []}
+          exerciseTypes={exerciseTypes?.data ?? []}
         />
       )}
       {workoutFiltersModal.isOpen && (

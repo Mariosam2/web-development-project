@@ -79,6 +79,9 @@
   * {
     font-family: var(--font-poppins);
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     color: var(--color-c-dark);
   }
@@ -138,6 +141,19 @@
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
+}
+
+.btn-primary,
+.btn-secondary {
+  will-change: transform, opacity;
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.3s ease,
+    translate 0.3s ease;
+}
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: scale(1.03);
 }
 
 span.text-red-500 {

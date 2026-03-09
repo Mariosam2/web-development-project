@@ -4,17 +4,20 @@ import LogoIcon from "@assets/logo-icon.svg";
 import { ArrowRight } from "../../../shared/ui/ArrowRight";
 import "./Hero.css";
 import { NavLink } from "react-router";
+import { SidebarMenu } from "@src/shared/ui/SidebarMenu/SidebarMenu";
+import { useState } from "react";
 
 export const Hero = () => {
-  const openNavbar = () => {
-    console.log("open navbar");
-  };
+  const [sidebarMenuOpen, setSidebarMenuOpen] = useState(false);
   return (
-    <section className="hero relative w-full h-screen">
-      <div className="menu-button flex items-center absolute top-14 right-14 z-50 cursor-pointer" onClick={openNavbar}>
+    <section id="hero" className="hero relative w-full h-screen">
+      <button
+        type="button"
+        className="menu-button flex items-center absolute top-14 right-14 z-50 cursor-pointer"
+        onClick={() => setSidebarMenuOpen(true)}>
         <span className="text-uppercase text-c-light-gray text-xl">Menu</span>
         <img src={CrossSVG} className="ms-2 size-5" alt="cross-svg" />
-      </div>
+      </button>
 
       <img
         id="logo-icon"
@@ -47,13 +50,14 @@ export const Hero = () => {
         <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">
           Get Started
         </NavLink>
-        <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0 size-10" />
+        <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0 size-10 arrow-right" />
       </div>
 
       <p className="caption absolute left-14 bottom-14 z-20 text-c-light-gray max-w-1/4 p-1">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio necessitatibus iure, aliquam, numquam magnam quia
         esse, odit et dicta reiciendis sequi! Deserunt quam quod eos, vel temporibus quasi totam facere.
       </p>
+      <SidebarMenu isOpen={sidebarMenuOpen} onClose={() => setSidebarMenuOpen(false)} />
     </section>
   );
 };

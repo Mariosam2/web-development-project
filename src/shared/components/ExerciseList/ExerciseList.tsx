@@ -3,16 +3,14 @@ import { ExerciseCard } from "../../../features/Dashboard/components/Exercises/c
 import { EmptyList } from "@src/shared/ui/EmptyList/EmptyList";
 import type { IExerciseOverview } from "@src/shared/interfaces/exerciseDb/IExerciseOverview";
 import "./ExerciseList.css";
-import type { IExercise } from "@src/shared/interfaces/exercise/IExercise";
 
 interface ExerciseListProps {
-  exercises: IExercise[] | IExerciseOverview[];
+  exercises: IExerciseOverview[];
   isLoading: boolean;
   sentinelRef?: React.RefObject<HTMLDivElement | null>;
-  fetch: boolean;
 }
 
-export const ExerciseList = ({ exercises, isLoading, sentinelRef, fetch }: ExerciseListProps) => {
+export const ExerciseList = ({ exercises, isLoading, sentinelRef }: ExerciseListProps) => {
   return (
     <div className="container-xl mx-auto ">
       <div className="grid grid-cols-2 gap-6 px-3">
@@ -21,12 +19,7 @@ export const ExerciseList = ({ exercises, isLoading, sentinelRef, fetch }: Exerc
         ) : exercises.length > 0 ? (
           <>
             {exercises.map((ex) => (
-              <ExerciseCard
-                key={ex.exerciseId}
-                {...(fetch
-                  ? { exerciseId: ex.exerciseId as string }
-                  : { exerciseId: ex.exerciseId as string, exerciseProp: ex as IExercise })}
-              />
+              <ExerciseCard key={ex.exerciseId} exercise={ex} />
             ))}
             {sentinelRef && <div ref={sentinelRef} />}
           </>

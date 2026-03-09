@@ -1,12 +1,7 @@
-export interface IExercise {
+import type { IExerciseOverview } from "../exerciseDb/IExerciseOverview";
+
+export interface IExercise extends IExerciseOverview {
   id?: string;
-  exerciseId?: string;
-  description?: string;
-  name: string;
-  bodyPart?: string;
-  targetMuscle?: string;
-  reps: number;
-  sets: number;
-  imageUrl?: string;
-  videoUrl?: string;
+  reps?: number;
+  sets?: number;
 }

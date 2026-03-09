@@ -7,6 +7,7 @@ interface ExerciseInitialState {
   searchParams: IExerciseQuery;
   selectedBodyParts: string[];
   selectedTargetMuscles: string[];
+  selectedExerciseType: string | null;
   searching: boolean;
   filtering: boolean;
 }
@@ -24,6 +25,7 @@ const initialState: ExerciseInitialState = {
   },
   selectedBodyParts: [],
   selectedTargetMuscles: [],
+  selectedExerciseType: "",
   searching: false,
   filtering: false,
 };
@@ -74,6 +76,13 @@ const exerciseSlice = createSlice({
       state.selectedBodyParts = [];
       state.selectedTargetMuscles = [];
     },
+    setSelectedExerciseType: (state, action: PayloadAction<string | null>) => {
+      state.selectedExerciseType = action.payload;
+    },
+    resetExercisesSearch: (state) => {
+      state.searchParams.after = null;
+      state.searchParams.before = null;
+    },
   },
 });
 
@@ -86,5 +95,7 @@ export const {
   setSelectedBodyParts,
   setSelectedTargetMuscles,
   resetExerciseFilters,
+  resetExercisesSearch,
+  setSelectedExerciseType,
 } = exerciseSlice.actions;
 export default exerciseSlice.reducer;

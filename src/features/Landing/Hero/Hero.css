@@ -50,6 +50,15 @@
   height: 100%;
 }
 
+.cta-button .arrow-right {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.cta-button:hover .arrow-right {
+  transform: translateX(5px);
+}
+
 @keyframes scroll-down {
   0% {
     transform: translateY(0);

@@ -18,7 +18,9 @@ export const exerciseApi = apiSlice.injectEndpoints({
       serializeQueryArgs: ({ endpointName }) => endpointName,
       merge: (currentCache, newItems, { arg }) => {
         if (!arg.after) {
-          return newItems;
+          currentCache.data = newItems.data;
+          currentCache.meta = newItems.meta;
+          return;
         }
 
         currentCache.data.push(...newItems.data);
@@ -60,7 +62,7 @@ export const exerciseApi = apiSlice.injectEndpoints({
 
 export const {
   useGetExercisesQuery,
-  useGetSingleExerciseQuery,
+  useLazyGetSingleExerciseQuery,
   useGetBodyPartsQuery,
   useGetTargetMusclesQuery,
   useGetExerciseTypesQuery,

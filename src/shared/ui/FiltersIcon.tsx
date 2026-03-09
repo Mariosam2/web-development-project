@@ -1,11 +1,15 @@
 interface FiltersIconProps {
   className?: string;
+  disabled?: boolean;
   onClick?: () => void;
   count?: number;
 }
-export const FiltersIcon = ({ className, onClick, count }: FiltersIconProps) => {
+export const FiltersIcon = ({ className, onClick, count, disabled }: FiltersIconProps) => {
   return (
-    <div className="relative inline-block" onClick={onClick}>
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`relative inline-block ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -27,6 +31,6 @@ export const FiltersIcon = ({ className, onClick, count }: FiltersIconProps) => 
           {count}
         </span>
       )}
-    </div>
+    </button>
   );
 };

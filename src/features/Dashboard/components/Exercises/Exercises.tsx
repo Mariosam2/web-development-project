@@ -1,6 +1,6 @@
 import { useGetExercisesQuery } from "@src/store/api/exerciseApi";
 import "./Exercises.css";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDisclosure } from "@heroui/modal";
 import { NewWorkoutModal } from "../Workouts/components/NewWorkoutModal/NewWorkoutModal";
 import { ExerciseList } from "../../../../shared/components/ExerciseList/ExerciseList";
@@ -12,6 +12,7 @@ import { setFiltering, setSearching } from "@src/store/slices/searchSlice";
 import { useGetWorkoutsQuery } from "@src/store/api/workoutApi";
 import { WORKOUTS_LIMIT } from "@src/store/slices/workoutSlice";
 import { ImportExercisesModal } from "../Workouts/components/ImportExercisesModal/ImportExercisesModal";
+import { useOutletContext } from "react-router";
 
 export const Exercises = () => {
   const dispatch = useAppDispatch();
@@ -31,16 +32,27 @@ export const Exercises = () => {
   const { selectedExercises } = useAppSelector((state) => state.exercise);
   const newWorkoutModal = useDisclosure();
   const importExercisesModal = useDisclosure();
-
+  const [mounted, setMounted] = useState(false);
   const [showInitialSkeleton, setShowInitialSkeleton] = useState(true);
   const exercises = data?.data ?? [];
   const hasMore = data?.meta?.hasNextPage ?? false;
+  const { scrollRef } = useOutletContext<{ scrollRef: React.RefObject<HTMLDivElement> }>();
 
   const sentinelRef = useInfiniteScroll({
     onLoadMore: () => dispatch(updateExerciseSearchParam({ field: "after", value: data?.meta?.nextCursor ?? null })),
     hasMore,
     isLoading: isFetching,
   });
+
+  useLayoutEffect(() => {
+    requestAnimationFrame(() => setMounted(true));
+  }, []);
+
+  useEffect(() => {
+    if (searching || filtering) {
+      scrollRef.current?.scrollTo({ top: 0 });
+    }
+  }, [searching, filtering, scrollRef]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -68,30 +80,39 @@ export const Exercises = () => {
   return (
     <>
       <div className="h-12 flex items-center justify-end mb-2.5  absolute left-0 right-0 top-48 container-xl mx-auto px-3 gap-x-3">
-        <button
-          className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
+        {mounted && (
+          <button
+            className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 && (workouts?.data.length ?? 0) > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-          onClick={importExercisesModal.onOpen}>
-          Import to existing Workout
-        </button>
-        <button
-          className={`btn-secondary rounded-2xl px-4 py-3 transition-all duration-300
+            onClick={importExercisesModal.onOpen}>
+            Import to existing Workout
+          </button>
+        )}
+
+        {mounted && (
+          <button
+            style={!mounted ? { transition: "none" } : undefined}
+            className={`btn-secondary rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-          onClick={deselectExercises}>
-          Deselect All
-        </button>
-        <button
-          className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
+            onClick={deselectExercises}>
+            Deselect All
+          </button>
+        )}
+
+        {mounted && (
+          <button
+            style={!mounted ? { transition: "none" } : undefined}
+            className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-          onClick={newWorkoutModal.onOpen}>
-          Create Workout
-        </button>
+            onClick={newWorkoutModal.onOpen}>
+            Create Workout
+          </button>
+        )}
       </div>
       <ExerciseList
         exercises={exercises}
         isLoading={showInitialSkeleton || searching || filtering}
         sentinelRef={sentinelRef}
-        fetch={true}
       />
       {isFetching && !showInitialSkeleton && !searching && !filtering && (
         <div className="grid grid-cols-2 gap-6 px-3 container-xl mx-auto">

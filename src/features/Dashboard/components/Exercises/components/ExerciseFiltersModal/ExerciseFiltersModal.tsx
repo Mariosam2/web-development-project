@@ -4,14 +4,21 @@ import type { ITargetMuscle } from "@src/shared/interfaces/exerciseDb/ITargetMus
 import { FiltersIcon } from "@src/shared/ui/FiltersIcon";
 import { MultiSelect } from "@src/shared/ui/MultiSelect/MultiSelect";
 import { useAppDispatch, useAppSelector } from "@src/store/hooks";
-import type { Selection } from "@heroui/react";
-import { setSelectedBodyParts, setSelectedTargetMuscles } from "@src/store/slices/exerciseSlice";
+import { type Selection } from "@heroui/react";
+import {
+  setSelectedBodyParts,
+  setSelectedExerciseType,
+  setSelectedTargetMuscles,
+} from "@src/store/slices/exerciseSlice";
 import type { IExerciseQuery } from "@src/shared/interfaces/query/IExercisesQuery";
 import "./ExerciseFiltersModal.css";
+import type { IExerciseType } from "@src/shared/interfaces/exerciseDb/IExerciseType";
+import { SelectComponent } from "@src/shared/ui/SelectComponent/SelectComponent";
 
 interface ExerciseFiltersModalProps {
   bodyParts?: IBodyPart[];
   targetMuscles?: ITargetMuscle[];
+  exerciseTypes?: IExerciseType[];
   title: string;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
@@ -24,20 +31,39 @@ export const ExerciseFiltersModal = ({
   title,
   bodyParts,
   targetMuscles,
+  exerciseTypes,
 }: ExerciseFiltersModalProps) => {
   const dispatch = useAppDispatch();
-  const { selectedBodyParts, selectedTargetMuscles } = useAppSelector((state) => state.exercise);
+  const { selectedBodyParts, selectedTargetMuscles, selectedExerciseType } = useAppSelector((state) => state.exercise);
 
   const onItemsChange = (keys: Selection | "all", field: keyof IExerciseQuery) => {
     if (keys === "all") return;
     const selected = Array.from(keys) as string[];
-    if (field === "targetMuscles") dispatch(setSelectedTargetMuscles(selected));
-    if (field === "bodyParts") dispatch(setSelectedBodyParts(selected));
+    switch (field) {
+      case "targetMuscles":
+        dispatch(setSelectedTargetMuscles(selected));
+        break;
+      case "bodyParts":
+        dispatch(setSelectedBodyParts(selected));
+        break;
+      case "exerciseType":
+        dispatch(setSelectedExerciseType(selected[0]));
+        break;
+    }
   };
 
   const onClearItems = (field: keyof IExerciseQuery) => {
-    if (field === "targetMuscles") dispatch(setSelectedTargetMuscles([]));
-    if (field === "bodyParts") dispatch(setSelectedBodyParts([]));
+    switch (field) {
+      case "targetMuscles":
+        dispatch(setSelectedTargetMuscles([]));
+        break;
+      case "bodyParts":
+        dispatch(setSelectedBodyParts([]));
+        break;
+      case "exerciseType":
+        dispatch(setSelectedExerciseType(null));
+        break;
+    }
   };
 
   return (
@@ -65,6 +91,15 @@ export const ExerciseFiltersModal = ({
                 selectedKeys={selectedTargetMuscles}
                 field="targetMuscles"
                 items={targetMuscles ?? []}
+                onChange={onItemsChange}
+                onClearItems={onClearItems}
+              />
+              <SelectComponent
+                label="Exercise Type"
+                placeholder="Select exercise type"
+                field="exerciseType"
+                selectedKeys={selectedExerciseType ? [selectedExerciseType] : []}
+                items={exerciseTypes ?? []}
                 onChange={onItemsChange}
                 onClearItems={onClearItems}
               />

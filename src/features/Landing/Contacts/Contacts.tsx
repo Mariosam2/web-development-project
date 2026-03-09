@@ -20,9 +20,9 @@ export const Contacts = () => {
   }, []);
 
   return (
-    <div className="contacts container-xl bg-dark grid grid-cols-2 pb-48">
+    <section id="contacts" className="contacts container-xl bg-dark grid grid-cols-2 pb-48 pt-24">
       <div id="map" className="rounded-2xl"></div>
       <ContactForm />
-    </div>
+    </section>
   );
 };

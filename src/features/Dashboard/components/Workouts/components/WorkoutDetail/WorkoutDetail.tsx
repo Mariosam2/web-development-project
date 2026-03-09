@@ -68,7 +68,6 @@ export const WorkoutDetail = () => {
 
   useEffect(() => {
     if (!workout) return;
-    console.log("SELECT WORKOUT", workout);
     dispatch(setSelectedWorkout(workout));
   }, [workout, dispatch]);
 
@@ -169,7 +168,7 @@ export const WorkoutDetail = () => {
         </div>
       </div>
       <div className="pb-8">
-        <ExerciseList exercises={workoutExercises?.data ?? []} isLoading={showSkeleton} fetch={false} />
+        <ExerciseList exercises={workoutExercises?.data ?? []} isLoading={showSkeleton} />
       </div>
 
       {updateWorkoutModal.isOpen && (

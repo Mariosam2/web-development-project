@@ -1,7 +1,7 @@
 export interface IExerciseOverview {
   exerciseId: string;
   name: string;
-  imageUrl: string;
+  imageUrl?: string;
   bodyParts: string[];
   equipments: string[];
   exerciseType: string;

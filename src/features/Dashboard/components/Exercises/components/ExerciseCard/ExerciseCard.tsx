@@ -1,119 +1,157 @@
 import type { ICardProps } from "@src/shared/interfaces/props/ICardProps";
 import { Checkbox } from "@heroui/checkbox";
-import { useGetSingleExerciseQuery } from "@src/store/api/exerciseApi";
+import { useLazyGetSingleExerciseQuery } from "@src/store/api/exerciseApi";
 import { deselectExercise, selectExercise } from "@src/store/slices/exerciseSlice";
-import { useAppDispatch } from "@src/store/hooks";
-import type { IExercise } from "@src/shared/interfaces/exercise/IExercise";
-
-import type { IExerciseDetail } from "@src/shared/interfaces/exerciseDb/IExerciseDetail";
-import type { RootState } from "@src/store/store";
-import { useSelector } from "react-redux";
-import { ExerciseCardSkeleton } from "../ExerciseCardSkeleton/ExerciseCardSkeleton";
-import { Tooltip } from "@heroui/react";
+import { useAppDispatch, useAppSelector } from "@src/store/hooks";
+import { Chip, Tooltip, useDisclosure } from "@heroui/react";
 import { Info } from "@src/shared/ui/Info";
+import { ExerciseDetailModal } from "../ExerciseDetailModal/ExerciseDetailModal";
+import { showToast } from "@src/shared/helpers";
+import { ToastType } from "@src/shared/enums/ToastType.enum";
+import { useEffect, useState } from "react";
+import type { IExerciseOverview } from "@src/shared/interfaces/exerciseDb/IExerciseOverview";
 
 interface ExerciseCardProps extends ICardProps {
-  exerciseId: string;
-  exerciseProp?: IExercise;
+  exercise: IExerciseOverview;
 }
 
-export const ExerciseCard = ({ exerciseId, exerciseProp }: ExerciseCardProps) => {
+export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   const MAX_SELECTABLE_EXERCISES = 20;
-  const { selectedExercises } = useSelector((state: RootState) => state.exercise);
-  const { data, isLoading, isFetching } = useGetSingleExerciseQuery({ exerciseId }, { skip: !!exerciseProp });
   const dispatch = useAppDispatch();
-  const exercise = exerciseProp || data?.data;
+  const { selectedExercises } = useAppSelector((state) => state.exercise);
+  const [showLoading, setShowLoading] = useState(false);
+  const [triggerGetDetail, { data: singleExercise, isLoading: isDetailLoading, isFetching: isDetailFetching }] =
+    useLazyGetSingleExerciseQuery();
   const isSelected = selectedExercises.some((e) => e.exerciseId === exercise?.exerciseId);
+  const { isOpen, onOpenChange, onOpen } = useDisclosure();
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (isDetailLoading || isDetailFetching) {
+      timer = setTimeout(() => setShowLoading(true), 0);
+    } else {
+      timer = setTimeout(() => setShowLoading(false), 500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isDetailLoading, isDetailFetching]);
 
   const onSelectExercise = (isSelected: boolean) => {
     if (selectedExercises.length >= MAX_SELECTABLE_EXERCISES && isSelected) return;
 
     if (exercise) {
-      const selectedExercise = getSelectedExercise(exercise);
-
       if (!isSelected) {
-        dispatch(deselectExercise(selectedExercise.exerciseId as string));
+        dispatch(deselectExercise(exercise.exerciseId as string));
       } else {
-        dispatch(selectExercise({ ...selectedExercise }));
+        dispatch(selectExercise({ ...exercise, sets: 1, reps: 1 }));
       }
     }
   };
 
-  const getSelectedExercise = (exercise: IExerciseDetail | IExercise) => {
-    if (isExerciseDetail(exercise)) {
-      return {
-        exerciseId: exercise.exerciseId,
-        description: exercise.overview,
-        name: exercise.name,
-        bodyPart: exercise.bodyParts[0],
-        targetMuscle: exercise.targetMuscles[0],
-        imageUrl: exercise.imageUrl,
-        videoUrl: exercise.videoUrl,
-        sets: 1,
-        reps: 1,
-      } as IExercise;
+  const onViewMore = (e: React.MouseEvent) => {
+    try {
+      e.stopPropagation();
+      if (!exercise || !exercise.exerciseId) {
+        showToast("Error", "Unable to retrieve exercise data", ToastType.DANGER);
+        return;
+      }
+
+      triggerGetDetail({ exerciseId: exercise.exerciseId });
+      onOpen();
+    } catch (error) {
+      showToast("Error", "Unable to retrieve exercise data", ToastType.DANGER);
+      console.error("error", error);
     }
-    return exercise;
   };
-
-  const isExerciseDetail = (ex: IExercise | IExerciseDetail): ex is IExerciseDetail => {
-    return "overview" in ex;
-  };
-
-  const getExerciseImageUrl = (ex: IExercise | IExerciseDetail | undefined) => {
-    if (!ex) return "";
-    if (isExerciseDetail(ex)) {
-      return ex.imageUrls["720p"];
-    }
-    return ex.imageUrl;
-  };
-
-  const getExerciseDescription = (ex: IExercise | IExerciseDetail | undefined) => {
-    if (!ex) return "";
-    if (isExerciseDetail(ex)) {
-      return ex.overview;
-    }
-    return ex.description;
-  };
-
-  const openExerciseDetailModal = () => {};
-
-  if (isLoading || isFetching) return <ExerciseCardSkeleton />;
 
   return (
-    <div
-      className={`col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-light" : ""}`}
-      onClick={() => onSelectExercise(!isSelected)}>
-      <div className="preview w-1/3 rounded-l-4xl">
-        <img
-          className="w-full block object-cover rounded-l-4xl h-full"
-          src={getExerciseImageUrl(exercise)}
-          alt="workout preview"
+    <>
+      <div
+        className={`col-span-1 c-shadow-md border border-c-dark-gray rounded-4xl cursor-pointer flex h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-light" : ""}`}
+        onClick={() => onSelectExercise(!isSelected)}>
+        <div className="preview w-1/3 rounded-l-4xl">
+          <img
+            className="w-full block object-cover rounded-l-4xl h-full"
+            src={exercise.imageUrl}
+            alt="workout preview"
+          />
+        </div>
+        <div className="content w-2/3 p-4 flex flex-col gap-y-2.5 overflow-hidden pe-10">
+          <div>
+            <h2 className="title text-lg font-light leading-tight line-clamp-2">{exercise.name}</h2>
+
+            {exercise.targetMuscles?.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-3">
+                {exercise.targetMuscles?.slice(0, 2).map((m) => (
+                  <Chip
+                    key={m}
+                    size="sm"
+                    variant="flat"
+                    classNames={{ base: "bg-c-yellow", content: "text-[10px] font-semibold px-1 text-c-dark" }}>
+                    {m}
+                  </Chip>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-1">
+            {exercise.bodyParts?.slice(0, 2).map((bp) => (
+              <Chip
+                key={bp}
+                size="sm"
+                variant="bordered"
+                classNames={{ base: "border-c-dark-gray", content: "text-[10px] px-0.5" }}>
+                {bp}
+              </Chip>
+            ))}
+            {exercise.equipments?.slice(0, 1).map((eq) => (
+              <Chip
+                key={eq}
+                size="sm"
+                variant="bordered"
+                classNames={{
+                  base: "bg-transparent border-c-dark-gray",
+                  content: "text-[10px] px-0.5 flex items-center gap-1 ",
+                }}>
+                <span className="w-2 h-2 rounded-full bg-c-yellow inline-block border border-c-dark" />
+                {eq}
+              </Chip>
+            ))}
+            {exercise.exerciseType && (
+              <Chip
+                size="sm"
+                variant="flat"
+                classNames={{ base: "bg-default-200", content: "text-[10px] px-0.5 text-default-600" }}>
+                {exercise.exerciseType}
+              </Chip>
+            )}
+          </div>
+          <button
+            onClick={onViewMore}
+            className="actions flex flex-col gap-2.5 absolute right-0 bottom-0 p-5 cursor-pointer">
+            <Tooltip content="View More">
+              <Info className="size-6 text-c-dark" />
+            </Tooltip>
+          </button>
+        </div>
+        <Checkbox
+          onClick={(e) => e.stopPropagation()}
+          onValueChange={(checked) => onSelectExercise(checked)}
+          className="absolute top-3 right-3"
+          classNames={{
+            wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic",
+            icon: "text-c-yellow ",
+          }}
+          isSelected={isSelected}
         />
       </div>
-      <div className="content w-2/3 p-4">
-        <div className="heading flex">
-          <h2 className="title text-lg font-light  max-w-[calc(100%-3rem)]">{exercise?.name}</h2>
-        </div>
-        <p className="text-c-dark-gray text-sm mt-2.5 pe-10 line-clamp-4">{getExerciseDescription(exercise)}</p>
-        <div className="actions flex flex-col gap-2.5 absolute right-4 bottom-4">
-          <Tooltip content="View More">
-            <button className="cursor-pointer" onClick={openExerciseDetailModal}>
-              <Info className="size-6 text-c-dark" />
-            </button>
-          </Tooltip>
-        </div>
-      </div>
-      <Checkbox
-        onClick={(e) => e.stopPropagation()}
-        onValueChange={(checked) => onSelectExercise(checked)}
-        className="absolute top-3 right-3"
-        classNames={{
-          wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic",
-          icon: "text-c-yellow ",
-        }}
-        isSelected={isSelected}
+      <ExerciseDetailModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        exerciseDetail={singleExercise?.data}
+        isLoading={showLoading}
       />
-    </div>
+    </>
   );
 };

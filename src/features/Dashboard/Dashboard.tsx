@@ -4,14 +4,14 @@ import { Outlet, useMatch } from "react-router";
 import { Searchbar } from "./components/Searchbar/Searchbar";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { Loader } from "@src/shared/ui/Loader/Loader";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AuthGuard } from "@src/shared/guards/AuthGuard";
 
 const Dashboard = () => {
   const [initialLoadDone, setInitialLoadDone] = useState(false);
   const isWorkoutDetail = useMatch("/dashboard/workouts/:workoutId");
   const isActivity = useMatch("/dashboard/activity");
-
+  const scrollRef = useRef<HTMLDivElement>(null);
   return (
     <AuthGuard>
       <>
@@ -23,8 +23,8 @@ const Dashboard = () => {
               {!isWorkoutDetail && !isActivity && <Searchbar />}
             </div>
 
-            <div className={`h-full overflow-y-auto ${isWorkoutDetail ? "mt-48" : "mt-12"}`}>
-              <Outlet />
+            <div ref={scrollRef} className={`h-full overflow-y-auto ${isWorkoutDetail ? "mt-48" : "mt-12"}`}>
+              <Outlet context={{ scrollRef }} />
             </div>
           </div>
         </div>
