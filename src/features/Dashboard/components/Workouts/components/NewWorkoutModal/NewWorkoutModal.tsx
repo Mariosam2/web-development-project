@@ -141,6 +141,9 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       classNames={{
         base: "!outline-none",
         closeButton: "outline-none focus:outline-none",
+        header: "px-3 sm:px-6 pt-3 sm:pt-6 pb-0",
+        body: "px-3 sm:px-6 py-4",
+        footer: "px-3 sm:px-6 pb-3 sm:pb-6 pt-0",
       }}>
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1 text-2xl">{capitalize(action)} Workout</ModalHeader>
@@ -174,7 +177,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
                   <img className="size-24" src={exercise.imageUrl} alt={exercise.name} />
                   <span>{exercise.name}</span>
 
-                  <div className="max-w-1/3 flex items-center max-h-7 ms-auto pe-2.5 gap-x-3">
+                  <div className="md:max-w-1/3 flex items-center  md:ms-auto pe-2.5 gap-2.5 mb-2.5 md:mb-0">
                     <NumberInput
                       defaultValue={exercise.sets ?? 1}
                       minValue={1}
