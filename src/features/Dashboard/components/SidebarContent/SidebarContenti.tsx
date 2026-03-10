@@ -9,6 +9,7 @@ import ProfileSVG from "@assets/profile.svg";
 import LogoutSVG from "@assets/logout.svg";
 import { ProfileSettingsModal } from "../ProfileSettings/ProfileSettingsModal/ProfileSettingsModal";
 import "./SidebarContent.css";
+import { GenerateWorkoutModal } from "../Workouts/components/GenerateWorkoutModal/GenerateWorkoutModal";
 
 interface SidebarContentProps {
   onClose?: () => void;
@@ -17,6 +18,7 @@ interface SidebarContentProps {
 export const SidebarContent = ({ onClose }: SidebarContentProps) => {
   const [logout, { isLoading }] = useLogoutMutation();
   const profileSettingsModal = useDisclosure();
+  const generateWorkoutModal = useDisclosure();
   const { data: profile } = useGetProfileQuery();
   const fallbaAvatarUrl = `https://ui-avatars.com/api/?name=${profile?.data.firstname + " " + profile?.data.lastname}&background=f3ff96&color=1e1e1e`;
 
@@ -56,7 +58,9 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
             className="btn-primary w-full  rounded-2xl px-4 py-3 flex items-center justify-center">
             Activity <img className="size-6 ms-2" src={BoltSVG} alt="bolt" />
           </NavLink>
-          <button className="btn-primary w-full mt-6  rounded-2xl px-4 py-3 flex items-center justify-center">
+          <button
+            onClick={generateWorkoutModal.onOpen}
+            className="btn-primary w-full mt-6  rounded-2xl px-4 py-3 flex items-center justify-center">
             Ask the coach <img className="size-6 ms-2" src={RobotSVG} alt="ai coach" />
           </button>
         </div>
@@ -76,6 +80,7 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
         </div>
       </div>
       <ProfileSettingsModal isOpen={profileSettingsModal.isOpen} onOpenChange={profileSettingsModal.onOpenChange} />
+      <GenerateWorkoutModal isOpen={generateWorkoutModal.isOpen} onOpenChange={generateWorkoutModal.onOpenChange} />
     </>
   );
 };

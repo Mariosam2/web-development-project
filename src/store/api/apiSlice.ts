@@ -92,5 +92,6 @@ export const apiSlice = createApi({
     "SingleWorkout",
     "Activity",
     "Profile",
+    "Equipments",
   ],
 });

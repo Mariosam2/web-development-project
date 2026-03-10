@@ -3,6 +3,7 @@ export interface IExerciseQuery {
   targetMuscles: string | null;
   exerciseType: string | null;
   bodyParts: string | null;
+  equipments?: string | null;
   limit: number;
   after: string | null;
   before: string | null;

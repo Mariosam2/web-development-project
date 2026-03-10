@@ -7,3 +7,4 @@ export type RegisterForm = z.infer<typeof RegisterSchema>;
 export type ProfileSettingsForm = z.infer<typeof ProfileSettingsSchema>;
 export type ResetPasswordForm = z.infer<typeof ResetPasswordSchema>;
 export type ContactFormType = z.infer<typeof ContactSchema>;
+export type GenerateWorkoutForm = z.infer<typeof GenerateWorkoutSchema>;

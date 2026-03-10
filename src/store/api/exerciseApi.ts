@@ -6,6 +6,7 @@ import type { IExerciseType } from "../../shared/interfaces/exerciseDb/IExercise
 import type { ITargetMuscle } from "../../shared/interfaces/exerciseDb/ITargetMuscle";
 import type { IExerciseQuery } from "../../shared/interfaces/query/IExercisesQuery";
 import { apiSlice } from "./apiSlice";
+import type { IEquipment } from "@src/shared/interfaces/exerciseDb/IEquipment";
 
 export const exerciseApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -57,6 +58,13 @@ export const exerciseApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["ExerciseTypes"],
     }),
+    getEquipments: builder.query<IApiResponse<IEquipment[]>, void>({
+      query: () => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/exercises/equipments`,
+        method: "GET",
+      }),
+      providesTags: ["Equipments"],
+    }),
   }),
 });
 
@@ -66,4 +74,5 @@ export const {
   useGetBodyPartsQuery,
   useGetTargetMusclesQuery,
   useGetExerciseTypesQuery,
+  useGetEquipmentsQuery,
 } = exerciseApi;
