@@ -79,35 +79,37 @@ export const Exercises = () => {
 
   return (
     <>
-      <div className="h-12 flex items-center justify-end mb-2.5  absolute left-0 right-0 top-48 container-xl mx-auto px-3 gap-x-3">
-        {mounted && (
-          <button
-            className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
+      <div className="actions sticky top-46.5 bg-white pb-2.5 z-30 ">
+        <div className="container-xl flex flex-wrap gap-2.5  px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+          {mounted && (
+            <button
+              className={`btn-primary text-sm rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 && (workouts?.data.length ?? 0) > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-            onClick={importExercisesModal.onOpen}>
-            Import to existing Workout
-          </button>
-        )}
+              onClick={importExercisesModal.onOpen}>
+              Import to existing Workout
+            </button>
+          )}
 
-        {mounted && (
-          <button
-            style={!mounted ? { transition: "none" } : undefined}
-            className={`btn-secondary rounded-2xl px-4 py-3 transition-all duration-300
+          {mounted && (
+            <button
+              style={!mounted ? { transition: "none" } : undefined}
+              className={`btn-secondary text-sm rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-            onClick={deselectExercises}>
-            Deselect All
-          </button>
-        )}
+              onClick={deselectExercises}>
+              Deselect All
+            </button>
+          )}
 
-        {mounted && (
-          <button
-            style={!mounted ? { transition: "none" } : undefined}
-            className={`btn-primary rounded-2xl px-4 py-3 transition-all duration-300
+          {mounted && (
+            <button
+              style={!mounted ? { transition: "none" } : undefined}
+              className={`btn-primary text-sm rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-            onClick={newWorkoutModal.onOpen}>
-            Create Workout
-          </button>
-        )}
+              onClick={newWorkoutModal.onOpen}>
+              Create Workout
+            </button>
+          )}
+        </div>
       </div>
       <ExerciseList
         exercises={exercises}

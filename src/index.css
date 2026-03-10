@@ -30,10 +30,13 @@
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
-  --contailer-xxl: 1440px;
-  --breakpoint-xs: 25rem;
-  --breakpoint-3xl: 108rem;
-  --breakpoint-c-md: 56.375rem;
+  --container-xxl: 1440px;
+  --breakpoint-xs: 400px;
+  --breakpoint-3xl: 1728px;
+  --breakpoint-c-md: 902px;
+  --breakpoint-c-sm: 514px;
+  --breakpoint-c-tablet: 682px;
+  --breakpoint-c-sm-2: 640px;
 
   --ease-elastic: cubic-bezier(0.34, 1.35, 0.64, 1);
 }

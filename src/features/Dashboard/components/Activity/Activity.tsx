@@ -62,38 +62,43 @@ export const Activity = () => {
         <ActivitySkeleton />
       ) : (
         <div className="activity">
-          <div className="container-xl flex flex-col">
-            <div className="statistic grid grid-cols-6 grid-rows-6 gap-4 h-180">
-              <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-                <Fire className="size-24" />
-                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1">Streak</span>
-                <span className={`text-lg font-semibold ${statistics?.data.streak === 0 ? "text-c-dark-gray" : ""}`}>
+          <div className="container-xl flex flex-col px-3">
+            <div className="statistic  pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6 xl:grid-rows-6 xl:gap-4 xl:h-180">
+              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+                <Fire className="size-24 sm:size-20 c-tablet:size-24" />
+                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1  text-center">Streak</span>
+                <span
+                  className={`text-lg sm:text-base c-tablet:text-lg font-semibold ${statistics?.data.streak === 0 ? "text-c-dark-gray" : ""}`}>
                   {statistics?.data.streak === 0
                     ? "No active streak"
                     : `${statistics?.data.streak} ${statistics?.data.streak === 1 ? "day" : "days"}`}
                 </span>
               </div>
-              <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-                <Muscle className="size-24" />
-                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1">Completed this week</span>
+              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+                <Muscle className="size-24 sm:size-20 c-tablet:size-24" />
+                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">
+                  Completed this week
+                </span>
                 <span
-                  className={`text-lg font-semibold ${statistics?.data.workoutsCount === 0 ? "text-c-dark-gray" : ""}`}>
+                  className={`text-lg sm:text-base c-tablet:text-lg font-semibold ${statistics?.data.workoutsCount === 0 ? "text-c-dark-gray" : ""}`}>
                   {statistics?.data.workoutsCount === 0
                     ? "No workouts yet"
                     : `${statistics?.data.workoutsCount} ${statistics?.data.workoutsCount === 1 ? "workout" : "workouts"}`}
                 </span>
               </div>
-              <div className="col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
-                <Clock className="size-24" />
-                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1">Training time this week</span>
+              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+                <Clock className="size-24 sm:size-20 c-tablet:size-24" />
+                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1  text-center">
+                  Training time this week
+                </span>
                 <span
-                  className={`text-lg font-semibold ${statistics?.data.totalWorkoutsDuration === 0 ? "text-c-dark-gray" : ""}`}>
+                  className={`text-lg sm:text-base c-tablet:text-lg font-semibold ${statistics?.data.totalWorkoutsDuration === 0 ? "text-c-dark-gray" : ""}`}>
                   {statistics?.data.totalWorkoutsDuration === 0
                     ? "No training yet"
                     : formatDuration(statistics?.data.totalWorkoutsDuration)}
                 </span>
               </div>
-              <div className="calendar col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 ">
+              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 ">
                 <RangeCalendar
                   isDateUnavailable={(date) => !hasCompletedAWorkout(date)}
                   classNames={{
@@ -106,12 +111,12 @@ export const Activity = () => {
                   aria-label="Workout days"
                 />
               </div>
-              <div className="bars-chart col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-4 row-span-4 flex flex-col">
-                <div className="header flex items-center justify-between gap-x-12 w-full px-8 py-4">
+              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 xl:p-4 row-span-4 flex flex-col min-h-72">
+                <div className="header flex items-center justify-between gap-x-12 w-full p-4 xl:px-8 xl:py-4">
                   <h3 className="font-xl font-medium">Activity</h3>
                   <div className="bg-c-yellow p-3 rounded-xl">Week</div>
                 </div>
-                <div className="chart w-full grow flex flex-col p-8 pb-6">
+                <div className="chart w-full grow flex flex-col p-4 xl:p-8 pb-6">
                   <div className="bars grow flex items-end gap-x-4 w-full justify-between mb-2">
                     {getPastWeekDays().map((day, index) => (
                       <div

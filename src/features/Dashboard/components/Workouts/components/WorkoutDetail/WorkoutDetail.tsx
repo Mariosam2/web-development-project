@@ -119,53 +119,55 @@ export const WorkoutDetail = () => {
 
   return (
     <>
-      <div className=" flex flex-col  justify-start mb-2.5  absolute left-0 right-0 top-32 container-xl mx-auto px-3">
-        <div className=" w-full max-w-md mx-auto mb-12  h-20 self-center">
-          {!showSkeleton ? (
-            <h1 className="text-center text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>
-          ) : (
-            <Skeleton className=" w-full h-full rounded-lg" />
-          )}
-        </div>
-        <div className="actions h-12 self-start flex items-center gap-x-3 w-full px-3">
-          <button
-            disabled={showSkeleton}
-            className="btn-secondary rounded-2xl px-4 py-3 transition-all duration-300"
-            onClick={deleteWorkoutModal.onOpen}>
-            Delete Workout
-          </button>
-          <button
-            disabled={showSkeleton}
-            className="btn-primary rounded-2xl px-4 py-3 transition-all duration-300"
-            onClick={updateWorkoutModal.onOpen}>
-            Update Workout
-          </button>
-          {!workout?.completed && (
-            <button
-              disabled={showSkeleton}
-              className="btn-outline rounded-2xl px-4 py-3 transition-all duration-300"
-              onClick={completeWorkoutModal.onOpen}>
-              Mark as Completed
-            </button>
-          )}
+      <div className="actions container-xl sticky top-26.5 pt-2 pb-3  bg-white z-20 self-start grid grid-cols-2  c-tablet:flex  c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+        <button
+          disabled={showSkeleton}
+          className="btn-secondary col-span-2 c-tablet::col-span-none  rounded-2xl px-4 py-3 transition-all duration-300"
+          onClick={deleteWorkoutModal.onOpen}>
+          Delete Workout
+        </button>
+        <div className="hidden c-tablet:block lg:hidden basis-full h-0" />
+        <button
+          disabled={showSkeleton}
+          className="btn-primary   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
+          onClick={updateWorkoutModal.onOpen}>
+          Update Workout
+        </button>
 
+        {!workout?.completed && (
           <button
             disabled={showSkeleton}
-            className={`btn-secondary rounded-2xl px-4 py-3 transition-all duration-300
-          ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
-            onClick={removeSelectedExercisesModal.onOpen}>
-            Remove Selected Exercises
+            className="btn-outline   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
+            onClick={completeWorkoutModal.onOpen}>
+            Mark as Completed
           </button>
-          {showSkeleton ? (
-            <Skeleton className="ms-auto me-4 h-9 w-28 rounded-full" />
+        )}
+
+        <button
+          disabled={showSkeleton}
+          className={`btn-secondary col-span-2 c-tablet:col-span-none   rounded-2xl px-4 py-3 transition-all duration-300
+          ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
+          onClick={removeSelectedExercisesModal.onOpen}>
+          Remove Selected Exercises
+        </button>
+      </div>
+      <div className=" flex flex-col  justify-start mb-2.5  bg-white container-xl mx-auto px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+        <div className=" w-full max-w-md mx-auto mb-3 xl:mt-4 sm:mb-12 self-center">
+          {!showSkeleton ? (
+            <h1 className="text-center text-3xl  sm:text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>
           ) : (
-            <CompletedChip
-              isCompleted={workout?.completed ?? null}
-              className="ms-auto me-4 py-1.5 px-4"
-              iconClassName="size-8"
-            />
+            <Skeleton className=" w-full h-20 rounded-lg" />
           )}
         </div>
+        {showSkeleton ? (
+          <Skeleton className="order-first xl:order-0 xl:ms-auto me-4 h-9 mb-4 w-28 rounded-full" />
+        ) : (
+          <CompletedChip
+            isCompleted={workout?.completed ?? null}
+            className="order-first xl:order-0 xl:ms-auto  me-4 py-1  mb-4 px-2.5 md:py-1.5 md:px-4"
+            iconClassName="size-8"
+          />
+        )}
       </div>
       <div className="pb-8">
         <ExerciseList exercises={workoutExercises?.data ?? []} isLoading={showSkeleton} />

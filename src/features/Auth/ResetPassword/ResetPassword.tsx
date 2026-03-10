@@ -52,8 +52,8 @@ export const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-page">
-      <div className="reset-card">
+    <div className="reset-page p-3">
+      <div className="reset-card p-4 md:p-6">
         <div className="reset-logo max-w-max rounded-2xl mx-auto">
           <img id="logo-icon" className="max-w-full h-auto" width={60} height={60} src={LogoIcon} alt="logo icon" />
         </div>
