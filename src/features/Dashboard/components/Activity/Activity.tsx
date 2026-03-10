@@ -98,7 +98,7 @@ export const Activity = () => {
                     : formatDuration(statistics?.data.totalWorkoutsDuration)}
                 </span>
               </div>
-              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 ">
+              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 min-h-120">
                 <RangeCalendar
                   isDateUnavailable={(date) => !hasCompletedAWorkout(date)}
                   classNames={{
@@ -111,7 +111,7 @@ export const Activity = () => {
                   aria-label="Workout days"
                 />
               </div>
-              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 xl:p-4 row-span-4 flex flex-col min-h-72">
+              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 sm:p-4 row-span-4 flex flex-col min-h-120">
                 <div className="header flex items-center justify-between gap-x-12 w-full p-4 xl:px-8 xl:py-4">
                   <h3 className="font-xl font-medium">Activity</h3>
                   <div className="bg-c-yellow p-3 rounded-xl">Week</div>

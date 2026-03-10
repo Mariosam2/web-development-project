@@ -4,7 +4,7 @@ export const ActivitySkeleton = () => {
   return (
     <div className="activity">
       <div className="container-xl flex flex-col px-3">
-        <div className="statistic px-3 pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6 xl:grid-rows-6 xl:gap-4 xl:h-180">
+        <div className="statistic pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6 xl:grid-rows-6 xl:gap-4 xl:h-180">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
