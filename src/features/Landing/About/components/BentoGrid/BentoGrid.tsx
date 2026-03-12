@@ -2,7 +2,7 @@ import WorkoutSVG from "@assets/workout.svg";
 import MuscleSVG from "@assets/muscle.svg";
 import MagnifyingGlassSVG from "@assets/magnifying-glass.svg";
 import ClipboardSVG from "@assets/clipboard.svg";
-import AIAssistantSVG from "@assets/ai-assistant.svg";
+import RobotSVG from "@assets/robot.svg";
 import "./BentoGrid.css";
 
 export const BentoGrid = () => {
@@ -68,7 +68,7 @@ export const BentoGrid = () => {
               nulla aut.
             </p>
 
-            <img className="ms-auto size-15 self-end" src={AIAssistantSVG} alt="muscle" />
+            <img className="ms-auto size-15 self-end" src={RobotSVG} alt="muscle" />
           </div>
         </div>
       </div>

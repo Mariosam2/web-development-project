@@ -33,12 +33,14 @@ export const Activity = () => {
     for (let i = 6; i >= 0; i--) {
       const date = normalizeDate(new Date(today));
       date.setDate(today.getDate() - i);
-      const completedWorkout = completedWorkouts?.data[i];
-      const completedWorkoutDate = normalizeDate(new Date(completedWorkouts?.data[i]?.date ?? ""));
-      const count = date.getTime() === completedWorkoutDate.getTime() && completedWorkout ? completedWorkout.count : 0;
+      const count =
+        completedWorkouts?.data.find((w) => normalizeDate(new Date(w.date)).getTime() === date.getTime())?.count ?? 0;
+
       const label = date.toLocaleDateString("it-IT", { weekday: "short" }).charAt(0).toUpperCase();
       days.push({ date, label, count });
     }
+
+    console.log(days);
 
     return days;
   };
@@ -61,9 +63,9 @@ export const Activity = () => {
       {showSkeleton ? (
         <ActivitySkeleton />
       ) : (
-        <div className="activity">
+        <div className="activity pt-4">
           <div className="container-xl flex flex-col px-3">
-            <div className="statistic  pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6 xl:grid-rows-6 xl:gap-4 xl:h-180">
+            <div className="statistic  pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6  xl:gap-4 ">
               <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
                 <Fire className="size-24 sm:size-20 c-tablet:size-24" />
                 <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1  text-center">Streak</span>
@@ -98,7 +100,7 @@ export const Activity = () => {
                     : formatDuration(statistics?.data.totalWorkoutsDuration)}
                 </span>
               </div>
-              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 min-h-120">
+              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 h-110">
                 <RangeCalendar
                   isDateUnavailable={(date) => !hasCompletedAWorkout(date)}
                   classNames={{
@@ -111,7 +113,7 @@ export const Activity = () => {
                   aria-label="Workout days"
                 />
               </div>
-              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 sm:p-4 row-span-4 flex flex-col min-h-120">
+              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 sm:p-4 row-span-4 flex flex-col h-110">
                 <div className="header flex items-center justify-between gap-x-12 w-full p-4 xl:px-8 xl:py-4">
                   <h3 className="font-xl font-medium">Activity</h3>
                   <div className="bg-c-yellow p-3 rounded-xl">Week</div>

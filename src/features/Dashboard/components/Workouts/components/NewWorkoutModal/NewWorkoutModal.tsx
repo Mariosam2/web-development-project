@@ -43,8 +43,6 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
   const [image, setImage] = useState<File | null>(null);
   const isLoading = addWorkoutLoading || updateWorkoutLoading || isLoadingExercises || isFetchingExercises;
 
-  console.log("SELECTED WORKOUT", selectedWorkout);
-
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 

@@ -1,4 +1,4 @@
-import { SidebarContent } from "../SidebarContent/SidebarContenti";
+import { SidebarContent } from "../SidebarContent/SidebarContent";
 import "./Sidebar.css";
 
 export const Sidebar = () => {

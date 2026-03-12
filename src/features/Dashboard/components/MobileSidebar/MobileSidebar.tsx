@@ -1,5 +1,5 @@
 import { AnimatedCloseButton } from "@src/shared/ui/AnimatedCloseButton";
-import { SidebarContent } from "../SidebarContent/SidebarContenti";
+import { SidebarContent } from "../SidebarContent/SidebarContent";
 import "./MobileSidebar.css";
 
 interface MobileSidebarProps {

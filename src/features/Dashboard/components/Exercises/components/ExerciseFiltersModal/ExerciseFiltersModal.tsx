@@ -79,29 +79,26 @@ export const ExerciseFiltersModal = ({
               <MultiSelect
                 label="Body Parts"
                 placeholder="Select body parts"
-                field="bodyParts"
                 selectedKeys={selectedBodyParts}
                 items={bodyParts ?? []}
-                onChange={onItemsChange}
-                onClearItems={onClearItems}
+                onChange={(keys) => onItemsChange(keys, "bodyParts")}
+                onClear={() => onClearItems("bodyParts")}
               />
               <MultiSelect
                 label="Target Muscles"
                 placeholder="Select target muscles"
                 selectedKeys={selectedTargetMuscles}
-                field="targetMuscles"
                 items={targetMuscles ?? []}
-                onChange={onItemsChange}
-                onClearItems={onClearItems}
+                onChange={(keys) => onItemsChange(keys, "targetMuscles")}
+                onClear={() => onClearItems("targetMuscles")}
               />
               <SelectComponent
                 label="Exercise Type"
                 placeholder="Select exercise type"
-                field="exerciseType"
                 selectedKeys={selectedExerciseType ? [selectedExerciseType] : []}
                 items={exerciseTypes ?? []}
-                onChange={onItemsChange}
-                onClearItems={onClearItems}
+                onChange={(keys) => onItemsChange(keys, "exerciseType")}
+                onClear={() => onClearItems("exerciseType")}
               />
             </ModalBody>
             <ModalFooter>

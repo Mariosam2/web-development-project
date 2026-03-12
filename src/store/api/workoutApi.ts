@@ -6,6 +6,7 @@ import { apiSlice } from "./apiSlice";
 import type { IWorkoutQuery } from "@src/shared/interfaces/query/IWorkoutQuery";
 import type { IRemoveExercises } from "@src/shared/interfaces/workout/IRemoveExercises";
 import type { IImportExercises } from "@src/shared/interfaces/workout/IImportExercises";
+import type { GenerateWorkoutForm } from "@src/shared/types";
 
 export const workoutApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -82,6 +83,14 @@ export const workoutApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["SingleWorkout", "Workouts", "Activity"],
     }),
+    generateWorkout: builder.mutation<IApiResponse<IMutation>, GenerateWorkoutForm>({
+      query: (body) => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/workouts/generate`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["SingleWorkout", "Workouts", "WorkoutExercises"],
+    }),
   }),
 });
 
@@ -95,4 +104,5 @@ export const {
   useImportExercisesMutation,
   useRemoveExercisesMutation,
   useCompleteWorkoutMutation,
+  useGenerateWorkoutMutation,
 } = workoutApi;

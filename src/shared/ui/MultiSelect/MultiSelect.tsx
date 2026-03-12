@@ -1,30 +1,27 @@
 import { Select, SelectItem } from "@heroui/select";
 import { Chip } from "@heroui/chip";
 import "./MultiSelect.css";
-import type { IBodyPart } from "@src/shared/interfaces/exerciseDb/IBodyPart";
-import type { ITargetMuscle } from "@src/shared/interfaces/exerciseDb/ITargetMuscle";
-import type { Selection } from "@heroui/react";
-import type { IExerciseQuery } from "@src/shared/interfaces/query/IExercisesQuery";
 import { Trash } from "../Trash";
+import type { SharedSelection } from "@heroui/react";
 
-interface MultiSelectProps {
-  items: IBodyPart[] | ITargetMuscle[];
+interface MultiSelectProps<T extends { name: string } = { name: string }> {
+  items: T[];
   selectedKeys: string[];
-  onChange: (key: Selection | "all", field: keyof IExerciseQuery) => void;
-  onClearItems: (field: keyof IExerciseQuery) => void;
-  field: keyof IExerciseQuery;
+  onChange: (keys: SharedSelection) => void;
+  onClear: () => void;
   label: string;
   placeholder: string;
+  isInvalid?: boolean;
 }
 
 export const MultiSelect = ({
   items,
   onChange,
-  field,
   selectedKeys,
-  onClearItems,
   label,
   placeholder,
+  onClear,
+  isInvalid,
 }: MultiSelectProps) => {
   return (
     <div className="flex items-start">
@@ -37,9 +34,10 @@ export const MultiSelect = ({
         isMultiline={true}
         items={items}
         selectedKeys={selectedKeys}
-        onSelectionChange={(v) => onChange(v, field)}
+        onSelectionChange={onChange}
         label={label}
         aria-label={label}
+        isInvalid={isInvalid}
         labelPlacement="outside"
         placeholder={placeholder}
         renderValue={(items) => {
@@ -69,7 +67,7 @@ export const MultiSelect = ({
           </SelectItem>
         )}
       </Select>
-      <Trash className="size-6 mt-8 ms-2.5 cursor-pointer text-c-dark-gray" onClick={() => onClearItems(field)} />
+      <Trash className="size-6 mt-8 ms-2.5 cursor-pointer text-c-dark-gray" onClick={onClear} />
     </div>
   );
 };

@@ -1,24 +1,22 @@
 import { Select, SelectItem, type Selection } from "@heroui/react";
-import type { IExerciseType } from "@src/shared/interfaces/exerciseDb/IExerciseType";
 import { Trash } from "../Trash";
-import type { IExerciseQuery } from "@src/shared/interfaces/query/IExercisesQuery";
-
-interface SelectComponentProps {
-  items: IExerciseType[];
+import "./SelectComponent.css";
+import { capitalize } from "@src/shared/helpers";
+interface SelectComponentProps<T extends { name: string } = { name: string }> {
+  items: T[];
   selectedKeys: string[];
-  onChange: (key: Selection | "all", field: keyof IExerciseQuery) => void;
-  onClearItems: (field: keyof IExerciseQuery) => void;
-  field: keyof IExerciseQuery;
+  onChange: (keys: Selection) => void;
+  onClear: () => void;
   label: string;
   placeholder: string;
+  isInvalid?: boolean;
 }
 
 export const SelectComponent = ({
   items,
   selectedKeys,
   onChange,
-  onClearItems,
-  field,
+  onClear,
   label,
   placeholder,
 }: SelectComponentProps) => {
@@ -35,26 +33,26 @@ export const SelectComponent = ({
         items={items ?? []}
         label={label}
         labelPlacement="outside"
-        onSelectionChange={(v) => onChange(v, field)}
+        onSelectionChange={onChange}
         placeholder={placeholder}
         selectedKeys={selectedKeys}>
-        {(et) => (
+        {(item) => (
           <SelectItem
             classNames={{
               base: "!ring-0 !outline-none !shadow-none focus:!ring-0",
               wrapper: "!ring-0 !outline-none !shadow-none focus:!ring-0",
             }}
-            key={et.name}
-            textValue={et.name}>
+            key={item.name}
+            textValue={capitalize(item.name)}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
-                <span className="text-small">{et.name}</span>
+                <span className="text-small">{capitalize(item.name)}</span>
               </div>
             </div>
           </SelectItem>
         )}
       </Select>
-      <Trash className="size-6 mt-8 ms-2.5 cursor-pointer text-c-dark-gray" onClick={() => onClearItems(field)} />
+      <Trash className="size-6 mt-8 ms-2.5 cursor-pointer text-c-dark-gray" onClick={onClear} />
     </div>
   );
 };

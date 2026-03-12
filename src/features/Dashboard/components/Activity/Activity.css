@@ -33,5 +33,5 @@
   font-size: 16px !important;
 }
 .calendar [data-slot="header-wrapper"] {
-  padding-block: 1.5rem;
+  padding-block: 1rem;
 }

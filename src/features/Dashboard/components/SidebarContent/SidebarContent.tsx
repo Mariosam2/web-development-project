@@ -80,7 +80,11 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
         </div>
       </div>
       <ProfileSettingsModal isOpen={profileSettingsModal.isOpen} onOpenChange={profileSettingsModal.onOpenChange} />
-      <GenerateWorkoutModal isOpen={generateWorkoutModal.isOpen} onOpenChange={generateWorkoutModal.onOpenChange} />
+      <GenerateWorkoutModal
+        isOpen={generateWorkoutModal.isOpen}
+        onOpenChange={generateWorkoutModal.onOpenChange}
+        closeSidebar={onClose}
+      />
     </>
   );
 };
