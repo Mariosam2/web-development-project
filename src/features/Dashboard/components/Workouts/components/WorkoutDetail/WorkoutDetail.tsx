@@ -68,6 +68,7 @@ export const WorkoutDetail = () => {
 
   useEffect(() => {
     if (!workout) return;
+    document.querySelector(".content")?.scrollTo(0, 0);
     dispatch(setSelectedWorkout(workout));
   }, [workout, dispatch]);
 

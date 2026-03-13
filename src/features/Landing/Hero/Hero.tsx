@@ -37,10 +37,15 @@ export const Hero = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio necessitatibus iure, aliquam, numquam magnam
           quia esse, odit et dicta reiciendis sequi! Deserunt quam quod eos, vel temporibus quasi totam facere.
         </p>
+
         <div className="cta-button  flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
-          <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-base lg:text-xl">
-            Get Started
-          </NavLink>
+          <button className=" btn-secondary  flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
+            <NavLink
+              to="/login"
+              className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-base lg:text-xl">
+              Get Started
+            </NavLink>
+          </button>
           <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0 size-10 arrow-right" />
         </div>
       </div>

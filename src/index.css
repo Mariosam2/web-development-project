@@ -127,12 +127,6 @@
   color: var(--color-dark);
 }
 
-.btn-primary,
-.btn-secondary,
-.btn-outline {
-  cursor: pointer;
-}
-
 .layover {
   position: absolute;
   left: 0;
@@ -171,15 +165,23 @@
 .btn-primary,
 .btn-secondary {
   will-change: brightness;
+  cursor: pointer;
+  scale: 1;
   filter: brightness(1);
   transition:
     all 0.25s ease-in-out,
+    scale 0.1s ease-in-out,
     opacity 0.3s ease,
     translate 0.3s ease;
 }
 .btn-primary:hover,
 .btn-secondary:hover {
   filter: brightness(95%);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  scale: 0.98;
 }
 
 span.text-red-500 {

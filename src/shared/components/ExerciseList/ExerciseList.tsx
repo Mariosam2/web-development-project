@@ -12,7 +12,7 @@ interface ExerciseListProps {
 
 export const ExerciseList = ({ exercises, isLoading, sentinelRef }: ExerciseListProps) => {
   return (
-    <div className="container-xl mx-auto ">
+    <div className="container-xl mx-auto">
       <div className="grid grid-cols-1 c-md:grid-cols-2 gap-6 c-md:gap-3 lg:gap-6  px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
         {isLoading ? (
           Array.from({ length: 8 }).map((_, i) => <ExerciseCardSkeleton key={i} />)
