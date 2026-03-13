@@ -3,6 +3,7 @@ import { Chip } from "@heroui/chip";
 import "./MultiSelect.css";
 import { Trash } from "../Trash";
 import type { SharedSelection } from "@heroui/react";
+import { getMuscleLabel } from "@src/shared/helpers";
 
 interface MultiSelectProps<T extends { name: string } = { name: string }> {
   items: T[];
@@ -44,24 +45,24 @@ export const MultiSelect = ({
           return (
             <div className="flex flex-wrap gap-2">
               {items.map((item) => (
-                <Chip key={item.key}>{item.data?.name}</Chip>
+                <Chip key={item.key}>{getMuscleLabel(item.data?.name ?? "")}</Chip>
               ))}
             </div>
           );
         }}
         selectionMode="multiple"
         variant="bordered">
-        {(bodyPart) => (
+        {(item) => (
           <SelectItem
             classNames={{
               base: "!ring-0 !outline-none !shadow-none focus:!ring-0",
               wrapper: "!ring-0 !outline-none !shadow-none focus:!ring-0",
             }}
-            key={bodyPart.name}
-            textValue={bodyPart.name}>
+            key={item.name}
+            textValue={item.name}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
-                <span className="text-small">{bodyPart.name}</span>
+                <span className="text-small">{getMuscleLabel(item.name)}</span>
               </div>
             </div>
           </SelectItem>

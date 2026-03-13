@@ -26,17 +26,17 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
     [UserLevel.BEGINNER]: {
       bg: "#4ade80",
       text: "#14532d",
-      border: "#22c55e", // green-500, leggermente più scuro del bg
+      border: "#22c55e",
     },
     [UserLevel.INTERMEDIATE]: {
       bg: "#f3ff96",
       text: "#474d06",
-      border: "#d4e04f", // yellow-600
+      border: "#d4e04f",
     },
     [UserLevel.ADVANCED]: {
       bg: "#f97316",
       text: "#fff7ed",
-      border: "#ea580c", // orange-600, più scuro del bg
+      border: "#ea580c",
     },
   };
   const handleLogout = () => {
