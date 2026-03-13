@@ -5,6 +5,7 @@ import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Divider } from "@heroui/divider";
 import type { IExerciseDetail } from "@src/shared/interfaces/exerciseDb/IExerciseDetail";
 import "./ExerciseDetailContent.css";
+import { getMuscleLabel } from "@src/shared/helpers";
 
 interface ExerciseDetailContentProps {
   exerciseDetail: IExerciseDetail;
@@ -98,7 +99,7 @@ export const ExerciseDetailContent = ({ exerciseDetail, onClose }: ExerciseDetai
                   size="sm"
                   variant="flat"
                   classNames={{ base: "bg-c-yellow", content: "text-[10px] font-semibold px-1 text-c-dark" }}>
-                  {m}
+                  {getMuscleLabel(m)}
                 </Chip>
               ))}
             </div>
@@ -118,7 +119,7 @@ export const ExerciseDetailContent = ({ exerciseDetail, onClose }: ExerciseDetai
                       content: "text-[10px] px-0.5 flex items-center gap-1 ",
                     }}>
                     <span className="w-2 h-2 rounded-full bg-c-yellow inline-block border border-c-dark" />
-                    {m}
+                    {getMuscleLabel(m)}
                   </Chip>
                 ))}
               </div>

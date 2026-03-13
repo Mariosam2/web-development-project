@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { Chip, Tooltip, useDisclosure } from "@heroui/react";
 import { Info } from "@src/shared/ui/Info";
 import { ExerciseDetailModal } from "../ExerciseDetailModal/ExerciseDetailModal";
-import { showToast } from "@src/shared/helpers";
+import { getMuscleLabel, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { useEffect, useState } from "react";
 import type { IExerciseOverview } from "@src/shared/interfaces/exerciseDb/IExerciseOverview";
@@ -94,7 +94,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                       base: "bg-c-yellow border border-c-yellow-500",
                       content: "text-[10px] font-semibold px-1 text-c-dark",
                     }}>
-                    {m}
+                    {getMuscleLabel(m)}
                   </Chip>
                 ))}
               </div>
