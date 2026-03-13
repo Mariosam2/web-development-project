@@ -14,12 +14,12 @@ export const CompletedChip = ({ onClick, isCompleted, iconClassName, className }
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer transition-colors duration-300 flex items-center gap-1 px-3 py-1 max-w-fit rounded-full ${
+      className={`cursor-pointer transition-colors duration-300 flex items-center gap-1 px-3 py-1 max-w-fit rounded-full border ${
         isCompleted === null
-          ? "bg-purple-50 text-purple-600"
+          ? "bg-purple-50 text-purple-600 border-purple-200"
           : isCompleted
-            ? "bg-success-50 text-success-600"
-            : "bg-warning-50 text-warning-600"
+            ? "bg-success-50 text-success-600 border-success-200"
+            : "bg-warning-50 text-warning-600 border-warning-200"
       } ${className}`}>
       {isCompleted === null ? (
         <Minus className={iconClassName} />

@@ -76,7 +76,7 @@ export const Loader = ({ onDone }: LoaderProps) => {
 
   return (
     <div
-      className={`loader fixed top-0 left-0 z-50 w-screen h-screen transition-opacity bg-c-light-gray duration-250 ease-elastic ${done ? "opacity-0 -z-30" : "opacity-100"}`}>
+      className={`loader fixed top-0 left-0 z-50 w-full h-screen transition-opacity bg-c-light-gray duration-250 ease-elastic ${done ? "opacity-0 -z-30" : "opacity-100"}`}>
       <div className="max-w-56 mx-auto flex flex-col items-center justify-center h-full ">
         <div className="loader-text-area mb-3 text-c-dark-gray text-xl text-nowrap">
           <span ref={phraseRef} className="loader-phrase opacity-100 inline-block">

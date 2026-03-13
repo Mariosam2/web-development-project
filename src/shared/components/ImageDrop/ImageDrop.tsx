@@ -39,7 +39,7 @@ export const ImageDrop = ({ onImageSelect, imageUrl }: ImageDropProps) => {
   return (
     <div
       className={`relative border-2 border-dashed rounded-2xl text-center cursor-pointer transition-colors
-        ${isDragging ? "border-c-yellow bg-c-yellow-lighter" : "border-c-dark-gray bg-c-light-gray"}
+        ${isDragging ? "border-c-yellow-400 bg-c-yellow-200" : "border-c-dark-gray bg-c-light-gray"}
         ${preview ? "p-2" : "p-6"}`}
       onDrop={onDrop}
       onDragOver={onDragOver}

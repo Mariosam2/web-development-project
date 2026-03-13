@@ -68,7 +68,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   return (
     <>
       <div
-        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-light" : ""}`}
+        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-200" : ""}`}
         onClick={() => onSelectExercise(!isSelected)}>
         <div className="preview w-full xs:w-2/5 c-md:w-1/3 rounded-t-2xl  xs:rounded-t-none xs:rounded-l-2xl max-h-60">
           <img
@@ -89,8 +89,11 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                   <Chip
                     key={m}
                     size="sm"
-                    variant="flat"
-                    classNames={{ base: "bg-c-yellow", content: "text-[10px] font-semibold px-1 text-c-dark" }}>
+                    variant="bordered"
+                    classNames={{
+                      base: "bg-c-yellow border border-c-yellow-500",
+                      content: "text-[10px] font-semibold px-1 text-c-dark",
+                    }}>
                     {m}
                   </Chip>
                 ))}
@@ -103,7 +106,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                 key={bp}
                 size="sm"
                 variant="bordered"
-                classNames={{ base: "border-c-dark-gray", content: "text-[10px] px-0.5" }}>
+                classNames={{ base: "border border-c-dark-gray", content: "text-[10px] px-0.5" }}>
                 {bp}
               </Chip>
             ))}
@@ -113,7 +116,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                 size="sm"
                 variant="bordered"
                 classNames={{
-                  base: "bg-transparent border-c-dark-gray",
+                  base: "bg-transparent  border border-c-dark-gray",
                   content: "text-[10px] px-0.5 flex items-center gap-1 ",
                 }}>
                 <span className="w-2 h-2 rounded-full bg-c-yellow inline-block border border-c-dark" />
@@ -123,8 +126,11 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
             {exercise.exerciseType && (
               <Chip
                 size="sm"
-                variant="flat"
-                classNames={{ base: "bg-default-200", content: "text-[10px] px-0.5 text-default-600" }}>
+                variant="bordered"
+                classNames={{
+                  base: "border border-c-dark-gray",
+                  content: "text-[10px] px-0.5 text-default-600",
+                }}>
                 {exercise.exerciseType}
               </Chip>
             )}

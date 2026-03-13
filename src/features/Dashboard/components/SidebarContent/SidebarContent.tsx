@@ -22,28 +22,44 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
   const { data: profile } = useGetProfileQuery();
   const fallbaAvatarUrl = `https://ui-avatars.com/api/?name=${profile?.data.firstname + " " + profile?.data.lastname}&background=f3ff96&color=1e1e1e`;
 
-  const levelColor = {
-    [UserLevel.BEGINNER]: "#4ade80",
-    [UserLevel.INTERMEDIATE]: "#f3ff96",
-    [UserLevel.ADVANCED]: "#f97316",
+  const levelBadges = {
+    [UserLevel.BEGINNER]: {
+      bg: "#4ade80",
+      text: "#14532d",
+      border: "#22c55e", // green-500, leggermente più scuro del bg
+    },
+    [UserLevel.INTERMEDIATE]: {
+      bg: "#f3ff96",
+      text: "#474d06",
+      border: "#d4e04f", // yellow-600
+    },
+    [UserLevel.ADVANCED]: {
+      bg: "#f97316",
+      text: "#fff7ed",
+      border: "#ea580c", // orange-600, più scuro del bg
+    },
   };
   const handleLogout = () => {
     logout();
   };
   return (
     <>
-      <div className="avatar w-72 mx-auto py-3 xl:py-6 flex items-center mt-12 xl:mt-0">
+      <div className="avatar w-full py-3 xl:py-6 flex items-center justify-center mt-12 xl:mt-0 bg-c-light-gray  border border-c-gray">
         <img
           className="w-20 aspect-square rounded-full border border-c-dark-gray"
           src={profile?.data.imageUrl ?? fallbaAvatarUrl}
           alt="avatar"
         />
         <div className="user-info p-3">
-          <div className="username text-lg text-c-light-gray font-semibold">{profile?.data.username}</div>
+          <div className="username text-lg text-c-dark font-semibold">{profile?.data.username}</div>
           {profile?.data.level && (
             <div
-              className="level mt-1.5 tracking-wide uppercase text-sm "
-              style={{ color: levelColor[profile?.data.level] ?? "#f3ff96" }}>
+              className="level mt-1.5 tracking-wide uppercase text-sm border px-3 py-1.5 rounded-2xl text-center"
+              style={{
+                color: levelBadges[profile?.data.level].text ?? "#f3ff96",
+                background: levelBadges[profile?.data.level].bg,
+                borderColor: levelBadges[profile?.data.level].border,
+              }}>
               {profile?.data.level}
             </div>
           )}

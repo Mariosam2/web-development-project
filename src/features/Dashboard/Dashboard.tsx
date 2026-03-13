@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <AuthGuard>
       <>
-        <div className="grid grid-cols-8 w-screen">
+        <div className="grid grid-cols-8 w-full">
           <Sidebar />
           <MobileSidebar isOpen={mobileSidebar.isOpen} onClose={mobileSidebar.onClose} />
           <div className="content col-span-8  xl:col-span-6 h-screen flex flex-col relative overflow-y-auto">

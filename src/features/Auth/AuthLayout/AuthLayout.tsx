@@ -10,7 +10,7 @@ export const AuthLayout = () => {
   return (
     <NoAuthGuard>
       <>
-        <div className="w-screen min-h-screen grid grid-cols-7">
+        <div className="w-full min-h-screen grid grid-cols-7">
           <div className="col-span-7 lg:col-span-4 h-full grid ">
             <NavLink className="hidden lg:block justify-self-start p-3 mb-8" to="/">
               <img id="logo" className="mb-h" width={200} height={120} src={Logo} alt="logo" />

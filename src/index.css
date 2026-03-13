@@ -22,8 +22,17 @@
   --color-c-dark-gray: #b2b2b2;
   --color-c-gray: #d4d4d4;
   --color-c-light-gray: #f6f6f6;
-  --color-c-yellow: #f3ff96;
-  --color-c-yellow-light: #f9ffca;
+  --color-c-yellow-50: #fdfff0;
+  --color-c-yellow-100: #fbffe3;
+  --color-c-yellow-200: #f9ffca; /* il tuo yellow-light attuale */
+  --color-c-yellow-300: #f6ffb0;
+  --color-c-yellow: #f3ff96; /* il tuo yellow attuale */
+  --color-c-yellow-500: #e6f272;
+  --color-c-yellow-600: #d4e04f;
+  --color-c-yellow-700: #b8c432;
+  --color-c-yellow-800: #95a01e;
+  --color-c-yellow-900: #6e7710;
+  --color-c-yellow-950: #474d06;
 
   --container-xs: 480px;
   --container-sm: 640px;
@@ -96,13 +105,24 @@
 .c-shadow-md {
   box-shadow: 1px 4px 4px 0 rgba(30, 30, 30, 0.1);
 }
+.c-shadow-inset {
+  box-shadow: inset 0 -2px 6px var(--color-c-gray);
+}
 
 .btn-primary {
+  border: 1px solid var(--color-c-dark-gray);
   background-color: var(--color-c-light-gray);
-  color: var(--color-dark);
+  color: var(--color-c-dark);
+}
+
+.badge-gray {
+  border: 1px solid var(--color-c-dark-gray);
+  background-color: var(--color-c-light-gray);
+  color: var(--color-c-dark);
 }
 
 .btn-secondary {
+  border: 1px solid var(--color-c-yellow-600);
   background-color: var(--color-c-yellow);
   color: var(--color-dark);
 }
@@ -110,7 +130,6 @@
 .btn-primary,
 .btn-secondary,
 .btn-outline {
-  box-shadow: 1px 4px 4px 0 rgba(30, 30, 30, 0.1);
   cursor: pointer;
 }
 
@@ -151,15 +170,16 @@
 
 .btn-primary,
 .btn-secondary {
-  will-change: transform, opacity;
+  will-change: brightness;
+  filter: brightness(1);
   transition:
-    transform 0.25s ease-in-out,
+    all 0.25s ease-in-out,
     opacity 0.3s ease,
     translate 0.3s ease;
 }
 .btn-primary:hover,
 .btn-secondary:hover {
-  transform: scale(1.03);
+  filter: brightness(95%);
 }
 
 span.text-red-500 {

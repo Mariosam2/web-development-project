@@ -68,6 +68,7 @@ export const GenerateWorkoutModal = ({ isOpen, onOpenChange, closeSidebar }: Gen
         isOpen={isOpen}
         size="md"
         onOpenChange={onOpenChange}
+        scrollBehavior="inside"
         backdrop="opaque"
         classNames={{
           base: "!outline-none",

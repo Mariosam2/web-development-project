@@ -3,11 +3,11 @@ import { gsap } from "gsap";
 import "./GeneratingOverlay.css";
 
 const messages = [
-  "Analyzing your goals...",
-  "Selecting exercises...",
-  "Optimizing sets & reps...",
-  "Building your workout...",
-  "Almost there...",
+  "Analyzing your goals",
+  "Selecting exercises",
+  "Optimizing sets & reps",
+  "Building your workout",
+  "Almost there",
 ];
 
 export const GeneratingOverlay = ({ isOpen }: { isOpen: boolean }) => {

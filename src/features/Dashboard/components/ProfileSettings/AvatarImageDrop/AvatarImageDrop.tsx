@@ -39,7 +39,7 @@ export const AvatarImageDrop = ({ onImageSelect, imageUrl }: AvatartImageDropPro
 
   return (
     <div
-      className={`relative size-24 rounded-full border-2 border-dashed border-c-gray flex items-center justify-center cursor-pointer overflow-hidden  ${isDragging ? "border-c-yellow bg-c-yellow-lighter" : "border-c-dark-gray bg-c-light-gray"}`}
+      className={`relative size-24 rounded-full border-2 border-dashed border-c-gray flex items-center justify-center cursor-pointer overflow-hidden  ${isDragging ? "border-c-yellow-400 bg-c-yellow-200" : "border-c-dark-gray bg-c-light-gray"}`}
       onClick={() => inputRef.current?.click()}
       onDrop={onDrop}
       onDragOver={onDragOver}

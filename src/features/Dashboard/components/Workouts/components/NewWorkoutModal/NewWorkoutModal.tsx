@@ -135,6 +135,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
       isOpen={isOpen}
       size="md"
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
       backdrop="opaque"
       classNames={{
         base: "!outline-none",

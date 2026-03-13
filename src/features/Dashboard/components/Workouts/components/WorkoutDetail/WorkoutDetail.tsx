@@ -137,7 +137,7 @@ export const WorkoutDetail = () => {
         {!workout?.completed && (
           <button
             disabled={showSkeleton}
-            className="btn-outline   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
+            className="btn-primary   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
             onClick={completeWorkoutModal.onOpen}>
             Mark as Completed
           </button>
