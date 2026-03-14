@@ -53,10 +53,12 @@ export const Exercises = () => {
       scrollRef.current?.scrollTo({ top: 0 });
     }
   }, [searching, filtering, scrollRef]);
+  useEffect(() => {
+    document.querySelector(".content")?.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (!isLoading) {
-      document.querySelector(".content")?.scrollTo(0, 0);
       const timer = setTimeout(() => {
         setShowInitialSkeleton(false);
       }, 250);
