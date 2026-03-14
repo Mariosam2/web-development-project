@@ -135,7 +135,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
               </Chip>
             )}
             {exercise.sets && exercise.reps && (
-              <div className="flex gap-1 mt-1">
+              <div className="flex gap-1 ">
                 <Chip
                   size="sm"
                   classNames={{

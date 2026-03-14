@@ -24,21 +24,22 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
 
   const levelBadges = {
     [UserLevel.BEGINNER]: {
-      bg: "#4ade80",
-      text: "#14532d",
-      border: "#22c55e",
+      bg: "bg-success-50",
+      text: "text-success-600",
+      border: "border-success-200",
     },
     [UserLevel.INTERMEDIATE]: {
-      bg: "#f3ff96",
-      text: "#474d06",
-      border: "#d4e04f",
+      bg: "bg-c-yellow-100",
+      text: "text-c-yellow-950",
+      border: "border-c-yellow-600",
     },
     [UserLevel.ADVANCED]: {
-      bg: "#f97316",
-      text: "#fff7ed",
-      border: "#ea580c",
+      bg: "bg-warning-50",
+      text: "text-warning-600",
+      border: "border-warning-200",
     },
   };
+
   const handleLogout = () => {
     logout();
   };
@@ -54,12 +55,7 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
           <div className="username text-lg text-c-dark font-semibold">{profile?.data.username}</div>
           {profile?.data.level && (
             <div
-              className="level mt-1.5 tracking-wide uppercase text-sm border px-3 py-1.5 rounded-2xl text-center"
-              style={{
-                color: levelBadges[profile?.data.level].text ?? "#f3ff96",
-                background: levelBadges[profile?.data.level].bg,
-                borderColor: levelBadges[profile?.data.level].border,
-              }}>
+              className={`level mt-1.5 tracking-wide uppercase text-sm border px-3 py-1.5 rounded-2xl text-center ${levelBadges[profile.data.level].bg} ${levelBadges[profile.data.level].text} ${levelBadges[profile.data.level].border}`}>
               {profile?.data.level}
             </div>
           )}

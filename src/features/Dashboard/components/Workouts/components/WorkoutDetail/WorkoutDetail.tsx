@@ -23,6 +23,7 @@ import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 import { CompletedChip } from "../CompletedChip/CompletedChip";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { setSelectedExercises } from "@src/store/slices/exerciseSlice";
+import { BulbIcon } from "@src/shared/ui/BulbIcon";
 
 export const WorkoutDetail = () => {
   const { workoutId } = useParams();
@@ -160,6 +161,13 @@ export const WorkoutDetail = () => {
             <Skeleton className=" w-full h-20 rounded-lg" />
           )}
         </div>
+        {workout?.description && (
+          <div className="workout-description border border-c-dark-gray rounded-4xl p-3 mb-4 relative mt-4 sm:mt-0">
+            <BulbIcon className="size-8 bg-gray absolute top-0 -translate-y-1/2 left-8 bg-white fill-c-yellow-200" />
+            <p className="p-2 pt-3 text-sm">{workout?.description}</p>
+          </div>
+        )}
+
         {showSkeleton ? (
           <Skeleton className="order-first xl:order-0 xl:ms-auto me-4 h-9 mb-4 w-28 rounded-full" />
         ) : (

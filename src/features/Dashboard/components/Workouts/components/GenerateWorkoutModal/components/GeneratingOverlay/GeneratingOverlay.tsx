@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./GeneratingOverlay.css";
+import { createPortal } from "react-dom";
 
 const messages = [
   "Analyzing your goals",
@@ -117,7 +118,7 @@ export const GeneratingOverlay = ({ isOpen }: { isOpen: boolean }) => {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div ref={overlayRef} className="generating-overlay">
       <div className="generating-content">
         <svg ref={robotRef} className="robot-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,6 +154,7 @@ export const GeneratingOverlay = ({ isOpen }: { isOpen: boolean }) => {
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

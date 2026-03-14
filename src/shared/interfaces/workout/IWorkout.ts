@@ -5,6 +5,7 @@ export interface IWorkout {
   imageId?: string;
   imageUrl?: string;
   title: string;
+  description: string | null;
   exerciseCount: string;
   completed: boolean;
   estimatedDuration?: number;

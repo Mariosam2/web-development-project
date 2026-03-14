@@ -78,7 +78,7 @@ export const GenerateWorkoutModal = ({ isOpen, onOpenChange, closeSidebar }: Gen
           <ModalHeader className="flex flex-col gap-1 text-2xl">Generate Workout</ModalHeader>
           <ModalBody>
             <form id="generate-form" className="flex flex-col gap-4" onSubmit={generateWorkoutHandler}>
-              <div className="flex gap-3">
+              <div className="grid grid-cols-3 gap-1.5">
                 <div className="flex flex-col gap-1 flex-1">
                   <label className="text-sm text-c-dark-gray">Weight (kg)</label>
                   <input

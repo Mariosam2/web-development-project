@@ -15,6 +15,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["Profile"],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -34,6 +35,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["Profile"],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -75,6 +77,7 @@ export const authApi = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
+      invalidatesTags: ["Profile"],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -92,6 +95,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Profile"],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -108,6 +112,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body,
       }),
+      invalidatesTags: ["Profile"],
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
