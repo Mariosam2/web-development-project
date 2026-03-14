@@ -84,7 +84,7 @@ export const WorkoutFiltersModal = ({ isOpen, onOpenChange, onConfirm, title }: 
             </ModalBody>
             <ModalFooter>
               <div className="flex flex-wrap xs:flex-nowrap items-center gap-3 pt-2.5">
-                <button className="btn-outline rounded-xl px-4 py-3" onClick={onResetFilters}>
+                <button className="btn-secondary rounded-xl px-4 py-3" onClick={onResetFilters}>
                   Reset Filters
                 </button>
                 <button className="btn-primary rounded-xl px-4 py-3" onClick={onClose}>
