@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setSelectedWorkout } from "@src/store/slices/workoutSlice";
 import { Skeleton } from "@heroui/skeleton";
 import { GeneralModal } from "../../../../../../shared/components/GeneralModal/GeneralModal";
-import { showToast } from "@src/shared/helpers";
+import { getLocalDate, showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { ModalAction } from "@src/shared/enums/ModalActions.enum";
 import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
@@ -111,8 +111,7 @@ export const WorkoutDetail = () => {
 
   const completeWorkoutHandler = async () => {
     try {
-      const now = new Date();
-      const localDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+      const localDate = getLocalDate();
       await completeWorkout({ workoutId: selectedWorkout?.id ?? "", completedAt: localDate }).unwrap();
       showToast("Success", "Workout completed successfully", ToastType.SUCCESS);
     } catch (err) {

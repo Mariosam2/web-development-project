@@ -95,3 +95,8 @@ export const TARGET_MUSCLE_LABELS: Record<string, string> = {
 };
 
 export const getMuscleLabel = (name: string) => TARGET_MUSCLE_LABELS[name] ?? name;
+
+export const getLocalDate = () => {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+};

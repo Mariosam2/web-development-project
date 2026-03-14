@@ -12,10 +12,11 @@ export const activityApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Activity"],
     }),
-    getStatistics: builder.query<IApiResponse<IStatistics>, void>({
-      query: () => ({
+    getStatistics: builder.query<IApiResponse<IStatistics>, { today: string }>({
+      query: (params) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/activity/statistics`,
         method: "GET",
+        params,
       }),
       providesTags: ["Activity"],
     }),

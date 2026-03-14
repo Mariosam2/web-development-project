@@ -6,11 +6,11 @@ import "./Activity.css";
 import { useGetCompletedWorkoutsQuery, useGetStatisticsQuery } from "@src/store/api/activityApi";
 import { ActivitySkeleton } from "./ActivitySkeleton/ActivitySkeleton";
 import { useEffect, useState } from "react";
-import { formatDuration } from "@src/shared/helpers";
+import { formatDuration, getLocalDate } from "@src/shared/helpers";
 
 export const Activity = () => {
   const { data: completedWorkouts, isLoading: isCompletedWorkoutsLoading } = useGetCompletedWorkoutsQuery();
-  const { data: statistics, isLoading: isStatisticsLoading } = useGetStatisticsQuery();
+  const { data: statistics, isLoading: isStatisticsLoading } = useGetStatisticsQuery({ today: getLocalDate() });
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
