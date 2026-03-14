@@ -168,41 +168,39 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
             </div>
 
             <ImageDrop onImageSelect={onImageSelect} imageUrl={selectedWorkout?.imageUrl} />
-            <div className="h-60 overflow-y-auto">
-              {localExercises.map((exercise) => (
-                <div
-                  key={exercise.exerciseId}
-                  className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 items-center gap-x-3 border-b border-c-gray">
-                  <img className="size-24" src={exercise.imageUrl} alt={exercise.name} />
-                  <span>{exercise.name}</span>
+            {localExercises.map((exercise) => (
+              <div
+                key={exercise.exerciseId}
+                className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 items-center gap-x-3 border-b border-c-gray">
+                <img className="size-24" src={exercise.imageUrl} alt={exercise.name} />
+                <span>{exercise.name}</span>
 
-                  <div className="md:max-w-1/3 flex items-center  md:ms-auto pe-2.5 gap-2.5 mb-2.5 md:mb-0">
-                    <NumberInput
-                      defaultValue={exercise.sets ?? 1}
-                      minValue={1}
-                      maxValue={100}
-                      onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "sets", v)}
-                      classNames={{
-                        inputWrapper: "!ring-0 !ring-transparent !shadow-none group-data-[focus-visible=true]:!ring-0",
-                      }}
-                      label="Sets"
-                      variant={"faded"}
-                    />
-                    <NumberInput
-                      defaultValue={exercise.reps ?? 1}
-                      minValue={1}
-                      maxValue={100}
-                      onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "reps", v)}
-                      classNames={{
-                        inputWrapper: "!ring-0 !ring-transparent !shadow-none group-data-[focus-visible=true]:!ring-0",
-                      }}
-                      label="Reps"
-                      variant={"faded"}
-                    />
-                  </div>
+                <div className="md:max-w-1/3 flex items-center  md:ms-auto pe-2.5 gap-2.5 mb-2.5 md:mb-0">
+                  <NumberInput
+                    defaultValue={exercise.sets ?? 1}
+                    minValue={1}
+                    maxValue={100}
+                    onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "sets", v)}
+                    classNames={{
+                      inputWrapper: "!ring-0 !ring-transparent !shadow-none group-data-[focus-visible=true]:!ring-0",
+                    }}
+                    label="Sets"
+                    variant={"faded"}
+                  />
+                  <NumberInput
+                    defaultValue={exercise.reps ?? 1}
+                    minValue={1}
+                    maxValue={100}
+                    onValueChange={(v) => onUpdateExercise(exercise.exerciseId, "reps", v)}
+                    classNames={{
+                      inputWrapper: "!ring-0 !ring-transparent !shadow-none group-data-[focus-visible=true]:!ring-0",
+                    }}
+                    label="Reps"
+                    variant={"faded"}
+                  />
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </>
         </ModalBody>
         <ModalFooter>
