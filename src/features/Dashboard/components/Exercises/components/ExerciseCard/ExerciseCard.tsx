@@ -128,11 +128,31 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                 size="sm"
                 variant="bordered"
                 classNames={{
-                  base: "border border-c-dark-gray",
+                  base: "bg-c-gray border border-c-dark-gray",
                   content: "text-[10px] px-0.5 text-default-600",
                 }}>
                 {exercise.exerciseType}
               </Chip>
+            )}
+            {exercise.sets && exercise.reps && (
+              <div className="flex gap-1 mt-1">
+                <Chip
+                  size="sm"
+                  classNames={{
+                    base: "bg-c-gray",
+                    content: "text-[10px] font-semibold px-1 text-c-dark",
+                  }}>
+                  {exercise.sets + "X"} sets
+                </Chip>
+                <Chip
+                  size="sm"
+                  classNames={{
+                    base: "bg-c-gray",
+                    content: "text-[10px] font-semibold px-1 text-c-dark",
+                  }}>
+                  {exercise.reps + "X"} reps
+                </Chip>
+              </div>
             )}
           </div>
           <button

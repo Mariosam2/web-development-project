@@ -8,4 +8,6 @@ export interface IExerciseOverview {
   targetMuscles: string[];
   secondaryMuscles: string[];
   keywords: string[];
+  reps?: number;
+  sets?: number;
 }
