@@ -27,7 +27,6 @@
 }
 
 .generating-message {
-  font-size: 1.125rem;
   font-weight: 500;
   color: var(--color-c-dark);
   letter-spacing: 0.02em;
@@ -35,7 +34,7 @@
 
 .generating-dots span {
   opacity: 0;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-c-dark);
 }

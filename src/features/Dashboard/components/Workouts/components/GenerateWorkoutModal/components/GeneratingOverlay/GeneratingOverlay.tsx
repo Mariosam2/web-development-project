@@ -138,7 +138,7 @@ export const GeneratingOverlay = ({ isOpen }: { isOpen: boolean }) => {
         </svg>
 
         <div className="generating-text">
-          <div ref={messageRef} className="generating-message">
+          <div ref={messageRef} className="generating-message text-base xs:text-lg">
             {messages[0]}
           </div>
           <span ref={dotsRef} className="generating-dots">

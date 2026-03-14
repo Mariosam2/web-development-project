@@ -29,7 +29,7 @@ export const Hero = () => {
       />
       <video src={HeroVideo} autoPlay loop muted playsInline className="absolute w-full h-full object-cover z-10" />
       <div className="layover z-30"></div>
-      <div className="hero-content  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40">
+      <div className="hero-content max-w-full mt-2.5 p-1.5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40">
         <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-8xl 2xl:text-9xl font-gibed text-c-light-gray  w-max">
           Move. Train. Succeed.
         </h1>

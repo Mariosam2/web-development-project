@@ -11,7 +11,7 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
   const location = useLocation();
   return (
     <>
-      <div className="flex items-center mt-8">
+      <div className=" mt-8 flex items-center">
         <div className="max-w-96  dock w-full rounded-3xl lg:rounded-4xl bg-c-light-gray   text-c-dark  mx-auto flex items-center  ps-3 md:ps-5  border border-c-dark-gray c-shadow-md">
           <button
             onClick={openMobileSidebar}

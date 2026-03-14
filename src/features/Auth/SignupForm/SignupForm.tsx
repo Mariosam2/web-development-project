@@ -137,7 +137,7 @@ export const SignupForm = () => {
           type="submit"
           disabled={showLoading}
           className={`btn-secondary w-full mt-4 rounded-2xl px-4 py-3 ${showLoading ? "loading" : ""}`}>
-          Sign Up
+          Signup
         </button>
         <div className="auth-divider">
           <span>or</span>

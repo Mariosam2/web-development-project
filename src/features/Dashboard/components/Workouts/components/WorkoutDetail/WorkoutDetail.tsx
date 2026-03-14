@@ -119,19 +119,23 @@ export const WorkoutDetail = () => {
     completeWorkoutModal.onClose();
   };
 
+  const deselectExercises = () => {
+    dispatch(setSelectedExercises([]));
+  };
+
   return (
     <>
-      <div className="actions container-xl sticky top-26.5 pt-2 pb-3  bg-white z-20 self-start grid grid-cols-2  c-tablet:flex  c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+      <div
+        className={`actions container-xl fixed top-0 c-tablet:sticky c-tablet:top-26.5 pt-2  z-50 pb-3  bg-white  self-start  grid-cols-2  c-tablet:flex  c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3 ${selectedExercises.length > 0 ? "grid c-tablet:flex" : "hidden c-tablet:flex"}`}>
         <button
           disabled={showSkeleton}
-          className="btn-secondary col-span-2 c-tablet::col-span-none  rounded-2xl px-4 py-3 transition-all duration-300"
+          className="btn-secondary text-sm hidden c-tablet:block col-span-2 c-tablet:col-span-none  rounded-2xl px-4 py-3 transition-all duration-300"
           onClick={deleteWorkoutModal.onOpen}>
           Delete Workout
         </button>
-        <div className="hidden c-tablet:block lg:hidden basis-full h-0" />
         <button
           disabled={showSkeleton}
-          className="btn-primary   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
+          className="btn-primary text-sm  hidden c-tablet:block  col-span-2 c-tablet:col-span-none rounded-2xl px-4  py-3 transition-all duration-300"
           onClick={updateWorkoutModal.onOpen}>
           Update Workout
         </button>
@@ -139,21 +143,48 @@ export const WorkoutDetail = () => {
         {!workout?.completed && (
           <button
             disabled={showSkeleton}
-            className="btn-primary   col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
+            className="btn-primary text-sm hidden c-tablet:block  col-span-2 c-tablet:col-span-none rounded-2xl px-4 py-3 transition-all duration-300"
             onClick={completeWorkoutModal.onOpen}>
             Mark as Completed
           </button>
         )}
+        <button
+          disabled={showSkeleton}
+          className={`btn-secondary text-sm col-span-2 c-tablet:col-span-none   rounded-2xl px-4 py-3 transition-all duration-300
+          ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
+          onClick={deselectExercises}>
+          Deselect All
+        </button>
 
         <button
           disabled={showSkeleton}
-          className={`btn-secondary col-span-2 c-tablet:col-span-none   rounded-2xl px-4 py-3 transition-all duration-300
+          className={`btn-primary text-sm col-span-2 c-tablet:col-span-none   rounded-2xl px-4 py-3 transition-all duration-300
           ${selectedExercises.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
           onClick={removeSelectedExercisesModal.onOpen}>
           Remove Selected Exercises
         </button>
       </div>
-      <div className=" flex flex-col  justify-start mb-2.5  bg-white container-xl mx-auto px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+      <div className=" flex flex-col  justify-start mb-2.5  bg-white container-xl mt-6 mx-auto px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+        <button
+          disabled={showSkeleton}
+          className="btn-secondary text-sm block c-tablet:hidden col-span-2   mb-2.5 rounded-2xl px-4 py-3 transition-all duration-300"
+          onClick={deleteWorkoutModal.onOpen}>
+          Delete Workout
+        </button>
+        <button
+          disabled={showSkeleton}
+          className="btn-primary text-sm block c-tablet:hidden  col-span-2  mb-2.5 rounded-2xl px-4  py-3 transition-all duration-300"
+          onClick={updateWorkoutModal.onOpen}>
+          Update Workout
+        </button>
+        {!workout?.completed && (
+          <button
+            disabled={showSkeleton}
+            className="btn-primary text-sm  block c-tablet:hidden  col-span-2  mb-2.5 rounded-2xl px-4 py-3 transition-all duration-300"
+            onClick={completeWorkoutModal.onOpen}>
+            Mark as Completed
+          </button>
+        )}
         <div className=" w-full max-w-md mx-auto mb-3 xl:mt-4 sm:mb-12 self-center">
           {!showSkeleton ? (
             <h1 className="text-center text-3xl  sm:text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>

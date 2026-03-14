@@ -79,8 +79,9 @@ export const Exercises = () => {
 
   return (
     <>
-      <div className="actions sticky top-46.5 bg-white pb-2.5 z-30 ">
-        <div className="container-xl flex flex-wrap gap-2.5  px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+      <div
+        className={`actions fixed sm:sticky top-0 sm:top-46.5 bg-white pb-2.5 z-30 ${selectedExercises.length > 0 ? "block" : "hidden sm:block"}`}>
+        <div className="container-xl flex flex-wrap gap-2.5 pt-2 px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
           <button
             className={`btn-secondary text-sm rounded-2xl px-4 py-3 transition-all duration-300
     ${

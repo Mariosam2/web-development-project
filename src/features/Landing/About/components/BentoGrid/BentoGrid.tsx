@@ -8,7 +8,7 @@ import "./BentoGrid.css";
 export const BentoGrid = () => {
   return (
     <div className="container-lg p-4 lg:p-0 mb-32">
-      <h1 className="font-gibed text-4xl pb-12">Built for your workout</h1>
+      <h1 className="font-gibed text-2xl sm:text-4xl  pb-12">Built for your workout</h1>
 
       <div className="bento-grid  grid grid-cols-6 grid-rows-3lg:grid-rows-2  gap-12">
         <div className="col-span-6 lg:col-span-4 row-span-1 h-full relative bg-c-dark-gray rounded-2xl p-8">

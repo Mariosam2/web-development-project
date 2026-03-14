@@ -14,7 +14,7 @@ export const AuthDock = () => {
           }`}
         />
         <NavLink to="/login" className="sign-in relative z-20  p-2.5  text-lg text-center rounded-2xl cursor-pointer">
-          Sign in
+          Login
         </NavLink>
         <NavLink to="/signup" className="sign-up  relative z-20 p-2.5  text-lg text-center rounded-2xl cursor-pointer">
           Signup

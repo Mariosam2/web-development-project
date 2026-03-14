@@ -123,7 +123,7 @@ export const Activity = () => {
                     {getPastWeekDays().map((day, index) => (
                       <div
                         key={index}
-                        className="bar flex items-center  bg-c-yellow w-10 rounded-xl"
+                        className="bar flex items-center  bg-c-yellow w-10 rounded-xl shadow-sm"
                         style={{ height: day.count === 0 ? "4px" : `${(day.count / maxCount) * 100}%` }}></div>
                     ))}
                   </div>
