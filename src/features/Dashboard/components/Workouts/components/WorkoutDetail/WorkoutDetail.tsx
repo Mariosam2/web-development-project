@@ -69,7 +69,7 @@ export const WorkoutDetail = () => {
 
   useEffect(() => {
     if (!workout) return;
-    window.scrollTo({ top: 0, behavior: "instant" });
+    document.querySelector(".content")?.scrollTo(0, 0);
     dispatch(setSelectedWorkout(workout));
   }, [workout, dispatch]);
 
