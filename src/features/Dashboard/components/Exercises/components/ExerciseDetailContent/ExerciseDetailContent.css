@@ -3,8 +3,6 @@
   background: rgba(255, 255, 255, 0.03);
   aspect-ratio: 16 / 10;
   width: 100%;
-  max-height: 400px;
-  overflow: hidden;
 }
 
 .exercise-modal__video,
