@@ -39,7 +39,7 @@ export const Hero = () => {
         </p>
 
         <div className="cta-button  flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
-          <button className=" btn-secondary  rounded-4xl   flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
+          <button className=" btn-secondary  rounded-4xl   grid place-items-center">
             <NavLink to="/login" className=" w-full text-center px-6 py-2 text-base lg:text-xl">
               Get Started
             </NavLink>
