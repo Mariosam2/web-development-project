@@ -75,7 +75,7 @@ export const ExerciseDetailContent = ({ exerciseDetail, onClose }: ExerciseDetai
               playsInline
               preload="metadata"
               poster={imageUrls?.["720p"] ?? imageUrls?.["480p"]}
-              className="exercise-modal__video max-w-full"
+              className="exercise-modal__video"
             />
           ) : (
             <img
