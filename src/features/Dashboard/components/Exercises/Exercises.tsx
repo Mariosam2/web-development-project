@@ -56,6 +56,7 @@ export const Exercises = () => {
 
   useEffect(() => {
     if (!isLoading) {
+      document.querySelector(".content")?.scrollTo(0, 0);
       const timer = setTimeout(() => {
         setShowInitialSkeleton(false);
       }, 250);
