@@ -11,7 +11,7 @@ interface SidebarMenuProps {
 
 const NAV_ITEMS = [
   { label: "Home", target: "hero" },
-  { label: "About", target: "about" },
+  { label: "About ManMot", target: "about" },
   { label: "Contact", target: "contacts" },
 ];
 
@@ -64,21 +64,22 @@ export const SidebarMenu = ({ isOpen, onClose }: SidebarMenuProps) => {
             </button>
           ))}
         </nav>
+        <div className="mb-6">
+          <div
+            className="sidebar-menu__cta-wrapper mx-auto"
+            style={{ transitionDelay: isOpen ? `${150 + NAV_ITEMS.length * 75}ms` : "0ms" }}>
+            <button className="sidebar-menu__cta" onClick={onGetStarted}>
+              Get started
+              <ArrowRight className="size-5" />
+            </button>
+          </div>
 
-        <div
-          className="sidebar-menu__cta-wrapper mx-auto"
-          style={{ transitionDelay: isOpen ? `${150 + NAV_ITEMS.length * 75}ms` : "0ms" }}>
-          <button className="sidebar-menu__cta" onClick={onGetStarted}>
-            Get started
-            <ArrowRight className="size-5" />
-          </button>
+          <p
+            className="sidebar-menu__footer mt-4 mx-auto"
+            style={{ transitionDelay: isOpen ? `${200 + NAV_ITEMS.length * 75}ms` : "0ms" }}>
+            © 2026 ManMot
+          </p>
         </div>
-
-        <p
-          className="sidebar-menu__footer mt-4 mx-auto"
-          style={{ transitionDelay: isOpen ? `${200 + NAV_ITEMS.length * 75}ms` : "0ms" }}>
-          © 2026 ManMot
-        </p>
       </aside>
     </>
   );

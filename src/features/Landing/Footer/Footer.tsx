@@ -40,7 +40,7 @@ export const Footer = () => {
                   <h4 className="text-c-light-gray text-sm font-medium">Get started</h4>
                 </li>
                 <li className="py-1.5">
-                  <h4 className="text-c-light-gray text-sm font-medium">About</h4>
+                  <h4 className="text-c-light-gray text-sm font-medium">About ManMot</h4>
                 </li>
                 <li className="py-1.5">
                   <h4 className="text-c-light-gray text-sm font-medium">Contacts</h4>
