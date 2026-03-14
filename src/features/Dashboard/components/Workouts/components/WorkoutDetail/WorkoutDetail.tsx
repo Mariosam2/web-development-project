@@ -185,7 +185,7 @@ export const WorkoutDetail = () => {
             Mark as Completed
           </button>
         )}
-        <div className=" w-full max-w-md mx-auto mb-3 xl:mt-4 sm:mb-12 self-center">
+        <div className=" w-full max-w-md mx-auto mb-3 mt-4 sm:mb-12 self-center">
           {!showSkeleton ? (
             <h1 className="text-center text-3xl  sm:text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>
           ) : (
