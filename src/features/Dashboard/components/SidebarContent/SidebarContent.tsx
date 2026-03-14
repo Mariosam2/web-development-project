@@ -86,7 +86,7 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
           <button
             disabled={isLoading}
             onClick={handleLogout}
-            className="btn-secondary w-full mt-6 mb-12 sm:mb:0 rounded-2xl px-4 py-3 flex items-center justify-center">
+            className="btn-secondary w-full mt-6 mb-20 sm:mb:0 rounded-2xl px-4 py-3 flex items-center justify-center">
             Logout <img className="size-6 ms-2" src={LogoutSVG} alt="ai coach" />
           </button>
         </div>
