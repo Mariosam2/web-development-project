@@ -111,7 +111,7 @@ export const WorkoutDetail = () => {
 
   const completeWorkoutHandler = async () => {
     try {
-      await completeWorkout({ workoutId: selectedWorkout?.id ?? "" }).unwrap();
+      await completeWorkout({ workoutId: selectedWorkout?.id ?? "", completedAt: new Date().toISOString() }).unwrap();
       showToast("Success", "Workout completed successfully", ToastType.SUCCESS);
     } catch (err) {
       console.error("error", err);

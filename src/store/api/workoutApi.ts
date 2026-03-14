@@ -76,10 +76,11 @@ export const workoutApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["WorkoutExercises", "Workouts", "Activity", "SingleWorkout"],
     }),
-    completeWorkout: builder.mutation<IApiResponse<IMutation>, { workoutId: string }>({
+    completeWorkout: builder.mutation<IApiResponse<IMutation>, { workoutId: string; completedAt: string }>({
       query: (params) => ({
         url: `${import.meta.env.VITE_API_PREFIX}/workouts/complete-workout/${params.workoutId}`,
         method: "PATCH",
+        body: { completedAt: params.completedAt },
       }),
       invalidatesTags: ["SingleWorkout", "Workouts", "Activity"],
     }),
