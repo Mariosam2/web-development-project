@@ -45,7 +45,7 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
   };
   return (
     <>
-      <div className="avatar w-full py-3 xl:py-6 flex items-center justify-center  bg-c-light-gray  border border-c-gray">
+      <div className="avatar w-full pb-3 pt-8  xl:pb-6 xl:pt-6 flex items-center justify-center  bg-c-light-gray  border border-c-gray">
         <img
           className="w-20 aspect-square rounded-full border border-c-dark-gray"
           src={profile?.data.imageUrl ?? fallbaAvatarUrl}

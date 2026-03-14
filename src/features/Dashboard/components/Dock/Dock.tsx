@@ -13,7 +13,13 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
     <>
       <div className="flex items-center mt-8">
         <div className="max-w-96  dock w-full rounded-3xl lg:rounded-4xl bg-c-light-gray   text-c-dark  mx-auto flex items-center  ps-3 md:ps-5  border border-c-dark-gray c-shadow-md">
-          <BurgerIcon onClick={openMobileSidebar} className="size-6 xs:size-8 block xl:hidden me-4 cursor-pointer" />
+          <button
+            onClick={openMobileSidebar}
+            onTouchStart={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
+            onTouchEnd={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            className="grid place-items-center xl:hidden me-4 cursor-pointer transition-transform duration-150 ease-c-elastic">
+            <BurgerIcon className="size-6 xs:size-8" />
+          </button>
           <img className="size-8 me-2.5 xl:me-0 " src={LogoIconSVG} alt="logo icon" />
           <div className="relative w-72 ms-auto h-14 flex items-center">
             <div

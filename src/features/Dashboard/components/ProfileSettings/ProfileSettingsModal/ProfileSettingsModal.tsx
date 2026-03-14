@@ -107,7 +107,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
                   <AvatarImageDrop onImageSelect={onImageSelect} imageUrl={profile?.data.imageUrl} />
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1 flex-1">
                     <label className="text-sm text-c-dark-gray">First Name</label>
                     <input

@@ -68,7 +68,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   return (
     <>
       <div
-        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-200" : ""}`}
+        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-50" : ""}`}
         onClick={() => onSelectExercise(!isSelected)}>
         <div className="preview w-full xs:w-2/5 c-md:w-1/3 rounded-t-2xl  xs:rounded-t-none xs:rounded-l-2xl max-h-60">
           <img

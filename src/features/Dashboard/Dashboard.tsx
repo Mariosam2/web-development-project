@@ -15,7 +15,7 @@ const Dashboard = () => {
   const isActivity = useMatch("/dashboard/activity");
   const scrollRef = useRef<HTMLDivElement>(null);
   const mobileSidebar = useDisclosure();
-  //${isWorkoutDetail ? "mt-95 c-sm-2:mt-105 c-tablet:mt-66 lg:mt-48" : isExercises ? "mt-26 c-sm:mt-12" : "mt-4"}
+
   return (
     <AuthGuard>
       <>

@@ -82,19 +82,6 @@ export const Exercises = () => {
       <div className="actions sticky top-46.5 bg-white pb-2.5 z-30 ">
         <div className="container-xl flex flex-wrap gap-2.5  px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
           <button
-            className={`btn-primary text-sm rounded-2xl px-4 py-3 transition-all duration-300
-    ${
-      !mounted
-        ? "opacity-0 translate-y-1 pointer-events-none [transition:none]"
-        : selectedExercises.length > 0 && (workouts?.data.length ?? 0) > 0
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-1 pointer-events-none"
-    }`}
-            onClick={importExercisesModal.onOpen}>
-            Import to existing Workout
-          </button>
-
-          <button
             className={`btn-secondary text-sm rounded-2xl px-4 py-3 transition-all duration-300
     ${
       !mounted
@@ -118,6 +105,18 @@ export const Exercises = () => {
     }`}
             onClick={newWorkoutModal.onOpen}>
             Create Workout
+          </button>
+          <button
+            className={`btn-primary text-sm rounded-2xl px-4 py-3 transition-all duration-300
+    ${
+      !mounted
+        ? "opacity-0 translate-y-1 pointer-events-none [transition:none]"
+        : selectedExercises.length > 0 && (workouts?.data.length ?? 0) > 0
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-1 pointer-events-none"
+    }`}
+            onClick={importExercisesModal.onOpen}>
+            Import to existing Workout
           </button>
         </div>
       </div>

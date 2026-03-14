@@ -80,7 +80,7 @@ export const GenerateWorkoutModal = ({ isOpen, onOpenChange, closeSidebar }: Gen
             <form id="generate-form" className="flex flex-col gap-4" onSubmit={generateWorkoutHandler}>
               <div className="grid grid-cols-3 gap-1.5">
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="text-sm text-c-dark-gray">Weight (kg)</label>
+                  <label className="text-xs sm:text-sm text-c-dark-gray">Weight (kg)</label>
                   <input
                     {...register("weight", { valueAsNumber: true })}
                     type="number"
@@ -94,7 +94,7 @@ export const GenerateWorkoutModal = ({ isOpen, onOpenChange, closeSidebar }: Gen
                   </span>
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="text-sm text-c-dark-gray">Height (cm)</label>
+                  <label className="text-xs sm:text-sm text-c-dark-gray">Height (cm)</label>
                   <input
                     {...register("height", { valueAsNumber: true })}
                     type="number"
@@ -108,7 +108,7 @@ export const GenerateWorkoutModal = ({ isOpen, onOpenChange, closeSidebar }: Gen
                   </span>
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="text-sm text-c-dark-gray">Age</label>
+                  <label className="text-xs sm:text-sm text-c-dark-gray">Age</label>
                   <input
                     {...register("age", { valueAsNumber: true })}
                     type="number"
