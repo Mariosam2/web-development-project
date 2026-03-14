@@ -141,7 +141,7 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
         base: "!outline-none",
         closeButton: "outline-none focus:outline-none",
         header: "px-3 sm:px-6 pt-3 sm:pt-6 pb-0",
-        body: "px-3 sm:px-6 py-4",
+        body: "px-3 sm:px-6 py-4 max-w-full",
         footer: "px-3 sm:px-6 pb-3 sm:pb-6 pt-0",
       }}>
       <ModalContent>
