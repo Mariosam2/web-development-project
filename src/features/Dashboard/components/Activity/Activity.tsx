@@ -14,6 +14,10 @@ export const Activity = () => {
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
+    document.querySelector(".content")?.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (!isCompletedWorkoutsLoading && !isStatisticsLoading) {
       setTimeout(() => {
         setShowSkeleton(false);

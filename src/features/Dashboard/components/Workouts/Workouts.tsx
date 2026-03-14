@@ -14,9 +14,11 @@ export const Workouts = () => {
   const { data, isLoading, isFetching } = useGetWorkoutsQuery({ ...searchParams });
   const [showInitialSkeleton, setShowInitialSkeleton] = useState(true);
   const workouts = data?.data ?? [];
+
   useEffect(() => {
     document.querySelector(".content")?.scrollTo(0, 0);
   }, []);
+
   useEffect(() => {
     if (!isLoading) {
       const timer = setTimeout(() => {
