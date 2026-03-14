@@ -55,7 +55,7 @@ export const SidebarMenu = ({ isOpen, onClose }: SidebarMenuProps) => {
           {NAV_ITEMS.map((item, i) => (
             <button
               key={item.target}
-              className="sidebar-menu__link"
+              className="sidebar-menu__link text-xl xs:text-2xl md:text-3xl"
               style={{ transitionDelay: isOpen ? `${150 + i * 75}ms` : "0ms" }}
               onClick={() => scrollToSection(item.target)}>
               <span className="sidebar-menu__link-index font-gibed">0{i + 1}</span>
