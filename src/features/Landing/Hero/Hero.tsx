@@ -33,9 +33,9 @@ export const Hero = () => {
         <h1 className="text-3xl max-w-full wrap-break-word xs:text-4xl sm:text-6xl lg:text-8xl 2xl:text-9xl font-gibed text-c-light-gray  w-max">
           Move. Train. Succeed.
         </h1>
-        <p className="caption text-sm sm:text-base xl:hidden  text-c-gray mt-2.5 ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio necessitatibus iure, aliquam, numquam magnam
-          quia esse, odit et dicta reiciendis sequi! Deserunt quam quod eos, vel temporibus quasi totam facere.
+        <p className="caption text-sm sm:text-base xl:hidden text-c-gray mt-2.5">
+          Create, manage and track your workouts with ease. Browse hundreds of exercises, monitor your training time and
+          let AI build the perfect routine for you.
         </p>
 
         <div className="cta-button  flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
@@ -60,9 +60,9 @@ export const Hero = () => {
       <img src={CrossSVG} className="cross hidden sm:block absolute top-h right-v z-20" alt="cross-svg" />
       <img src={CrossSVG} className="cross hidden sm:block absolute bottom-h left-v z-20" alt="cross-svg" />
       <img src={CrossSVG} className="cross hidden sm:block absolute bottom-h right-v z-20" alt="cross-svg" />
-      <p className="caption hidden text-c-gray  xl:block xl:absolute xl:max-w-1/4  xl:left-14 xl:bottom-14 xl:z-20  ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio necessitatibus iure, aliquam, numquam magnam quia
-        esse, odit et dicta reiciendis sequi! Deserunt quam quod eos, vel temporibus quasi totam facere.
+      <p className="caption hidden text-c-gray xl:block xl:absolute xl:max-w-1/4 xl:left-14 xl:bottom-14 xl:z-20">
+        Create, manage and track your workouts with ease. Browse hundreds of exercises, monitor your training time and
+        let AI build the perfect routine for you.
       </p>
       <div className="cta-button hidden lg:flex absolute right-14 bottom-14 z-50 w-full max-w-64 items-center cursor-pointer">
         <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">
