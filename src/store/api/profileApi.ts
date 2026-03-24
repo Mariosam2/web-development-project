@@ -20,7 +20,13 @@ export const profileAPi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Profile"],
     }),
+    deleteProfile: builder.mutation<IApiResponse<IMutation>, void>({
+      query: () => ({
+        url: `${import.meta.env.VITE_API_PREFIX}/profile/delete`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = profileAPi;
+export const { useGetProfileQuery, useUpdateProfileMutation, useDeleteProfileMutation } = profileAPi;

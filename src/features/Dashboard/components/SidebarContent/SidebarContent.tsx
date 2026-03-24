@@ -10,6 +10,7 @@ import LogoutSVG from "@assets/logout.svg";
 import { ProfileSettingsModal } from "../ProfileSettings/ProfileSettingsModal/ProfileSettingsModal";
 import "./SidebarContent.css";
 import { GenerateWorkoutModal } from "../Workouts/components/GenerateWorkoutModal/GenerateWorkoutModal";
+import DeleteAccountModal from "../ProfileSettings/DeleteAccountModal/DeleteAccountModal";
 
 interface SidebarContentProps {
   onClose?: () => void;
@@ -18,6 +19,7 @@ interface SidebarContentProps {
 export const SidebarContent = ({ onClose }: SidebarContentProps) => {
   const [logout, { isLoading }] = useLogoutMutation();
   const profileSettingsModal = useDisclosure();
+  const deleteAccountModal = useDisclosure();
   const generateWorkoutModal = useDisclosure();
   const { data: profile } = useGetProfileQuery();
   const fallbaAvatarUrl = `https://ui-avatars.com/api/?name=${profile?.data.firstname + " " + profile?.data.lastname}&background=f3ff96&color=1e1e1e`;
@@ -91,7 +93,12 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
           </button>
         </div>
       </div>
-      <ProfileSettingsModal isOpen={profileSettingsModal.isOpen} onOpenChange={profileSettingsModal.onOpenChange} />
+      <ProfileSettingsModal
+        isOpen={profileSettingsModal.isOpen}
+        onOpenDeletAccountModal={deleteAccountModal.onOpenChange}
+        onOpenChange={profileSettingsModal.onOpenChange}
+      />
+      <DeleteAccountModal isOpen={deleteAccountModal.isOpen} onOpenChange={deleteAccountModal.onOpenChange} />
       <GenerateWorkoutModal
         isOpen={generateWorkoutModal.isOpen}
         onOpenChange={generateWorkoutModal.onOpenChange}

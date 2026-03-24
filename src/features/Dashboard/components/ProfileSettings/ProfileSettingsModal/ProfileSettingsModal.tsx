@@ -13,10 +13,11 @@ import { useForgotPasswordMutation } from "@src/store/api/authApi";
 
 interface ProfileSettingsModalProps {
   isOpen: boolean;
+  onOpenDeletAccountModal: (isOpen: boolean) => void;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsModalProps) => {
+export const ProfileSettingsModal = ({ isOpen, onOpenChange, onOpenDeletAccountModal }: ProfileSettingsModalProps) => {
   const { data: profile } = useGetProfileQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
   const [forgotPassword] = useForgotPasswordMutation();
@@ -158,6 +159,9 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange }: ProfileSettingsMo
 
             <ModalFooter>
               <div className="flex items-center gap-x-3 pt-2.5">
+                <button onClick={() => onOpenDeletAccountModal(true)} className="btn-danger">
+                  Delete Account
+                </button>
                 <button className="btn-primary rounded-xl px-4 py-3" onClick={onClose}>
                   Cancel
                 </button>
