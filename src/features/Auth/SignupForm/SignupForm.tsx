@@ -61,7 +61,7 @@ export const SignupForm = () => {
               id="first_name"
               {...register("firstname")}
               onChange={() => clearErrors("firstname")}
-              className={`bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.firstname ? "border-red-500" : ""}`}
+              className={`bg-white border w-full border-c-gray  text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.firstname ? "border-red-500" : ""}`}
               placeholder="John"
             />
             <span
@@ -78,7 +78,7 @@ export const SignupForm = () => {
               id="last_name"
               {...register("lastname")}
               onChange={() => clearErrors("lastname")}
-              className={`bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.lastname ? "border-red-500" : ""}`}
+              className={`bg-white border w-full border-c-gray  text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.lastname ? "border-red-500" : ""}`}
               placeholder="Doe"
             />
             <span
@@ -96,7 +96,7 @@ export const SignupForm = () => {
             id="username"
             {...register("username")}
             onChange={() => clearErrors("username")}
-            className={`bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.username ? "border-red-500" : ""}`}
+            className={`bg-white border w-full border-c-gray  text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.username ? "border-red-500" : ""}`}
           />
           <span
             className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${errors.username ? "opacity-100" : "opacity-0"}`}>
@@ -112,7 +112,7 @@ export const SignupForm = () => {
             id="email"
             {...register("email")}
             onChange={() => clearErrors("username")}
-            className={`bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.email ? "border-red-500" : ""}`}
+            className={`bg-white border w-full border-c-gray  text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.email ? "border-red-500" : ""}`}
             placeholder="example@mail.com"
           />
           <span

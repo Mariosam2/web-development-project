@@ -7,7 +7,7 @@ export const AuthDock = () => {
 
   return (
     <>
-      <div className="container-xs relative dock w-full rounded-2xl bg-c-light-gray border border-c-gray/50 c-shadow-premium text-c-dark grid grid-cols-2">
+      <div className="container-xs relative dock w-full rounded-2xl bg-c-light-gray border border-c-gray/50  text-c-dark grid grid-cols-2">
         <div
           className={`absolute h-full w-1/2 bg-white rounded-xl border border-c-gray/50 shadow-sm transition-transform duration-300 ease-in-out z-10 ease-elastic ${
             isSignup ? "translate-x-full" : "translate-x-0"

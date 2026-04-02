@@ -35,7 +35,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({
         {capitalize(rest.inputname).replace("-", " ")}
       </label>
       <div
-        className={`input-wrapper bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl relative transition-all duration-200 focus-within:border-c-yellow-500 focus-within:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] ${error ? "border-red-500" : ""} `}>
+        className={`input-wrapper bg-white border w-full border-c-gray  text-c-dark text-base rounded-xl relative transition-all duration-200 focus-within:border-c-yellow-500 focus-within:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] ${error ? "border-red-500" : ""} `}>
         <input
           type={type}
           id={rest.inputname}

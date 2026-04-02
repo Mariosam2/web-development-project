@@ -53,7 +53,7 @@ export const ForgotPassword = () => {
           <div className="reset-field">
             <label className="reset-label">Email</label>
             <div
-              className={`input-wrapper bg-white border w-full c-shadow-premium text-c-dark text-base rounded-xl relative transition-all duration-200 focus-within:border-c-yellow-500 focus-within:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] ${emailError ? "border-red-500" : "border-c-gray"}`}>
+              className={`input-wrapper bg-white border w-full  text-c-dark text-base rounded-xl relative transition-all duration-200 focus-within:border-c-yellow-500 focus-within:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] ${emailError ? "border-red-500" : "border-c-gray"}`}>
               <input
                 type="email"
                 value={email}

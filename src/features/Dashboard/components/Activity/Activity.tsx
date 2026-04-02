@@ -75,7 +75,7 @@ export const Activity = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0 }}
-                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 xl:py-8  row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
                 <Fire className="size-24 sm:size-20 c-tablet:size-24" />
                 <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">Streak</span>
                 <span
@@ -89,8 +89,8 @@ export const Activity = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
-                <Muscle className="size-24 sm:size-20 c-tablet:size-24" />
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 xl:py-8 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
+                <Muscle className="size-24 sm:size-20 c-tablet:size-24 pb-0.5" />
                 <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">
                   Completed this week
                 </span>
@@ -105,7 +105,7 @@ export const Activity = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.2 }}
-                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 xl:py-8  row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
                 <Clock className="size-24 sm:size-20 c-tablet:size-24" />
                 <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">
                   Training time this week
