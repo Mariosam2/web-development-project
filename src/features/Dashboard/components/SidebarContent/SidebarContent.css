@@ -1,0 +1,9 @@
+/* Mobile sidebar: always show labels (no hover needed on touch) */
+.sidebar-mobile .sidebar-item span {
+  opacity: 1 !important;
+}
+
+/* Mobile sidebar: always show username/level */
+.sidebar-mobile .user-details {
+  opacity: 1 !important;
+}

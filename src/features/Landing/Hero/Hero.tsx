@@ -21,14 +21,14 @@ export const Hero = () => {
 
       <img
         id="logo-icon"
-        className="absolute top-4 left-4 sm:top-7 sm:left-7 md:top-14 md:left-14 z-20"
+        className="absolute top-4 left-4 sm:top-7 sm:left-7 md:top-14 md:left-14 z-50"
         width={120}
         height={120}
         src={LogoIcon}
         alt="logo icon"
       />
       <video src={HeroVideo} autoPlay loop muted playsInline className="absolute w-full h-full object-cover z-10" />
-      <div className="layover z-30"></div>
+      <div className="absolute inset-0 z-30 bg-linear-to-b from-black/40 via-black/20 to-black/50"></div>
       <div className="hero-content max-w-full mt-2.5 p-1.5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40">
         <h1 className="text-3xl max-w-full wrap-break-word xs:text-4xl sm:text-6xl lg:text-8xl 2xl:text-9xl font-gibed text-c-light-gray  w-max">
           Move. Train. Succeed.
@@ -40,7 +40,7 @@ export const Hero = () => {
 
         <div className="cta-button  flex items-center gap-2 mt-8 w-max ms-auto   lg:hidden">
           <button className=" btn-secondary  rounded-4xl   grid place-items-center">
-            <NavLink to="/login" className=" w-full text-center px-6 py-2 text-base lg:text-xl">
+            <NavLink to="/login" className=" w-full text-center px-6 py-2 text-base lg:text-xl me-0.5">
               Get Started
             </NavLink>
           </button>
@@ -65,7 +65,7 @@ export const Hero = () => {
         let AI build the perfect routine for you.
       </p>
       <div className="cta-button hidden lg:flex absolute right-14 bottom-14 z-50 w-full max-w-64 items-center cursor-pointer">
-        <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl">
+        <NavLink to="/login" className="btn-secondary w-full rounded-4xl text-center px-6 py-2 text-xl me-0.5">
           Get Started
         </NavLink>
         <ArrowRight className="bg-c-yellow text-c-dark rounded-full p-2 shrink-0 size-10 arrow-right" />

@@ -68,7 +68,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   return (
     <>
       <div
-        className={`col-span-1 c-shadow-md border  border-c-dark-gray rounded-2xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-c-light-gray relative overflow-hidden ${isSelected ? "bg-c-yellow-50" : ""}`}
+        className={`group col-span-1 border border-c-gray/20 rounded-3xl cursor-pointer flex flex-wrap xs:flex-nowrap h-100 xs:h-60 c-md:h-44 bg-white/70 backdrop-blur-md relative overflow-hidden transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)] ${isSelected ? "bg-c-yellow-50! border-c-yellow-500/40! shadow-[0_0_20px_rgba(243,255,150,0.15)]" : ""}`}
         onClick={() => onSelectExercise(!isSelected)}>
         <div className="preview w-full xs:w-2/5 c-md:w-1/3 rounded-t-2xl  xs:rounded-t-none xs:rounded-l-2xl max-h-60">
           <img
@@ -79,7 +79,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
         </div>
         <div className="content w-full xs:w-3/5 c-md:w-2/3 p-4 flex flex-col gap-y-2.5 overflow-hidden pe-10">
           <div>
-            <h2 className="title  text-base sm:text-lg c-md:text-base lg:text-lg font-light leading-tight line-clamp-2">
+            <h2 className="title text-base sm:text-lg c-md:text-base lg:text-lg font-light leading-tight line-clamp-2">
               {exercise.name}
             </h2>
 
@@ -116,8 +116,8 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
                 size="sm"
                 variant="bordered"
                 classNames={{
-                  base: "bg-transparent  border border-c-dark-gray",
-                  content: "text-[10px] px-0.5 flex items-center gap-1 ",
+                  base: "bg-transparent border border-c-dark-gray",
+                  content: "text-[10px] px-0.5 flex items-center gap-1",
                 }}>
                 <span className="w-2 h-2 rounded-full bg-c-yellow inline-block border border-c-dark" />
                 {eq}
@@ -135,7 +135,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
               </Chip>
             )}
             {exercise.sets && exercise.reps && (
-              <div className="flex gap-1 ">
+              <div className="flex gap-1">
                 <Chip
                   size="sm"
                   classNames={{
@@ -159,7 +159,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
             onClick={onViewMore}
             className="actions flex flex-col gap-2.5 absolute right-0 bottom-0 p-3 cursor-pointer">
             <Tooltip content="View More">
-              <Info className="size-6 text-c-dark" />
+              <Info className="size-6 text-c-dark-gray group-hover:text-c-dark transition-colors duration-300" />
             </Tooltip>
           </button>
         </div>
@@ -168,8 +168,8 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
           onValueChange={(checked) => onSelectExercise(checked)}
           className="absolute top-3 right-3"
           classNames={{
-            wrapper: "after:bg-c-dark border-c-dark-gray  transition-all duration-250 ease-c-elastic me-0",
-            icon: "text-c-yellow ",
+            wrapper: "after:bg-c-dark border-c-dark-gray transition-all duration-250 ease-c-elastic me-0",
+            icon: "text-c-yellow",
           }}
           isSelected={isSelected}
         />

@@ -45,54 +45,61 @@ export const SidebarContent = ({ onClose }: SidebarContentProps) => {
   const handleLogout = () => {
     logout();
   };
+
   return (
     <>
-      <div className="avatar w-full pb-3 pt-8  xl:pb-6 xl:pt-6 flex items-center justify-center  bg-c-light-gray  border border-c-gray">
+      {/* Avatar section */}
+      <div className="flex flex-col items-center pt-5 pb-4 border-b border-c-gray/15 px-3">
         <img
-          className="w-20 aspect-square rounded-full border border-c-dark-gray"
+          className="w-10 h-10 rounded-full border-2 border-c-yellow/60 shadow-[0_0_12px_rgba(243,255,150,0.15)] shrink-0"
           src={profile?.data.imageUrl ?? fallbaAvatarUrl}
           alt="avatar"
         />
-        <div className="user-info p-3">
-          <div className="username text-lg text-c-dark font-semibold">{profile?.data.username}</div>
+        <div className="user-details mt-2 text-center whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
+          <div className="text-sm text-c-dark font-semibold truncate max-w-44">{profile?.data.username}</div>
           {profile?.data.level && (
             <div
-              className={`level mt-1.5 tracking-wide uppercase text-sm border px-3 py-1.5 rounded-2xl text-center ${levelBadges[profile.data.level].bg} ${levelBadges[profile.data.level].text} ${levelBadges[profile.data.level].border}`}>
+              className={`mt-1 tracking-wide uppercase text-[10px] border px-2 py-0.5 rounded-full text-center inline-block ${levelBadges[profile.data.level].bg} ${levelBadges[profile.data.level].text} ${levelBadges[profile.data.level].border}`}>
               {profile?.data.level}
             </div>
           )}
         </div>
       </div>
 
-      <div className="actions flex flex-col items-center grow pt-12 pb-8">
-        <div className="cta w-72">
-          <NavLink
-            onClick={onClose}
-            to="/dashboard/activity"
-            className="btn-primary w-full  rounded-2xl px-4 py-3 flex items-center justify-center">
-            Activity <img className="size-6 ms-2" src={BoltSVG} alt="bolt" />
-          </NavLink>
-          <button
-            onClick={generateWorkoutModal.onOpen}
-            className="btn-primary w-full mt-6  rounded-2xl px-4 py-3 flex items-center justify-center">
-            Ask the coach <img className="size-6 ms-2" src={RobotSVG} alt="ai coach" />
-          </button>
-        </div>
+      {/* Navigation items */}
+      <nav className="flex flex-col gap-1 pt-4 px-2.5 grow">
+        <NavLink
+          onClick={onClose}
+          to="/dashboard/activity"
+          className="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-c-light-gray transition-all duration-200 text-c-dark/70 hover:text-c-dark">
+          <img className="size-5 shrink-0" src={BoltSVG} alt="activity" />
+          <span className="text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">Activity</span>
+        </NavLink>
+        <button
+          onClick={generateWorkoutModal.onOpen}
+          className="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-c-light-gray transition-all duration-200 text-c-dark/70 hover:text-c-dark cursor-pointer">
+          <img className="size-5 shrink-0" src={RobotSVG} alt="ai coach" />
+          <span className="text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">Ask the coach</span>
+        </button>
 
-        <div className="profile w-72 mt-auto">
+        {/* Bottom section */}
+        <div className="mt-auto flex flex-col gap-1 pb-6">
           <button
             onClick={profileSettingsModal.onOpen}
-            className="btn-primary w-full mt-6 rounded-2xl px-4 py-3 flex items-center justify-center">
-            Profile settings <img className="size-6 ms-2" src={ProfileSVG} alt="bolt" />
+            className="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-c-light-gray transition-all duration-200 text-c-dark/70 hover:text-c-dark cursor-pointer">
+            <img className="size-5 shrink-0" src={ProfileSVG} alt="profile" />
+            <span className="text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">Profile</span>
           </button>
           <button
             disabled={isLoading}
             onClick={handleLogout}
-            className="btn-secondary w-full mt-6 mb-22 sm:mb:0 rounded-2xl px-4 py-3 flex items-center justify-center">
-            Logout <img className="size-6 ms-2" src={LogoutSVG} alt="ai coach" />
+            className="sidebar-item group/logout flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-red-50 transition-all duration-200 cursor-pointer disabled:opacity-50">
+            <img className="size-5 shrink-0 opacity-40 transition-all duration-200 group-hover/logout:opacity-100 group-hover/logout:filter-[brightness(0)_saturate(100%)_invert(28%)_sepia(95%)_saturate(5735%)_hue-rotate(352deg)_brightness(99%)_contrast(94%)]" src={LogoutSVG} alt="logout" />
+            <span className="text-sm font-medium whitespace-nowrap text-c-dark-gray group-hover/logout:text-red-500 transition-colors duration-200 opacity-0 group-hover/sidebar:opacity-100">Logout</span>
           </button>
         </div>
-      </div>
+      </nav>
+
       <ProfileSettingsModal
         isOpen={profileSettingsModal.isOpen}
         onOpenDeletAccountModal={deleteAccountModal.onOpenChange}

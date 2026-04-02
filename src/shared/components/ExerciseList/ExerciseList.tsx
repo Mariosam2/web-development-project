@@ -3,6 +3,7 @@ import { ExerciseCard } from "../../../features/Dashboard/components/Exercises/c
 import { EmptyList } from "@src/shared/ui/EmptyList/EmptyList";
 import type { IExerciseOverview } from "@src/shared/interfaces/exerciseDb/IExerciseOverview";
 import "./ExerciseList.css";
+import { motion } from "framer-motion";
 
 interface ExerciseListProps {
   exercises: IExerciseOverview[];
@@ -12,14 +13,21 @@ interface ExerciseListProps {
 
 export const ExerciseList = ({ exercises, isLoading, sentinelRef }: ExerciseListProps) => {
   return (
-    <div className="container-xl mx-auto">
-      <div className="grid grid-cols-1 c-md:grid-cols-2 gap-6 c-md:gap-3 lg:gap-6  px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+    <div>
+      <div className="grid grid-cols-1 c-md:grid-cols-2 gap-6 c-md:gap-3 lg:gap-6 px-4 sm:px-6 lg:px-8">
         {isLoading ? (
           Array.from({ length: 8 }).map((_, i) => <ExerciseCardSkeleton key={i} />)
         ) : exercises.length > 0 ? (
           <>
-            {exercises.map((ex) => (
-              <ExerciseCard key={ex.exerciseId} exercise={ex} />
+            {exercises.map((ex, i) => (
+              <motion.div
+                key={ex.exerciseId}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.3), ease: "easeOut" }}
+              >
+                <ExerciseCard exercise={ex} />
+              </motion.div>
             ))}
             {sentinelRef && <div ref={sentinelRef} />}
           </>

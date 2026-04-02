@@ -76,7 +76,7 @@ export const LoginForm = () => {
           {...register("identifier")}
           onChange={() => clearErrors("identifier")}
           placeholder="example@mail.com or username"
-          className={`bg-c-light-gray border w-full border-c-dark-gray c-shadow-md text-c-dark text-base rounded-xl p-2.5 focus:outline-none ${errors.identifier ? "border-red-500" : ""}`}
+          className={`bg-white border w-full border-c-gray c-shadow-premium text-c-dark text-base rounded-xl p-2.5 focus:outline-none focus:border-c-yellow-500 focus:shadow-[0_0_0_3px_rgba(243,255,150,0.2)] transition-all duration-200 ${errors.identifier ? "border-red-500" : ""}`}
         />
         <span
           className={`block h-4 text-red-500 text-xs transition-opacity duration-200 ${errors.identifier ? "opacity-100" : "opacity-0"}`}>
@@ -97,7 +97,7 @@ export const LoginForm = () => {
       <button
         type="submit"
         disabled={showLoading}
-        className={`btn-secondary w-full mt-12 rounded-2xl px-4 py-3 ${showLoading ? "loading" : ""}`}>
+        className={`btn-secondary w-full mt-8 rounded-2xl px-4 py-3 font-medium ${showLoading ? "loading" : ""}`}>
         Login
       </button>
       <div className="auth-divider">

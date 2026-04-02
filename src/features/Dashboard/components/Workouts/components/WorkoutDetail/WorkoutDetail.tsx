@@ -127,7 +127,7 @@ export const WorkoutDetail = () => {
   return (
     <>
       <div
-        className={`actions container-xl fixed top-0 c-tablet:sticky c-tablet:top-26.5 pt-2  z-50 pb-3  bg-white  self-start  grid-cols-2  c-tablet:flex  c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3 ${selectedExercises.length > 0 ? "grid c-tablet:flex" : "hidden c-tablet:flex"}`}>
+        className={`actions sticky top-0 pt-2 z-50 pb-3 bg-[#fafafa]/95 backdrop-blur-md self-start grid-cols-2 c-tablet:flex c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-4 sm:px-6 lg:px-8 ${selectedExercises.length > 0 ? "grid c-tablet:flex" : "hidden c-tablet:flex"}`}>
         <button
           disabled={showSkeleton}
           className="btn-secondary text-sm hidden c-tablet:block col-span-2 c-tablet:col-span-none  rounded-2xl px-4 py-3 transition-all duration-300"
@@ -165,7 +165,7 @@ export const WorkoutDetail = () => {
           Remove Selected Exercises
         </button>
       </div>
-      <div className=" flex flex-col  justify-start mb-2.5  bg-white container-xl mt-6 mx-auto px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+      <div className="flex flex-col justify-start mb-2.5 bg-transparent mt-6 px-4 sm:px-6 lg:px-8">
         <button
           disabled={showSkeleton}
           className="btn-secondary text-sm block c-tablet:hidden col-span-2   mb-2.5 rounded-2xl px-4 py-3 transition-all duration-300"
@@ -188,15 +188,15 @@ export const WorkoutDetail = () => {
         )}
         <div className=" w-full max-w-md mx-auto mb-3 mt-4 c-tablet:mt-0 xl:mt-4 sm:mb-12 self-center">
           {!showSkeleton ? (
-            <h1 className="text-center text-3xl  sm:text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>
+            <h1 className="text-center text-3xl sm:text-4xl h-full font-semibold wrap-break-word">{workout?.title}</h1>
           ) : (
             <Skeleton className=" w-full h-20 rounded-lg" />
           )}
         </div>
         {workout?.description && (
-          <div className="workout-description border border-c-dark-gray rounded-4xl p-3 mb-4 relative mt-4 sm:mt-0">
-            <BulbIcon className="size-8 bg-gray absolute top-0 -translate-y-1/2 left-8 bg-white fill-c-yellow-200" />
-            <p className="p-2 pt-3 text-sm">{workout?.description}</p>
+          <div className="workout-description border border-c-gray/30 bg-white/50 backdrop-blur-md rounded-4xl p-3 mb-4 relative mt-4 sm:mt-0">
+            <BulbIcon className="size-8 absolute top-0 -translate-y-1/2 left-8 bg-[#fafafa] fill-c-yellow-200" />
+            <p className="p-2 pt-3 text-sm text-c-dark/70">{workout?.description}</p>
           </div>
         )}
 

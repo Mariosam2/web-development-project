@@ -15,7 +15,7 @@ export const AuthLayout = () => {
             <NavLink className="hidden lg:block justify-self-start p-3 mb-8" to="/">
               <img id="logo" className="mb-h" width={200} height={120} src={Logo} alt="logo" />
             </NavLink>
-            <div className="auth-form container-xs p-4  lg:p-0  lg:pb-4">
+            <div className="auth-form container-xs p-6 lg:p-0 lg:pb-4">
               <NavLink to="/">
                 <img
                   id="logo-icon"

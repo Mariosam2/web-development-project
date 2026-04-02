@@ -83,8 +83,8 @@ export const Exercises = () => {
   return (
     <>
       <div
-        className={`actions fixed sm:sticky top-0 sm:top-46.5 bg-white pb-2.5 z-30 ${selectedExercises.length > 0 ? "block" : "hidden sm:block"}`}>
-        <div className="container-xl flex flex-wrap gap-2.5 pt-2 px-3 sm:px-8 c-md:px-3 lg:px-8 xl:px-3">
+        className={`actions sticky top-0 bg-[#fafafa]/95 backdrop-blur-md pb-2.5 z-30 ${selectedExercises.length > 0 ? "block" : "hidden sm:block"}`}>
+        <div className="flex flex-wrap gap-2.5 pt-2 px-4 sm:px-6 lg:px-8">
           <button
             className={`btn-secondary text-sm rounded-2xl px-4 py-3 transition-all duration-300
     ${
@@ -130,7 +130,7 @@ export const Exercises = () => {
         sentinelRef={sentinelRef}
       />
       {isFetching && !showInitialSkeleton && !searching && !filtering && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8 xl:px-3 container-xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 sm:px-6 lg:px-8">
           {Array.from({ length: 4 }).map((_, i) => (
             <ExerciseCardSkeleton key={i} />
           ))}

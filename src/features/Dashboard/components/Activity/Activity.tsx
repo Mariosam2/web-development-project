@@ -7,6 +7,7 @@ import { useGetCompletedWorkoutsQuery, useGetStatisticsQuery } from "@src/store/
 import { ActivitySkeleton } from "./ActivitySkeleton/ActivitySkeleton";
 import { useEffect, useState } from "react";
 import { formatDuration, getLocalDate } from "@src/shared/helpers";
+import { motion } from "framer-motion";
 
 export const Activity = () => {
   const { data: completedWorkouts, isLoading: isCompletedWorkoutsLoading } = useGetCompletedWorkoutsQuery();
@@ -68,19 +69,27 @@ export const Activity = () => {
         <ActivitySkeleton />
       ) : (
         <div className="activity pt-4">
-          <div className="container-xl flex flex-col px-3">
+          <div className="flex flex-col px-4 sm:px-6 lg:px-8">
             <div className="statistic  pb-12 xl:pb-0 xl:px-0 grid grid-cols-1 sm:grid-cols-6 gap-3 md:grid-cols-6  xl:gap-4 ">
-              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0 }}
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
                 <Fire className="size-24 sm:size-20 c-tablet:size-24" />
-                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1  text-center">Streak</span>
+                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">Streak</span>
                 <span
                   className={`text-lg sm:text-base c-tablet:text-lg font-semibold ${statistics?.data.streak === 0 ? "text-c-dark-gray" : ""}`}>
                   {statistics?.data.streak === 0
                     ? "No active streak"
                     : `${statistics?.data.streak} ${statistics?.data.streak === 1 ? "day" : "days"}`}
                 </span>
-              </div>
-              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
                 <Muscle className="size-24 sm:size-20 c-tablet:size-24" />
                 <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">
                   Completed this week
@@ -91,10 +100,14 @@ export const Activity = () => {
                     ? "No workouts yet"
                     : `${statistics?.data.workoutsCount} ${statistics?.data.workoutsCount === 1 ? "workout" : "workouts"}`}
                 </span>
-              </div>
-              <div className="col-span-1 sm:col-span-2 border border-c-gray grid place-items-center rounded-2xl c-shadow-md p-4 row-span-2">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="col-span-1 sm:col-span-2 border border-c-gray/20 grid place-items-center rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium p-4 row-span-2 transition-all duration-300 hover:border-c-gray/40 hover:shadow-[0_8px_25px_rgba(30,30,30,0.08)]">
                 <Clock className="size-24 sm:size-20 c-tablet:size-24" />
-                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1  text-center">
+                <span className="text-sm text-c-dark-gray tracking-wide font-medium mb-1 text-center">
                   Training time this week
                 </span>
                 <span
@@ -103,8 +116,8 @@ export const Activity = () => {
                     ? "No training yet"
                     : formatDuration(statistics?.data.totalWorkoutsDuration)}
                 </span>
-              </div>
-              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md  row-span-4 h-110">
+              </motion.div>
+              <div className="calendar col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray/20 rounded-3xl bg-white/70 backdrop-blur-md c-shadow-premium row-span-4 h-110">
                 <RangeCalendar
                   isDateUnavailable={(date) => !hasCompletedAWorkout(date)}
                   classNames={{
@@ -117,7 +130,7 @@ export const Activity = () => {
                   aria-label="Workout days"
                 />
               </div>
-              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray  rounded-2xl c-shadow-md p-0 sm:p-4 row-span-4 flex flex-col h-110">
+              <div className="bars-chart col-span-1 sm:col-span-6 lg:col-span-3 border border-c-gray/20 rounded-2xl bg-white/70 backdrop-blur-md c-shadow-premium p-0 sm:p-4 row-span-4 flex flex-col h-110">
                 <div className="header flex items-center justify-between gap-x-12 w-full p-4 xl:px-8 xl:py-4">
                   <h3 className="font-xl font-medium">Activity</h3>
                   <div className="bg-c-yellow p-3 rounded-xl">Week</div>
@@ -127,7 +140,7 @@ export const Activity = () => {
                     {getPastWeekDays().map((day, index) => (
                       <div
                         key={index}
-                        className="bar flex items-center  bg-c-yellow w-10 rounded-xl shadow-sm"
+                        className="bar flex items-center bg-c-yellow w-10 rounded-xl shadow-sm"
                         style={{ height: day.count === 0 ? "4px" : `${(day.count / maxCount) * 100}%` }}></div>
                     ))}
                   </div>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { WorkoutCardSkeleton } from "./components/WorkoutCardSkeleton/WorkoutCardSkeleton";
 import { useAppDispatch, useAppSelector } from "@src/store/hooks";
 import { setFiltering, setSearching } from "@src/store/slices/searchSlice";
+import { motion } from "framer-motion";
 
 export const Workouts = () => {
   const dispatch = useAppDispatch();
@@ -41,12 +42,20 @@ export const Workouts = () => {
 
   return (
     <>
-      <div className="container-xl mx-auto  pb-8 px-3 xs:px-8 xl:px-3">
-        <div className="grid grid-cols-1 md:grid-cols-2  2xl:grid-cols-3 gap-4">
+      <div className="pb-8 pt-4 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 ">
           {showInitialSkeleton || searching || filtering ? (
             Array.from({ length: 6 }).map((_, i) => <WorkoutCardSkeleton key={i} />)
           ) : workouts.length > 0 ? (
-            workouts.map((workout) => <WorkoutCard workout={workout} key={workout.id} />)
+            workouts.map((workout, i) => (
+              <motion.div
+                key={workout.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.05, ease: "easeOut" }}>
+                <WorkoutCard workout={workout} />
+              </motion.div>
+            ))
           ) : (
             <EmptyList />
           )}

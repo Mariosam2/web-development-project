@@ -11,8 +11,8 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
   const location = useLocation();
   return (
     <>
-      <div className=" mt-8 flex items-center">
-        <div className="max-w-96  dock w-full rounded-3xl lg:rounded-4xl bg-c-light-gray   text-c-dark  mx-auto flex items-center  ps-3 md:ps-5  border border-c-dark-gray c-shadow-md">
+      <div className="flex items-center shrink-0">
+        <div className="dock w-auto rounded-2xl bg-white/80 backdrop-blur-xl text-c-dark flex items-center ps-3 md:ps-4 border border-c-gray/15 c-shadow-premium">
           <button
             onClick={openMobileSidebar}
             onTouchStart={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
@@ -20,10 +20,10 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
             className="grid place-items-center xl:hidden me-4 cursor-pointer transition-transform duration-150 ease-c-elastic">
             <BurgerIcon className="size-6 xs:size-8" />
           </button>
-          <img className="size-8 me-2.5 xl:me-0 " src={LogoIconSVG} alt="logo icon" />
-          <div className="relative w-72 ms-auto h-14 flex items-center">
+          <img className="size-8 me-2.5 xl:me-0 " src={LogoIconSVG} alt="logo icon me-1.5" />
+          <div className="relative w-48 xs:w-56 sm:w-64 ms-auto h-11 flex items-center">
             <div
-              className={`absolute h-full w-1/2 bg-c-gray rounded-3xl lg:rounded-4xl  transition-all duration-300  z-10 ease-elastic ${
+              className={`absolute h-full w-1/2 bg-c-yellow/30 rounded-2xl transition-all duration-300 z-10 ease-elastic ${
                 location.pathname === "/dashboard/exercises"
                   ? "translate-x-full opacity-100"
                   : location.pathname.includes("workouts") || location.pathname === "/dashboard"
@@ -33,12 +33,12 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
             />
             <NavLink
               to="/dashboard/workouts"
-              className="sign-in relative text-sm xs:text-base  w-1/2 z-20 p-2  xs:p-3  text-center rounded-xl xs:rounded-2xl cursor-pointer">
+              className="relative text-xs xs:text-sm w-1/2 z-20 p-1.5 xs:p-2 sm:p-3 text-center rounded-xl cursor-pointer text-c-dark/60 hover:text-c-dark transition-colors duration-200 font-medium whitespace-nowrap">
               My Workouts
             </NavLink>
             <NavLink
               to="/dashboard/exercises"
-              className="sign-up  relative text-sm xs:text-base   w-1/2  z-20 p-2 xs:p-3   text-center rounded-xl xs:rounded-2xl cursor-pointer">
+              className="relative text-xs xs:text-sm w-1/2 z-20 p-1.5 xs:p-2 sm:p-3 text-center rounded-xl cursor-pointer text-c-dark/60 hover:text-c-dark transition-colors duration-200 font-medium whitespace-nowrap">
               Exercises
             </NavLink>
           </div>

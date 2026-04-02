@@ -160,7 +160,7 @@ export const ProfileSettingsModal = ({ isOpen, onOpenChange, onOpenDeletAccountM
             <ModalFooter>
               <div className="flex items-center gap-x-3 pt-2.5">
                 <button onClick={() => onOpenDeletAccountModal(true)} className="btn-danger">
-                  Delete Account
+                  Danger Zone
                 </button>
                 <button className="btn-primary rounded-xl px-4 py-3" onClick={onClose}>
                   Cancel

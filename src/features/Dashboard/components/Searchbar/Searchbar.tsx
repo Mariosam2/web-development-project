@@ -146,11 +146,11 @@ export const Searchbar = () => {
 
   return (
     <>
-      <div className="flex items-center w-full justify-center mt-8 h-12">
-        <div className="searchbar w-full max-w-xs h-full bg-c-light-gray flex items-center  rounded-2xl border border-c-dark-gray c-shadow-md ps-3">
-          <MagnifyingGlass className="me-2 size-6" />
+      <div className="flex items-center h-10 gap-2 grow min-w-48 max-w-lg">
+        <div className="searchbar w-full h-full bg-white/80 backdrop-blur-md flex items-center rounded-xl border border-c-gray/15 c-shadow-premium ps-3 overflow-hidden transition-all duration-300 focus-within:border-c-yellow-500 focus-within:shadow-[0_0_16px_rgba(243,255,150,0.12)]">
+          <MagnifyingGlass className="me-2 size-5 text-c-dark-gray shrink-0" />
           <input
-            className="text-c-dark placeholder:text-c-dark-gray p-3  w-full focus:outline-none"
+            className="text-sm text-c-dark placeholder:text-c-dark-gray py-2 pe-3 w-full focus:outline-none bg-transparent"
             type="text"
             value={searchExercises ? name : query}
             onChange={onChangeQuery}
@@ -161,7 +161,7 @@ export const Searchbar = () => {
         </div>
         <FiltersIcon
           count={activeFiltersCount(searchParams)}
-          className="size-10 cursor-pointer ms-2.5 bg-c-light-gray border border-c-dark-gray c-shadow-md rounded-2xl p-1.5"
+          className="size-9 cursor-pointer bg-white/80 backdrop-blur-md border border-c-gray/15 c-shadow-premium rounded-xl p-1.5 text-c-dark-gray hover:border-c-yellow-500 hover:text-c-dark transition-all duration-300 shrink-0"
           onClick={openFiltersModal}
           disabled={disableFilters}
         />
