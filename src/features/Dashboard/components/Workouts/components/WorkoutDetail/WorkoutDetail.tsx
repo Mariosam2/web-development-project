@@ -127,7 +127,7 @@ export const WorkoutDetail = () => {
   return (
     <>
       <div
-        className={`actions sticky top-0 pt-2 z-50 pb-3 bg-[#fafafa]/95 backdrop-blur-md self-start grid-cols-2 c-tablet:flex c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-4 sm:px-6 lg:px-8 ${selectedExercises.length > 0 ? "grid c-tablet:flex" : "hidden c-tablet:flex"}`}>
+        className={`actions sticky top-0 z-40 lg:top-17.75 lg:z-20 bg-[#fafafa]/95 backdrop-blur-md pt-2 pb-3 self-start grid-cols-2 c-tablet:flex c-tablet:flex-wrap lg:flex-nowrap items-center gap-2.5 w-full px-4 sm:px-6 lg:px-8 ${selectedExercises.length > 0 ? "grid c-tablet:flex" : "hidden c-tablet:flex"}`}>
         <button
           disabled={showSkeleton}
           className="btn-secondary text-sm hidden c-tablet:block col-span-2 c-tablet:col-span-none  rounded-2xl px-4 py-3 transition-all duration-300"
@@ -195,7 +195,9 @@ export const WorkoutDetail = () => {
         </div>
         {workout?.description && (
           <div className="workout-description border border-c-gray/30 bg-white/50 backdrop-blur-md rounded-4xl p-3 mb-4 relative mt-4 sm:mt-0">
-            <BulbIcon className="size-8 absolute top-0 -translate-y-1/2 left-8 bg-[#fafafa] fill-c-yellow-200" />
+            <div className="absolute top-0 -translate-y-1/2 left-8 size-8 bg-linear-to-b from-[#fafafa] from-50% to-white to-50%">
+              <BulbIcon className="size-8 fill-c-yellow-200" />
+            </div>
             <p className="p-2 pt-3 text-sm text-c-dark/70">{workout?.description}</p>
           </div>
         )}

@@ -23,7 +23,7 @@ const Dashboard = () => {
           <Sidebar />
           <MobileSidebar isOpen={mobileSidebar.isOpen} onClose={mobileSidebar.onClose} />
           <div className="content xl:ml-18 h-screen flex flex-col relative overflow-y-auto">
-            <div className="bg-white/90 backdrop-blur-md py-3 px-4 sm:px-6 sticky top-0 z-30 border-b border-c-gray/15 flex flex-wrap items-center gap-3">
+            <div className="bg-white/90 backdrop-blur-md py-3 px-4 sm:px-6 sticky top-0 z-30 border-b border-c-gray/15 flex flex-wrap items-center justify-center lg:justify-start gap-3">
               <Dock openMobileSidebar={mobileSidebar.onOpen} />
               {!isWorkoutDetail && !isActivity && <Searchbar />}
             </div>

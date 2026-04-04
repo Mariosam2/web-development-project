@@ -83,7 +83,7 @@ export const Exercises = () => {
   return (
     <>
       <div
-        className={`actions sticky top-0 bg-[#fafafa]/95 backdrop-blur-md pb-2.5 z-30 ${selectedExercises.length > 0 ? "block" : "hidden sm:block"}`}>
+        className={`actions sticky top-0 z-40 lg:top-17.75 lg:z-20 bg-[#fafafa]/95 backdrop-blur-md pb-4.5 ${selectedExercises.length > 0 ? "block" : "hidden sm:block"}`}>
         <div className="flex flex-wrap gap-2.5 pt-2 px-4 sm:px-6 lg:px-8">
           <button
             className={`btn-secondary text-sm rounded-2xl px-4 py-3 transition-all duration-300

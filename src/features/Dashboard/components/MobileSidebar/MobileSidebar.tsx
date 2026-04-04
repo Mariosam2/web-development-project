@@ -11,7 +11,7 @@ export const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 bg-c-dark/30 backdrop-blur-sm transition-opacity xl:hidden
+        className={`fixed inset-0 z-45 bg-c-dark/30 backdrop-blur-sm transition-opacity xl:hidden
           ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         onClick={onClose}
       />
