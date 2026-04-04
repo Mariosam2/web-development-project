@@ -41,7 +41,7 @@ export const Activity = () => {
       const count =
         completedWorkouts?.data.find((w) => normalizeDate(new Date(w.date)).getTime() === date.getTime())?.count ?? 0;
 
-      const label = date.toLocaleDateString("it-IT", { weekday: "short" }).charAt(0).toUpperCase();
+      const label = date.toLocaleDateString("en-US", { weekday: "short" }).charAt(0).toUpperCase();
       days.push({ date, label, count });
     }
 
