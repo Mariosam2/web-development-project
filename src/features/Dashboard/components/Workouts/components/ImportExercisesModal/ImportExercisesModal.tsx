@@ -13,6 +13,7 @@ import { showToast } from "@src/shared/helpers";
 import { ToastType } from "@src/shared/enums/ToastType.enum";
 import { WorkoutAutocomplete } from "../WorkoutAutocomplete/WorkoutAutocomplete";
 import { setSelectedWorkout } from "@src/store/slices/workoutSlice";
+import type { IWorkout } from "@src/shared/interfaces/workout/IWorkout";
 interface ImportExercisesModalProps {
   action: "create" | "update";
   isOpen: boolean;
@@ -81,6 +82,7 @@ export const ImportExercisesModal = ({ isOpen, onOpenChange }: ImportExercisesMo
       onOpenChange(false);
       showToast("Success", "Exercises imported successfully", ToastType.SUCCESS);
       dispatch(setSelectedExercises([]));
+      dispatch(setSelectedWorkout({} as IWorkout));
       setSelectedWorkoutId(null);
       setSelectedWorkoutError("");
     } catch (err) {

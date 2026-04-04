@@ -149,12 +149,12 @@ export const NewWorkoutModal = ({ isOpen, onOpenChange, action }: NewWorkoutModa
         <ModalBody>
           <>
             <div className="form-group mb-2.5">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium">
+              <label htmlFor="workout_title" className="block mb-2 text-sm font-medium">
                 Workout Title
               </label>
               <input
                 type="text"
-                id="first_name"
+                id="workout_title"
                 maxLength={50}
                 value={workoutTitle}
                 onChange={handleWorkoutTitleChange}
