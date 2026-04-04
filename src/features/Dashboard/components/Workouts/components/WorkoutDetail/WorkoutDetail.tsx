@@ -195,7 +195,7 @@ export const WorkoutDetail = () => {
         </div>
         {workout?.description && (
           <div className="workout-description border border-c-gray/30 bg-white/50 backdrop-blur-md rounded-4xl p-3 mb-4 relative mt-4 sm:mt-0">
-            <div className="absolute top-0 -translate-y-1/2 left-8 size-8 bg-linear-to-b from-[#fafafa] from-50% to-white to-50%">
+            <div className="absolute top-0 -translate-y-1/2 left-8 size-8 bg-linear-to-b from-[#fafafa] from-50% to-white/50 to-50%">
               <BulbIcon className="size-8 fill-c-yellow-200" />
             </div>
             <p className="p-2 pt-3 text-sm text-c-dark/70">{workout?.description}</p>
