@@ -20,7 +20,7 @@ export const Dock = ({ openMobileSidebar }: DockProps) => {
             className="grid place-items-center xl:hidden me-4 cursor-pointer transition-transform duration-150 ease-c-elastic">
             <BurgerIcon className="size-6 xs:size-8" />
           </button>
-          <img className="size-8 me-2.5 xl:me-0 " src={LogoIconSVG} alt="logo icon me-1.5" />
+          <img className="size-8 me-2.5" src={LogoIconSVG} alt="logo icon me-1.5" />
           <div className="relative w-48 xs:w-56 sm:w-64 ms-auto h-11 flex items-center">
             <div
               className={`absolute h-full w-1/2 bg-c-yellow/30 rounded-2xl transition-all duration-300 z-10 ease-elastic ${
