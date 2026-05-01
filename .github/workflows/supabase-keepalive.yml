@@ -10,6 +10,9 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Supabase client
+        run: npm install @supabase/supabase-js
+
       - name: Ping Supabase
         run: |
           node -e "
