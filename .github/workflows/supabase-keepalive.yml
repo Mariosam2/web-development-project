@@ -1,0 +1,29 @@
+# .github/workflows/supabase-keepalive.yml
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    - cron: "0 9 * * 1,4" # Monday and Thursday at 9:00 AM UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          node -e "
+          const { createClient } = require('@supabase/supabase-js');
+          const supabase = createClient(
+            '${{ secrets.SUPABASE_URL }}',
+            '${{ secrets.SUPABASE_SERVICE_KEY }}'
+          );
+          supabase.from('exercises').select('id').limit(1)
+            .then(({ error }) => {
+              if (error) { console.error(error); process.exit(1); }
+              console.log('Ping OK');
+            });
+          "
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
