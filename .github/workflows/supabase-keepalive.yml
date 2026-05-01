@@ -21,7 +21,7 @@ jobs:
             '${{ secrets.SUPABASE_URL }}',
             '${{ secrets.SUPABASE_SERVICE_KEY }}'
           );
-          supabase.from('exercises').select('id').limit(1)
+          supabase.from('exercises').select('name').limit(1)
             .then(({ error }) => {
               if (error) { console.error(error); process.exit(1); }
               console.log('Ping OK');
