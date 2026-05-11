@@ -34,12 +34,18 @@ export const Searchbar = () => {
     endDate,
     searchParams: workoutsSearchParams,
   } = useAppSelector((state) => state.workout);
-  const { data: bodyParts, isLoading: isBodyPartsLoading } = useGetBodyPartsQuery();
-  const { data: targetMuscles, isLoading: isTargetMusclesLoading } = useGetTargetMusclesQuery();
-  const { data: exerciseTypes, isLoading: isExerciseTypesLoading } = useGetExerciseTypesQuery();
   const { pathname } = useLocation();
   const searchWorkouts = pathname === "/dashboard/workouts" || pathname === "/dashboard";
   const searchExercises = pathname === "/dashboard/exercises";
+  const { data: bodyParts, isLoading: isBodyPartsLoading } = useGetBodyPartsQuery(undefined, {
+    skip: !searchExercises,
+  });
+  const { data: targetMuscles, isLoading: isTargetMusclesLoading } = useGetTargetMusclesQuery(undefined, {
+    skip: !searchExercises,
+  });
+  const { data: exerciseTypes, isLoading: isExerciseTypesLoading } = useGetExerciseTypesQuery(undefined, {
+    skip: !searchExercises,
+  });
   const searchParams = searchWorkouts ? workoutsSearchParams : exercisesSearchParams;
   const filtersLoading = isBodyPartsLoading || isTargetMusclesLoading || isExerciseTypesLoading;
 
